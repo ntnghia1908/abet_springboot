@@ -4,6 +4,7 @@ import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Embeddable
 public class ClassAssessmentPK implements Serializable {
@@ -50,6 +51,19 @@ public class ClassAssessmentPK implements Serializable {
 
     public void setLoutcomeId(int loutcomeId) {
         this.loutcomeId = loutcomeId;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        ClassAssessmentPK that = (ClassAssessmentPK) o;
+        return classId == that.classId && assessmentId == that.assessmentId && loutcomeId == that.loutcomeId;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(classId, assessmentId, loutcomeId);
     }
 
     @Override

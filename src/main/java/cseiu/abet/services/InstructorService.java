@@ -20,11 +20,24 @@ public class InstructorService {
         this.instructorRepository = instructorRepository;
     }
 
-    public Instructor getInstructorById(int id) {
+    public Instructor addInstructor(Instructor instructor) {
+        return instructorRepository.save(instructor);
+    }
+
+    public Instructor findInstructorById(int id) {
         return instructorRepository.findInstructorById(id).orElseThrow(()->new InstructorNotFoundExpection("The intructor id " + id +"is not found"));
     }
 
-    public List<Instructor> getAllInstructor() {
+    public List<Instructor> findAllInstructor() {
         return instructorRepository.findAll();
     }
+
+    public void deleleInstructor(int id) {
+        instructorRepository.deleteById(id);
+    }
+
+    public Instructor updateInstructor(Instructor instructor) {
+        return instructorRepository.save(instructor);
+    }
+
 }
