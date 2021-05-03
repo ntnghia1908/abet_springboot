@@ -5,6 +5,8 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -14,7 +16,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -23,6 +28,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "result")
 @XmlRootElement
+@XmlAccessorType(value = XmlAccessType.FIELD)
 @NamedQueries({
     @NamedQuery(name = "Result.findAll", query = "SELECT r FROM Result r")
     , @NamedQuery(name = "Result.findByStudentId", query = "SELECT r FROM Result r WHERE r.resultPK.studentId = :studentId")
@@ -37,19 +43,30 @@ public class Result implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ResultPK resultPK;
+
     @Column(name = "mid_score")
     private Integer midScore;
+
     @Column(name = "final_score")
     private Integer finalScore;
+
     @Column(name = "in_class_score")
     private Integer inClassScore;
+
     @Column(name = "GPA")
     private Integer gpa;
+
     @Column(name = "abet_score")
     private Integer abetScore;
+
+    @XmlTransient
+    @JsonBackReference
     @JoinColumn(name = "class_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private ClassSession class1;
+
+    @XmlTransient
+    @JsonBackReference
     @JoinColumn(name = "student_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Student student;

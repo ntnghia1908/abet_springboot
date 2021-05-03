@@ -5,62 +5,53 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import java.util.List;
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
  * @author meoco
  */
 @Entity
 @Table(name = "class_assessment")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "ClassAssessment.findAll", query = "SELECT c FROM ClassAssessment c")
-    , @NamedQuery(name = "ClassAssessment.findByClassId", query = "SELECT c FROM ClassAssessment c WHERE c.classId = :classId")
-    , @NamedQuery(name = "ClassAssessment.findByPrecentage", query = "SELECT c FROM ClassAssessment c WHERE c.precentage = :precentage")})
+@XmlAccessorType(value = XmlAccessType.FIELD)
 public class ClassAssessment implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    @Id
-    @Basic(optional = false)
-    @Column(name = "class_id")
-    private Integer classId;
+
+    @EmbeddedId
+    protected ClassAssessmentPK classAssessmentPK;
+
     @Column(name = "precentage")
     private Integer precentage;
-    @JoinColumn(name = "assessment_id", referencedColumnName = "id")
+
+    @XmlTransient
+    @JoinColumn(name = "assessment_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Assessment assessmentId;
+
+    @XmlTransient
     @JoinColumn(name = "class_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private ClassSession class1;
-    @JoinColumn(name = "learning_outcome_id", referencedColumnName = "id")
+
+    @XmlTransient
+    @JoinColumn(name = "learning_outcome_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private LearningOutcome learningOutcomeId;
 
     public ClassAssessment() {
     }
 
-    public ClassAssessment(Integer classId) {
-        this.classId = classId;
-    }
-
-    public Integer getClassId() {
-        return classId;
-    }
-
-    public void setClassId(Integer classId) {
-        this.classId = classId;
+    public ClassAssessment(ClassAssessmentPK classAssessmentPK) {
+        this.classAssessmentPK = classAssessmentPK;
     }
 
     public Integer getPrecentage() {
@@ -95,29 +86,4 @@ public class ClassAssessment implements Serializable {
         this.learningOutcomeId = learningOutcomeId;
     }
 
-    @Override
-    public int hashCode() {
-        int hash = 0;
-        hash += (classId != null ? classId.hashCode() : 0);
-        return hash;
-    }
-
-    @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof ClassAssessment)) {
-            return false;
-        }
-        ClassAssessment other = (ClassAssessment) object;
-        if ((this.classId == null && other.classId != null) || (this.classId != null && !this.classId.equals(other.classId))) {
-            return false;
-        }
-        return true;
-    }
-
-    @Override
-    public String toString() {
-        return "entity.ClassAssessment[ classId=" + classId + " ]";
-    }
-    
 }

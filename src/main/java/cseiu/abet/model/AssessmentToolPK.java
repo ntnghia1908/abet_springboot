@@ -20,9 +20,11 @@ public class AssessmentToolPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "assessment_id")
     private int assessmentId;
+
     @Basic(optional = false)
     @Column(name = "course_id")
     private String courseId;
+
     @Basic(optional = false)
     @Column(name = "loutcome_id")
     private int loutcomeId;

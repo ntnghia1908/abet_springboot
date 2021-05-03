@@ -5,73 +5,89 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
- *
  * @author meoco
  */
 @Entity
 @Table(name = "course")
 @XmlRootElement
+@XmlAccessorType(value = XmlAccessType.FIELD)
 @NamedQueries({
-    @NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c")
-    , @NamedQuery(name = "Course.findById", query = "SELECT c FROM Course c WHERE c.id = :id")
-    , @NamedQuery(name = "Course.findByName", query = "SELECT c FROM Course c WHERE c.name = :name")
-    , @NamedQuery(name = "Course.findByNameVn", query = "SELECT c FROM Course c WHERE c.nameVn = :nameVn")
-    , @NamedQuery(name = "Course.findByCreditTheory", query = "SELECT c FROM Course c WHERE c.creditTheory = :creditTheory")
-    , @NamedQuery(name = "Course.findByCreditLab", query = "SELECT c FROM Course c WHERE c.creditLab = :creditLab")})
+        @NamedQuery(name = "Course.findAll", query = "SELECT c FROM Course c")
+        , @NamedQuery(name = "Course.findById", query = "SELECT c FROM Course c WHERE c.id = :id")
+        , @NamedQuery(name = "Course.findByName", query = "SELECT c FROM Course c WHERE c.name = :name")
+        , @NamedQuery(name = "Course.findByNameVn", query = "SELECT c FROM Course c WHERE c.nameVn = :nameVn")
+        , @NamedQuery(name = "Course.findByCreditTheory", query = "SELECT c FROM Course c WHERE c.creditTheory = :creditTheory")
+        , @NamedQuery(name = "Course.findByCreditLab", query = "SELECT c FROM Course c WHERE c.creditLab = :creditLab")})
 public class Course implements Serializable {
 
     private static final long serialVersionUID = 1L;
     @Id
     @Basic(optional = false)
     @Column(name = "id")
+    @GeneratedValue(generator = "uuid")
     private String id;
+
     @Column(name = "name")
     private String name;
+
     @Basic(optional = false)
     @Column(name = "name_vn")
     private String nameVn;
+
     @Column(name = "credit_theory")
     private Integer creditTheory;
+
     @Column(name = "credit_lab")
     private Integer creditLab;
+
     @Basic(optional = false)
     @Lob
     @Column(name = "description")
     private String description;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "course")
-    private CourseLevel courseLevel;
+
+    @XmlTransient
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     private List<LearningOutcome> learningOutcomeList;
+
+    @XmlTransient
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     private List<AssessmentTool> assessmentToolList;
+
+    @XmlTransient
     @JoinColumn(name = "course_level_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private CourseLevel courseLevelId;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "course")
-    private CourseAssessment courseAssessment;
+    @JsonBackReference
+    private CourseLevel courseLevel;
+
+    @XmlTransient
+    @JsonManagedReference
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
+    private List<CourseAssessment> courseAssessmentList;
+
+    @XmlTransient
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     private List<CourseProgram> courseProgramList;
+
+    @XmlTransient
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseId")
     private List<ClassSession> classList;
+
 
     public Course() {
     }
@@ -160,20 +176,12 @@ public class Course implements Serializable {
         this.assessmentToolList = assessmentToolList;
     }
 
-    public CourseLevel getCourseLevelId() {
-        return courseLevelId;
+    public List<CourseAssessment> getCourseAssessment() {
+        return courseAssessmentList;
     }
 
-    public void setCourseLevelId(CourseLevel courseLevelId) {
-        this.courseLevelId = courseLevelId;
-    }
-
-    public CourseAssessment getCourseAssessment() {
-        return courseAssessment;
-    }
-
-    public void setCourseAssessment(CourseAssessment courseAssessment) {
-        this.courseAssessment = courseAssessment;
+    public void setCourseAssessment(List<CourseAssessment> courseAssessments) {
+        this.courseAssessmentList = courseAssessments;
     }
 
     @XmlTransient
@@ -218,5 +226,5 @@ public class Course implements Serializable {
     public String toString() {
         return "entity.Course[ id=" + id + " ]";
     }
-    
+
 }

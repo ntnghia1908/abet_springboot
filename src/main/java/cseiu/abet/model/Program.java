@@ -5,6 +5,9 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -43,17 +46,25 @@ public class Program implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "duration")
     private Integer duration;
+
     @Column(name = "version")
     private String version;
+
     @Column(name = "type")
     private String type;
+
+    @JsonBackReference
     @JoinColumn(name = "major_id", referencedColumnName = "id")
     @ManyToOne
     private Major major;
+
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "program")
     private List<CourseProgram> courseProgramList;
 

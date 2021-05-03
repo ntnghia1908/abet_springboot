@@ -5,6 +5,8 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -43,23 +45,35 @@ public class ClassSession implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Column(name = "group")
     private Integer group;
+
     @Column(name = "group_lab")
     private Integer groupLab;
+
     @Column(name = "semester")
     private Integer semester;
+
     @Column(name = "academic_year")
     private String academicYear;
+
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "class1")
     private List<Result> resultList;
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "class1")
+
+    @JoinColumn(name = "class", referencedColumnName = "class_id")
+    @ManyToOne(optional = false)
     private ClassAssessment classAssessment;
+
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "class1")
     private List<ClassAssessmentCourse> classAssessmentCourseList;
+
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Course courseId;
+
     @JoinColumn(name = "instructor_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Instructor instructorId;

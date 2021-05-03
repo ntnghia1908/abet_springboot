@@ -5,6 +5,9 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -18,6 +21,8 @@ import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -28,6 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "course_level")
 @XmlRootElement
+@XmlAccessorType(value = XmlAccessType.FIELD)
 @NamedQueries({
     @NamedQuery(name = "CourseLevel.findAll", query = "SELECT c FROM CourseLevel c")
     , @NamedQuery(name = "CourseLevel.findById", query = "SELECT c FROM CourseLevel c WHERE c.id = :id")
@@ -39,12 +45,13 @@ public class CourseLevel implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Column(name = "level")
     private String level;
-    @JoinColumn(name = "id", referencedColumnName = "course_level_id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
-    private Course course;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseLevelId")
+
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseLevel")
+    @XmlTransient
     private List<Course> courseList;
 
     public CourseLevel() {
@@ -70,15 +77,8 @@ public class CourseLevel implements Serializable {
         this.level = level;
     }
 
-    public Course getCourse() {
-        return course;
-    }
-
-    public void setCourse(Course course) {
-        this.course = course;
-    }
-
     @XmlTransient
+    @JsonManagedReference
     public List<Course> getCourseList() {
         return courseList;
     }

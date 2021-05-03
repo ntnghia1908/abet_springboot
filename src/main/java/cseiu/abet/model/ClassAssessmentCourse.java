@@ -15,6 +15,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -24,6 +26,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "class_assessment_course")
 @XmlRootElement
+@XmlAccessorType(value = XmlAccessType.FIELD)
 @NamedQueries({
     @NamedQuery(name = "ClassAssessmentCourse.findAll", query = "SELECT c FROM ClassAssessmentCourse c")
     , @NamedQuery(name = "ClassAssessmentCourse.findByClassId", query = "SELECT c FROM ClassAssessmentCourse c WHERE c.classAssessmentCoursePK.classId = :classId")
@@ -36,17 +39,22 @@ public class ClassAssessmentCourse implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected ClassAssessmentCoursePK classAssessmentCoursePK;
+
     @Column(name = "percentage")
     private Integer percentage;
+
     @Basic(optional = false)
     @Column(name = "lo_id")
     private int loId;
+
     @Basic(optional = false)
     @Column(name = "slo_id")
     private int sloId;
+
     @JoinColumn(name = "assessment_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Assessment assessment;
+
     @JoinColumn(name = "class_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private ClassSession class1;

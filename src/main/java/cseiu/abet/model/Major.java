@@ -5,6 +5,9 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -20,6 +23,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -30,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "major")
 @XmlRootElement
+@XmlAccessorType(value = XmlAccessType.FIELD)
 @NamedQueries({
     @NamedQuery(name = "Major.findAll", query = "SELECT m FROM Major m")
     , @NamedQuery(name = "Major.findById", query = "SELECT m FROM Major m WHERE m.id = :id")
@@ -43,12 +49,20 @@ public class Major implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Column(name = "full_name")
     private String fullName;
+
     @Column(name = "short_name")
     private String shortName;
+
+    @XmlTransient
+    @JsonManagedReference
     @OneToMany(mappedBy = "major")
     private List<Program> programList;
+
+    @XmlTransient
+    @JsonBackReference
     @JoinColumn(name = "discipline_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Discipline discipline;

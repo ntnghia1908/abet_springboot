@@ -33,12 +33,19 @@ public class CloSlo implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CloSloPK cloSloPK;
+
     // @Max(value=?)  @Min(value=?)//if you know range of your decimal fields consider using these annotations to enforce field validation
     @Column(name = "percentage")
     private Float percentage;
+
+    @JoinColumn(name ="slo_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne(optional = false)
+    private Slo slo;
+
     @JoinColumn(name = "lo_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private LearningOutcome learningOutcome;
+
 
     public CloSlo() {
     }

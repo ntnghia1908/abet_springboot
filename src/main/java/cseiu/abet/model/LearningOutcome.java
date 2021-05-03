@@ -5,6 +5,9 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -20,6 +23,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -30,6 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "learning_outcome")
 @XmlRootElement
+@XmlAccessorType(value = XmlAccessType.FIELD)
 @NamedQueries({
     @NamedQuery(name = "LearningOutcome.findAll", query = "SELECT l FROM LearningOutcome l")
     , @NamedQuery(name = "LearningOutcome.findById", query = "SELECT l FROM LearningOutcome l WHERE l.id = :id")})
@@ -40,21 +46,35 @@ public class LearningOutcome implements Serializable {
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Basic(optional = false)
     @Lob
     @Column(name = "description")
     private String description;
+
     @Basic(optional = false)
     @Lob
     @Column(name = "description_vn")
     private String descriptionVn;
+
+    @XmlTransient
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "learningOutcome")
     private List<CloSlo> cloSloList;
+
+    @XmlTransient
+    @JsonBackReference
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Course course;
+
+    @XmlTransient
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "learningOutcome")
     private List<AssessmentTool> assessmentToolList;
+
+    @XmlTransient
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "learningOutcomeId")
     private List<ClassAssessment> classAssessmentList;
 

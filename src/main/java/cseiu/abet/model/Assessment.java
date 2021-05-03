@@ -5,6 +5,8 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -16,6 +18,8 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -26,6 +30,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "assessment")
 @XmlRootElement
+@XmlAccessorType(value = XmlAccessType.FIELD)
 @NamedQueries({
     @NamedQuery(name = "Assessment.findAll", query = "SELECT a FROM Assessment a")
     , @NamedQuery(name = "Assessment.findById", query = "SELECT a FROM Assessment a WHERE a.id = :id")
@@ -33,18 +38,33 @@ import javax.xml.bind.annotation.XmlTransient;
 public class Assessment implements Serializable {
 
     private static final long serialVersionUID = 1L;
+
     @Id
     @Basic(optional = false)
     @Column(name = "id")
     private Integer id;
+
     @Column(name = "type")
     private String type;
+
+
+    @XmlTransient
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "assessment")
     private List<AssessmentTool> assessmentToolList;
+
+    @XmlTransient
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "assessmentId")
     private List<ClassAssessment> classAssessmentList;
+
+    @XmlTransient
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "assessment")
     private List<ClassAssessmentCourse> classAssessmentCourseList;
+
+    @XmlTransient
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "assessment")
     private List<CourseAssessment> courseAssessmentList;
 

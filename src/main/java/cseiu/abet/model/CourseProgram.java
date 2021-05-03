@@ -5,6 +5,8 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -15,7 +17,10 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -24,6 +29,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "course_program")
 @XmlRootElement
+@XmlAccessorType(value = XmlAccessType.FIELD)
 @NamedQueries({
     @NamedQuery(name = "CourseProgram.findAll", query = "SELECT c FROM CourseProgram c")
     , @NamedQuery(name = "CourseProgram.findByCourseId", query = "SELECT c FROM CourseProgram c WHERE c.courseProgramPK.courseId = :courseId")
@@ -35,15 +41,23 @@ public class CourseProgram implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CourseProgramPK courseProgramPK;
+
     @Basic(optional = false)
     @Column(name = "course_code")
     private String courseCode;
+
     @Basic(optional = false)
     @Column(name = "course_type_id")
     private int courseTypeId;
+
+    @JsonBackReference
+    @XmlTransient
     @JoinColumn(name = "course_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Course course;
+
+    @JsonBackReference
+    @XmlTransient
     @JoinColumn(name = "program_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Program program;

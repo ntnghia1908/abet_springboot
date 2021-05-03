@@ -5,6 +5,9 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -17,7 +20,10 @@ import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -26,6 +32,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "course_assessment")
 @XmlRootElement
+@XmlAccessorType(value = XmlAccessType.FIELD)
 @NamedQueries({
     @NamedQuery(name = "CourseAssessment.findAll", query = "SELECT c FROM CourseAssessment c")
     , @NamedQuery(name = "CourseAssessment.findByAssessmentId", query = "SELECT c FROM CourseAssessment c WHERE c.courseAssessmentPK.assessmentId = :assessmentId")
@@ -36,14 +43,22 @@ public class CourseAssessment implements Serializable {
     private static final long serialVersionUID = 1L;
     @EmbeddedId
     protected CourseAssessmentPK courseAssessmentPK;
+
     @Basic(optional = false)
     @Column(name = "percentage")
     private int percentage;
+
+    @XmlTransient
     @JoinColumn(name = "assessment_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
+    @JsonBackReference
     private Assessment assessment;
+
+
     @JoinColumn(name = "course_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
+    @XmlTransient
+    @JsonBackReference
     private Course course;
 
     public CourseAssessment() {

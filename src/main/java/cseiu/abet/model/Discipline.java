@@ -5,6 +5,8 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.Basic;
@@ -42,6 +44,8 @@ public class Discipline implements Serializable {
     private Integer id;
     @Column(name = "name")
     private String name;
+
+    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "discipline")
     private List<Major> majorList;
 
