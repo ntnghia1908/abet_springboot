@@ -1,6 +1,7 @@
 package cseiu.abet.services;
 
 import cseiu.abet.model.CloSlo;
+import cseiu.abet.model.Course;
 import cseiu.abet.repo.CloSloRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,4 +20,12 @@ public class AbetService {
     public List<CloSlo> getAbetMappingTable(String courseId) {
         return cloSloRepository.selectAbetMapping(courseId);
     }
+
+    public List<CloSlo> convertAbet(String courseId) {
+        List<CloSlo> orginalAbet = cloSloRepository.selectAbetMapping(courseId);
+        // logic conver
+//        List<CloSlo> covertable = new List;
+        return orginalAbet;
+    }
+
 }
