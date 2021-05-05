@@ -20,8 +20,8 @@ public class AssessmentToolController {
         this.assessmentToolService = assessmentToolService;
     }
 
-    @GetMapping("/{cousreId}")
-    public ResponseEntity<List<AssessmentTool>> getAssemssmentToolByCourse(@PathVariable("cousreId") String courseId) {
+    @GetMapping("/{courseId}")
+    public ResponseEntity<List<AssessmentTool>> getAssessmentToolByCourse(@PathVariable("courseId") String courseId) {
         List<AssessmentTool> assessmentToolTable = assessmentToolService.getAssessmentTootTableByCourse(courseId);
         return new ResponseEntity<>(assessmentToolTable, HttpStatus.OK);
     }

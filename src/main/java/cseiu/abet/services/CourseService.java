@@ -34,7 +34,7 @@ public class CourseService {
 
     public Course findCourseById(String id) {
         return courseRepo.findCourseById(id).
-                orElseThrow(() -> new CourseNotFoundExpection("Course by id " + id + "was not found"));
+                orElseThrow(() -> new CourseNotFoundExpection("Course by id " + id + " was not found"));
     }
 
     public void deleteCourse(String id) {
