@@ -21,11 +21,6 @@ public class AbetService {
         return cloSloRepository.selectAbetMapping(courseId);
     }
 
-    public List<CloSlo> convertAbet(String courseId) {
-        List<CloSlo> orginalAbet = cloSloRepository.selectAbetMapping(courseId);
-        // logic conver
-//        List<CloSlo> covertable = new List;
-        return orginalAbet;
-    }
+
 
 }

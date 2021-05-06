@@ -20,4 +20,5 @@ public class CourseProgramService {
         List<CourseProgram> coursePrograms =courseProgramRepository.findByProgramNative(propId);
         return coursePrograms;
     }
+
 }

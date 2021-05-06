@@ -10,7 +10,7 @@ import java.util.List;
 
 public interface CloSloRepository extends JpaRepository<CloSlo, Integer>, JpaSpecificationExecutor<CloSlo> {
     @Query(
-            value = "SELECT * FROM clo_slo WHERE slo_id IN " +
+            value = "SELECT * FROM clo_slo WHERE lo_id IN " +
                     "(SELECT loutcome_id FROM assessment_tool " +
                     "WHERE course_id = :courseId)",
             nativeQuery = true

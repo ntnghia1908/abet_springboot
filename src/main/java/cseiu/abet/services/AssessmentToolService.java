@@ -19,4 +19,5 @@ public class AssessmentToolService {
     public List<AssessmentTool> getAssessmentTootTableByCourse(String courseId) {
         return assessmentToolRepo.findAssessmentToolByCourseId(courseId);
     }
+
 }
