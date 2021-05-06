@@ -17,6 +17,7 @@ public class UtilityServiceTest {
         List<Result> studentResult = utilityS.readStudentScoreFromExcelFile(excelFilePath);
         for (Result sr: studentResult){
             System.out.println(sr.getMidScore());
+
         }
 
     }

@@ -27,7 +27,10 @@ public class GradingServiceTest {
         List<Result> gpaResult = gradingService.calculateGPA(studentResult, courseAssessmentList);
 
         for (Result r: gpaResult){
-            System.out.println(r.getGpa());
+            System.out.println(r.getStudent().getId());
         }
+
+        String excelOutputPath = "F:/Documents/SCSE/TA/C Programming/Result.xlsx";
+        utilityService.writeResultToExcelFile(gpaResult,excelOutputPath);
     }
 }
