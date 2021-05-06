@@ -13,6 +13,6 @@ public class CourseServiceTest {
         ApplicationContext applicationContext = SpringApplication.run(CourseServiceTest.class, args);
         CourseService courseService = applicationContext.getBean(CourseService.class);
         Course c = courseService.findCourseById("IT079");
-        System.out.println(c.toString());
+        System.out.println(c.getId());
     }
 }
