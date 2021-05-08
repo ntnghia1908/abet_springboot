@@ -22,6 +22,7 @@ import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
+ *
  * @author meoco
  */
 @Entity
@@ -29,14 +30,14 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
 @NamedQueries({
-        @NamedQuery(name = "Result.findAll", query = "SELECT r FROM Result r")
-        , @NamedQuery(name = "Result.findByStudentId", query = "SELECT r FROM Result r WHERE r.resultPK.studentId = :studentId")
-        , @NamedQuery(name = "Result.findByClassId", query = "SELECT r FROM Result r WHERE r.resultPK.classId = :classId")
-        , @NamedQuery(name = "Result.findByMidScore", query = "SELECT r FROM Result r WHERE r.midScore = :midScore")
-        , @NamedQuery(name = "Result.findByFinalScore", query = "SELECT r FROM Result r WHERE r.finalScore = :finalScore")
-        , @NamedQuery(name = "Result.findByInClassScore", query = "SELECT r FROM Result r WHERE r.inClassScore = :inClassScore")
-        , @NamedQuery(name = "Result.findByGpa", query = "SELECT r FROM Result r WHERE r.gpa = :gpa")
-        , @NamedQuery(name = "Result.findByAbetScore", query = "SELECT r FROM Result r WHERE r.abetScore = :abetScore")})
+    @NamedQuery(name = "Result.findAll", query = "SELECT r FROM Result r")
+    , @NamedQuery(name = "Result.findByStudentId", query = "SELECT r FROM Result r WHERE r.resultPK.studentId = :studentId")
+    , @NamedQuery(name = "Result.findByClassId", query = "SELECT r FROM Result r WHERE r.resultPK.classId = :classId")
+    , @NamedQuery(name = "Result.findByMidScore", query = "SELECT r FROM Result r WHERE r.midScore = :midScore")
+    , @NamedQuery(name = "Result.findByFinalScore", query = "SELECT r FROM Result r WHERE r.finalScore = :finalScore")
+    , @NamedQuery(name = "Result.findByInClassScore", query = "SELECT r FROM Result r WHERE r.inClassScore = :inClassScore")
+    , @NamedQuery(name = "Result.findByGpa", query = "SELECT r FROM Result r WHERE r.gpa = :gpa")
+    , @NamedQuery(name = "Result.findByAbetScore", query = "SELECT r FROM Result r WHERE r.abetScore = :abetScore")})
 public class Result implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -58,25 +59,6 @@ public class Result implements Serializable {
     @Column(name = "abet_score")
     private Integer abetScore;
 
-    @Column(name = "abet_1")
-    private Integer abet1;
-
-    @Column(name = "abet_2")
-    private Integer abet2;
-
-    @Column(name = "abet_3")
-    private Integer abet3;
-
-    @Column(name = "abet_4")
-    private Integer abet4;
-
-
-    @Column(name = "abet_5")
-    private Integer abet5;
-
-    @Column(name = "avg")
-    private Float avg;
-
     @XmlTransient
     @JsonBackReference
     @JoinColumn(name = "class_id", referencedColumnName = "id", insertable = false, updatable = false)
@@ -88,6 +70,27 @@ public class Result implements Serializable {
     @JoinColumn(name = "student_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Student student;
+
+    @Column(name = "abet_1")
+    Integer abet1;
+
+    @Column(name = "abet_2")
+    Integer abet2;
+
+    @Column(name = "abet_3")
+    Integer abet3;
+
+    @Column(name = "abet_4")
+    Integer abet4;
+
+    @Column(name = "abet_5")
+    Integer abet5;
+
+    @Column(name = "abet_6")
+    Integer abet6;
+
+    @Column(name = "avg")
+    Float avg;
 
     public Result() {
     }
@@ -204,6 +207,14 @@ public class Result implements Serializable {
         this.abet5 = abet5;
     }
 
+    public Integer getAbet6() {
+        return abet6;
+    }
+
+    public void setAbet6(Integer abet6) {
+        this.abet6 = abet6;
+    }
+
     public Float getAvg() {
         return avg;
     }
@@ -236,5 +247,5 @@ public class Result implements Serializable {
     public String toString() {
         return "entity.Result[ resultPK=" + resultPK + " ]";
     }
-
+    
 }

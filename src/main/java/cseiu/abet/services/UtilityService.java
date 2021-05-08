@@ -82,6 +82,42 @@ public class UtilityService {
 
         cell = row.createCell(5);
         cell.setCellValue(student_result.getGpa());
+
+        try {
+            cell = row.createCell(6);
+            cell.setCellValue(student_result.getAbet1());
+        } catch (Exception e){}
+
+        try {
+            cell = row.createCell(7);
+            cell.setCellValue(student_result.getAbet2());
+        } catch (Exception e){}
+
+        try {
+            cell = row.createCell(8);
+            cell.setCellValue(student_result.getAbet3());
+        } catch (Exception e){}
+
+        try {
+            cell = row.createCell(9);
+            cell.setCellValue(student_result.getAbet4());
+        } catch (Exception e){}
+
+        try {
+            cell = row.createCell(10);
+            cell.setCellValue(student_result.getAbet5());
+        } catch (Exception e){}
+
+        try {
+            cell = row.createCell(11);
+            cell.setCellValue(student_result.getAbet6());
+        } catch (Exception e){}
+
+        try {
+            cell = row.createCell(12);
+            cell.setCellValue(student_result.getAbetScore());
+        } catch (Exception e){}
+
     }
 
     private void createHeaderRow(Sheet sheet){

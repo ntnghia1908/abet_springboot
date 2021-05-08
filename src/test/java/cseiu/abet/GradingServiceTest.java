@@ -49,10 +49,10 @@ public class GradingServiceTest {
         }
 
         for (Result r: studentResult){
-            System.out.println(gradingService.calculateAbetScoreOfStudent(assessmentToolList,courseAssessmentList,abetMapping,r));
+            System.out.println(gradingService.calculateAbetScoreOfStudent(assessmentToolList,courseAssessmentList,abetMapping,r).getAbet4());
         }
      //   System.out.println(gradingService.transferAndConvertAbetMapping(abetMapping));
-      //  String excelOutputPath = "F:/Documents/SCSE/TA/C Programming/Result.xlsx";
-      //  utilityService.writeResultToExcelFile(gpaResult,excelOutputPath);
+        String excelOutputPath = "/Users/minhthu/Documents/IU/Project/IT079_result.xlsx";
+        utilityService.writeResultToExcelFile(gpaResult,excelOutputPath);
     }
 }
