@@ -6,6 +6,7 @@ import cseiu.abet.model.CloSlo;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
+import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
@@ -146,13 +147,69 @@ public class GradingService {
         return abetMappingAfterConvert;
     }
 
+            //2.2 Calculate ABET score
+                //2.2.1 get each criteria abet score
+    public static int getAbetCriteriaScoreFromHashtableAbetScore (Hashtable abetScore, int index){
+        float score = -1;
+        if (abetScore.get(index) != null){
+            score = (float) abetScore.get(index);
+        }
+        return (int) Math.round(score);
+    }
+
+    public Result storeStudentAbetResult (Result student, Hashtable <Integer, Float> abetScore){
+        Set<Integer> listAbetCriteria = abetScore.keySet();
+        for (int criteria:listAbetCriteria){
+            switch (criteria){
+                case 1:
+                    student.setAbet1(Math.round((abetScore.get(criteria))));
+                    break;
+                case 2:
+                    student.setAbet2(Math.round((abetScore.get(criteria))));
+                    break;
+                case 3:
+                    student.setAbet3(Math.round((abetScore.get(criteria))));
+                    break;
+                case 4:
+                    student.setAbet4(Math.round((abetScore.get(criteria))));
+                    break;
+                case 5:
+                    student.setAbet5(Math.round((abetScore.get(criteria))));
+                    break;
+                case 6:
+                    student.setAbet6(Math.round((abetScore.get(criteria))));
+                    break;
+            }
+        }
+        return student;
+    }
+
     public Result calculateAbetScoreOfStudent
             (List<AssessmentTool> assessmentToolList, List<CourseAssessment> courseAssessmentList,
              List<CloSlo> cloSlo, Result student) {
         Hashtable<Integer,Float> learningOutcomeScore = calculateLearningOutcomeScore(assessmentToolList,courseAssessmentList,student);
         Hashtable<Integer,Hashtable> newAbetMapping = transferAndConvertAbetMapping(cloSlo);
 
-        // not finished yet
+        Hashtable<Integer,Float> abetScore = new Hashtable<>();
+        Set<Integer> abetCriterias = newAbetMapping.keySet();
+        float total_score = 0;
+        for (int criteria: abetCriterias) {
+            try {
+                float score =0;
+                Hashtable<Integer, Float> abetPercentage = newAbetMapping.get(criteria);
+                Set<Integer> learningOutcomeId = abetPercentage.keySet();
+                for (int lo_id:learningOutcomeId){
+                    score+= abetPercentage.get(lo_id) * learningOutcomeScore.get(lo_id);
+                }
+                abetScore.put(criteria,score);
+                total_score+=score;
+            } catch (Exception e) {
+
+            }
+
+        }
+        storeStudentAbetResult(student, abetScore);
+        student.setAbetScore(Math.round( total_score/abetCriterias.size()));
         return student;
     }
 }
