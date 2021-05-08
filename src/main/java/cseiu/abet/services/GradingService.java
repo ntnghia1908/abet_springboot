@@ -133,7 +133,7 @@ public class GradingService {
                     total_weight+= item.getPercentage();
                 }
             }
-            sumPercentageOfEachCriteria.put(cloSlo.getCloSloPK().getSloId(),(float) total_weight);
+            sumPercentageOfEachCriteria.put(cloSlo.getCloSloPK().getSloId(), total_weight);
         }
         for (CloSlo cloSlo: abetMapping){
             Hashtable<Integer,Float> newAbetMapping = new Hashtable<>();
@@ -148,14 +148,6 @@ public class GradingService {
     }
 
             //2.2 Calculate ABET score
-                //2.2.1 get each criteria abet score
-    public static int getAbetCriteriaScoreFromHashtableAbetScore (Hashtable abetScore, int index){
-        float score = -1;
-        if (abetScore.get(index) != null){
-            score = (float) abetScore.get(index);
-        }
-        return (int) Math.round(score);
-    }
 
     public Result storeStudentAbetResult (Result student, Hashtable <Integer, Float> abetScore){
         Set<Integer> listAbetCriteria = abetScore.keySet();
