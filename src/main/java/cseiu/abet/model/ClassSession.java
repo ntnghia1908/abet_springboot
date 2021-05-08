@@ -62,9 +62,9 @@ public class ClassSession implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "class1")
     private List<Result> resultList;
 
-    @JoinColumn(name = "class", referencedColumnName = "class_id")
-    @ManyToOne(optional = false)
-    private ClassAssessment classAssessment;
+//    @JoinColumn(name = "class", referencedColumnName = "class_id")
+//    @ManyToOne(optional = false)
+//    private ClassAssessment classAssessment;
 
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "class1")
@@ -134,13 +134,13 @@ public class ClassSession implements Serializable {
         this.resultList = resultList;
     }
 
-    public ClassAssessment getClassAssessment() {
-        return classAssessment;
-    }
-
-    public void setClassAssessment(ClassAssessment classAssessment) {
-        this.classAssessment = classAssessment;
-    }
+//    public ClassAssessment getClassAssessment() {
+//        return classAssessment;
+//    }
+//
+//    public void setClassAssessment(ClassAssessment classAssessment) {
+//        this.classAssessment = classAssessment;
+//    }
 
     @XmlTransient
     public List<ClassAssessmentCourse> getClassAssessmentCourseList() {
