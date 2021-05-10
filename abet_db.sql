@@ -19,6 +19,10 @@
 -- Table structure for table `assessment`
 --
 
+DROP DATABASE IF EXISTS `abet`;
+create database `abet`;
+use `abet`;
+
 DROP TABLE IF EXISTS `assessment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
@@ -58,7 +62,7 @@ CREATE TABLE `assessment_tool` (
   CONSTRAINT `FK_AssessmentTool_Assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_AssessmentTool_Course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_AssessmentTool_LOutcome` FOREIGN KEY (`loutcome_id`) REFERENCES `learning_outcome` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -90,7 +94,7 @@ CREATE TABLE `class_assessment` (
   CONSTRAINT `FK_class_assemssment_assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_class_assemssment_class` FOREIGN KEY (`class_id`) REFERENCES `class_session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_class_assemssment_learning_outcome` FOREIGN KEY (`learning_outcome_id`) REFERENCES `learning_outcome` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -120,7 +124,7 @@ CREATE TABLE `class_assessment_course` (
   KEY `fk_class_assessment_course_class` (`class_id`) USING BTREE,
   CONSTRAINT `FK_class_assessment_course_assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_class_assessment_course_class` FOREIGN KEY (`class_id`) REFERENCES `class_session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,7 +156,7 @@ CREATE TABLE `class_session` (
   KEY `FK_class_course` (`course_id`),
   CONSTRAINT `FK_class_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_class_instructor` FOREIGN KEY (`instructor_id`) REFERENCES `instructor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -180,7 +184,7 @@ CREATE TABLE `clo_slo` (
   KEY `fk_clo_slo_slo` (`slo_id`),
   CONSTRAINT `fk_clo_slo_learning_outcome` FOREIGN KEY (`lo_id`) REFERENCES `learning_outcome` (`id`),
   CONSTRAINT `FKnu0yp3vha8fgl05wo50ak1iwq` FOREIGN KEY (`slo_id`) REFERENCES `slo` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -239,7 +243,7 @@ CREATE TABLE `course_assessment` (
   KEY `Fk_AssessmentCourse_Course` (`course_id`),
   CONSTRAINT `Fk_AssessmentCourse_Course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_course_assessment_assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -294,7 +298,7 @@ CREATE TABLE `course_program` (
   KEY `fk2_idx` (`program_id`),
   CONSTRAINT `fk1` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
   CONSTRAINT `fk2` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -372,7 +376,7 @@ CREATE TABLE `learning_outcome` (
   PRIMARY KEY (`id`),
   KEY `FK_LearningOutcome` (`course_id`),
   CONSTRAINT `FK_LearningOutcome` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -469,7 +473,7 @@ CREATE TABLE `result` (
   KEY `FK_result_class` (`class_id`),
   CONSTRAINT `FK_result_class` FOREIGN KEY (`class_id`) REFERENCES `class_session` (`id`),
   CONSTRAINT `FK_result_student` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -517,7 +521,7 @@ CREATE TABLE `student` (
   `id` varchar(50) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -538,7 +542,7 @@ DROP TABLE IF EXISTS `uuid`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `uuid` (
   `next_val` bigint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
