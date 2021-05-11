@@ -19,4 +19,8 @@ public class ClassSessionService {
     public List<ClassSession> findClassGivenInstructor(int instructorId){
         return classSessionRepository.findClassForInstructor(instructorId);
     }
+
+    public List<ClassSession> getClassSession(int instructorId, int semester, String year) {
+        return classSessionRepository.findClassSession(instructorId, semester, year);
+    }
 }

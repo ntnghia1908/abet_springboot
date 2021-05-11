@@ -25,7 +25,8 @@ public class InstructorService {
     }
 
     public Instructor findInstructorById(int id) {
-        return instructorRepository.findInstructorById(id).orElseThrow(()->new InstructorNotFoundExpection("The intructor id " + id +"is not found"));
+        return instructorRepository.findInstructorById(id)
+                .orElseThrow(()->new InstructorNotFoundExpection("The instructor id " + id +"is not found"));
     }
 
     public List<Instructor> findAllInstructor() {

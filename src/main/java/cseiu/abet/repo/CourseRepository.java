@@ -17,11 +17,11 @@ public interface CourseRepository extends JpaRepository<Course, String> {
             value = "SELECT  * FROM course c WHERE c.id= :id",
             nativeQuery = true
     )
-    Optional<Course> findCourseById(@Param("id") String id);
+    Course findCourseById(@Param("id") String id);
 
     void deleteCourseById(String id);
 
-//    List<Course> findAllCourses();
+
 
     @Query(
             value = "SELECT  * FROM course ",

@@ -6,6 +6,7 @@
 package cseiu.abet.model;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.io.Serializable;
@@ -75,7 +76,8 @@ public class Course implements Serializable {
 
     @XmlTransient
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
+    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,  mappedBy = "course")
     private List<CourseAssessment> courseAssessmentList;
 
     @XmlTransient
