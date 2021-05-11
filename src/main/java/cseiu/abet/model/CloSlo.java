@@ -5,6 +5,8 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -38,10 +40,12 @@ public class CloSlo implements Serializable {
     @Column(name = "percentage")
     private Float percentage;
 
+    @JsonBackReference
     @JoinColumn(name ="slo_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Slo slo;
 
+    @JsonBackReference
     @JoinColumn(name = "lo_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private LearningOutcome learningOutcome;

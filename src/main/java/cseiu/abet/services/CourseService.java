@@ -20,8 +20,8 @@ public class CourseService {
         this.courseRepo = courseRepo;
     }
 
-    public List<Course> findAllCourse() {
-        return  courseRepo.findAll();
+    public List<Course> getAllCourse() {
+        return  courseRepo.selectAllCourse();
     }
 
     public Course addCourse(Course course) {

@@ -18,8 +18,8 @@ public class CourseController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Course>> getAllCourse() {
-        List<Course> courses = courseService.findAllCourse();
+    public ResponseEntity<List<Course>> getAllCourseFromDB() {
+        List<Course> courses = courseService.getAllCourse();
         return  new ResponseEntity<>(courses, HttpStatus.OK);
     }
 

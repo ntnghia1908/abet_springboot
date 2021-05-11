@@ -27,7 +27,7 @@ public interface CourseRepository extends JpaRepository<Course, String> {
             value = "SELECT  * FROM course ",
             nativeQuery = true
     )
-    List<Course> findAllNative();
+    List<Course> selectAllCourse();
 
 
     @Override

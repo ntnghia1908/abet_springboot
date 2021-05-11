@@ -5,6 +5,7 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.io.Serializable;
@@ -70,10 +71,12 @@ public class ClassSession implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "class1")
     private List<ClassAssessmentCourse> classAssessmentCourseList;
 
+    @JsonBackReference
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Course courseId;
 
+    @JsonBackReference
     @JoinColumn(name = "instructor_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Instructor instructorId;
