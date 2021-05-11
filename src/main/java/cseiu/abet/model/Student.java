@@ -46,6 +46,12 @@ public class Student implements Serializable {
     @Column(name = "name")
     private String name;
 
+    @Column(name = "major")
+    private String major;
+
+    @Column(name = "batch")
+    private int batch;
+
     @XmlTransient
     @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
@@ -72,6 +78,22 @@ public class Student implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getMajor() {
+        return major;
+    }
+
+    public void setMajor(String major) {
+        this.major = major;
+    }
+
+    public int getBatch() {
+        return batch;
+    }
+
+    public void setBatch(int batch) {
+        this.batch = batch;
     }
 
     @XmlTransient
