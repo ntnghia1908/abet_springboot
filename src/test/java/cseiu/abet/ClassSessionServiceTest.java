@@ -11,7 +11,9 @@ public class ClassSessionServiceTest {
         ApplicationContext applicationContext = SpringApplication.run(CourseServiceTest.class, args);
         ClassSessionService classSessionService = applicationContext.getBean(ClassSessionService.class);
 
-        System.out.println(classSessionService.findClassGivenInstructor(1));
+        for (ClassSession cs: classSessionService.getClassSessionByInstructorAndYear(1, "2020-2021")){
+            System.out.println(cs.getCourseId());
+        }
 
     }
 }

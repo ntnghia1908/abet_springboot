@@ -15,7 +15,7 @@ import java.util.Set;
 public class GradingService {
 
     // CALCULATE THE GPA OF LIST OF STUDENTS//
-    public List<Result> calculateGPA (List<Result> studentResultList, List<CourseAssessment> courseAssessmentList) {
+    public Result calculateGPA (Result student, List<CourseAssessment> courseAssessmentList) {
         int assignment_weight =0, midterm_weight=0, final_weight=0;
         for(CourseAssessment ca: courseAssessmentList){
             switch (ca.getCourseAssessmentPK().getAssessmentId()){
@@ -30,14 +30,14 @@ public class GradingService {
                     break;
             }
         }
-        for (Result student: studentResultList){
-            float gpa = (float) ((assignment_weight * student.getInClassScore()
+
+        float gpa = (float) ((assignment_weight * student.getInClassScore()
                                             + midterm_weight *student.getMidScore()
                                             + final_weight * student.getFinalScore()) * 0.01);
 
-            student.setGpa(Math.round(gpa));
-        }
-        return studentResultList;
+        student.setGpa(Math.round(gpa));
+
+        return student;
     }
 
     // CACLUATE THE ABET SCORE OF STUDENT//
