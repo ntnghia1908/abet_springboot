@@ -19,7 +19,7 @@
 -- Table structure for table `assessment`
 --
 
-DROP DATABASE IF EXISTS `abet`;
+drop database if exists `abet`;
 create database `abet`;
 use `abet`;
 
@@ -62,7 +62,7 @@ CREATE TABLE `assessment_tool` (
   CONSTRAINT `FK_AssessmentTool_Assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_AssessmentTool_Course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_AssessmentTool_LOutcome` FOREIGN KEY (`loutcome_id`) REFERENCES `learning_outcome` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -94,7 +94,7 @@ CREATE TABLE `class_assessment` (
   CONSTRAINT `FK_class_assemssment_assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_class_assemssment_class` FOREIGN KEY (`class_id`) REFERENCES `class_session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_class_assemssment_learning_outcome` FOREIGN KEY (`learning_outcome_id`) REFERENCES `learning_outcome` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,7 +124,7 @@ CREATE TABLE `class_assessment_course` (
   KEY `fk_class_assessment_course_class` (`class_id`) USING BTREE,
   CONSTRAINT `FK_class_assessment_course_assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_class_assessment_course_class` FOREIGN KEY (`class_id`) REFERENCES `class_session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -152,11 +152,11 @@ CREATE TABLE `class_session` (
   `semester` int DEFAULT NULL,
   `academic_year` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
-  KEY `fk_class_instructor` (`instructor_id`) USING BTREE,
   KEY `FK_class_course` (`course_id`),
+  KEY `FKb3kre1tkyin4lxif7iy4jfxb0` (`instructor_id`),
   CONSTRAINT `FK_class_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_class_instructor` FOREIGN KEY (`instructor_id`) REFERENCES `instructor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+  CONSTRAINT `FKb3kre1tkyin4lxif7iy4jfxb0` FOREIGN KEY (`instructor_id`) REFERENCES `instructor` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -165,6 +165,7 @@ CREATE TABLE `class_session` (
 
 LOCK TABLES `class_session` WRITE;
 /*!40000 ALTER TABLE `class_session` DISABLE KEYS */;
+INSERT INTO `class_session` VALUES (1,'IT079',4,1,NULL,2,'2020-2021'),(2,'IT079',4,2,NULL,2,'2020-2021'),(3,'IT093',1,1,NULL,2,'2020-2021'),(4,'IT093',1,2,NULL,2,'2020-2021'),(5,'IT116',1,1,NULL,2,'2020-2021'),(6,'IT116',1,2,NULL,2,'2020-2021'),(7,'IT153',1,1,NULL,1,'2020-2021'),(8,'IT153',1,2,NULL,1,'2020-2021'),(9,'IT079',11,1,NULL,2,'2017-2018'),(10,'IT079',11,2,NULL,2,'2018-2019');
 /*!40000 ALTER TABLE `class_session` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -184,7 +185,7 @@ CREATE TABLE `clo_slo` (
   KEY `fk_clo_slo_slo` (`slo_id`),
   CONSTRAINT `fk_clo_slo_learning_outcome` FOREIGN KEY (`lo_id`) REFERENCES `learning_outcome` (`id`),
   CONSTRAINT `FKnu0yp3vha8fgl05wo50ak1iwq` FOREIGN KEY (`slo_id`) REFERENCES `slo` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -243,7 +244,7 @@ CREATE TABLE `course_assessment` (
   KEY `Fk_AssessmentCourse_Course` (`course_id`),
   CONSTRAINT `Fk_AssessmentCourse_Course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
   CONSTRAINT `FK_course_assessment_assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -298,7 +299,7 @@ CREATE TABLE `course_program` (
   KEY `fk2_idx` (`program_id`),
   CONSTRAINT `fk1` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
   CONSTRAINT `fk2` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -343,12 +344,12 @@ DROP TABLE IF EXISTS `instructor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `instructor` (
-  `id` int NOT NULL,
+  `id` int NOT NULL AUTO_INCREMENT,
   `name` varchar(255) DEFAULT NULL,
   `degree` varchar(255) DEFAULT NULL,
   `email` varchar(255) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -357,7 +358,7 @@ CREATE TABLE `instructor` (
 
 LOCK TABLES `instructor` WRITE;
 /*!40000 ALTER TABLE `instructor` DISABLE KEYS */;
-INSERT INTO `instructor` VALUES (1,'Nguyen Van Sinh','Dr.','nvsinh@hcmiu.edu.vn'),(2,'Tran Thanh Tung','Dr.','tttung@hcmiu.edu.vn'),(3,'Nguyen Quang Phu','MSc.','nqphu@hcmiu.edu.vn'),(4,'Nguyen Thi Thuy Loan','Dr.','nttloan@hcmiu.edu.vn'),(5,'Pham Quoc Son Lam','MSc.','pqslam@hcmiu.edu.vn'),(6,'Huynh Kha Tu','Dr.','hktu@hcmiu.edu.vn'),(7,'Dao Tran Hoang Chau','MSc.','dthchau@hcmiu.edu.vn'),(8,'Ly Tu Nga','Dr.','ltnga@hcmiu.edu.vn'),(9,'Vo Thi Luu Phuong','Assof.Dr.','vtlphuong@hcmiu.edu.vn'),(10,'Ha Viet Uyen Synh','Dr.','hvusynh@hcmiu.edu.vn'),(11,'Nguyen Thi Thanh Sang','Dr.','nttsang@hcmiu.edu.vn'),(12,'Le Thanh Son','MSc.','ltson@hcmiu.edu.vn'),(13,'Nguyen Ngoc Hai','Dr.','nnhai@hcmiu.edu.vn'),(14,'Huynh Kim Lam','Dr.','hklam@hcmiu.edu.vn'),(15,'Mai Duc Thanh','Dr.','mdthanh@hcmiu.edu.vn'),(16,'Nguyen Van Thu','Prof.D.Sc','nvthu@hcmiu.edu.vn'),(17,'Pham Huynh Tram','Dr.','phtram@hcmiu.edu.vn'),(18,'Nguyen Hong Duc','MSc.','nhduc@hcmiu.edu.vn'),(19,'Phan Bao Ngoc','Assof.Dr.','pbngoc@hcmiu.edu.vn'),(20,'Do Xuan Hoi ','Dr.','dxhoi@hcmiu.edu.vn'),(21,'Mai Linh','Dr.','mlinh@hcmiu.edu.vn'),(22,'Vo Tan Phuoc','Dr.','vtphuoc@hcmiu.edu.vn'),(23,'Do Ngoc Hung','MSc.','dnhung@hcmiu.edu.vn'),(24,'Ton That Long','Dr.','ttlong@hcmiu.edu.vn'),(25,'Tran Xuan Phuoc','Dr.','txphuoc@hcmiu.edu.vn'),(26,'Nguyen Dinh Uyen','Dr.','nduyen@hcmiu.edu.vn'),(27,'Vo Minh Thanh','MSc.','vmthanh@hcmiu.edu.vn'),(28,'Nguyen Tien Dung','MSc.','ntdung@hcmiu.edu.vn'),(29,'Phan Nguyen Ky Phuc','Dr.','pnkphuc@hcmiu.edu.vn'),(30,'Dao Vu Truong Son','Dr.','dvtson@hcmiu.edu.vn'),(31,'Nguyen Van Hop','Dr.','nvhop@hcmiu.edu.vn'),(32,'Ha Thi Xuan Chi','Dr.','htxchi@hcmiu.edu.vn'),(33,'Bui Xuan Anh Dao','MSc.','bxadao@hcmiu.edu.vn');
+INSERT INTO `instructor` VALUES (1,'Nguyen Van Sinh','Dr.','nvsinh@hcmiu.edu.vn'),(2,'Tran Thanh Tung','Dr.','tttung@hcmiu.edu.vn'),(3,'Nguyen Quang Phu','MSc.','nqphu@hcmiu.edu.vn'),(4,'Nguyen Thi Thuy Loan','Dr.','nttloan@hcmiu.edu.vn'),(5,'Pham Quoc Son Lam','MSc.','pqslam@hcmiu.edu.vn'),(6,'Huynh Kha Tu','Dr.','hktu@hcmiu.edu.vn'),(7,'Dao Tran Hoang Chau','MSc.','dthchau@hcmiu.edu.vn'),(8,'Ly Tu Nga','Dr.','ltnga@hcmiu.edu.vn'),(9,'Vo Thi Luu Phuong','Assof.Dr.','vtlphuong@hcmiu.edu.vn'),(10,'Ha Viet Uyen Synh','Dr.','hvusynh@hcmiu.edu.vn'),(11,'Nguyen Thi Thanh Sang','Dr.','nttsang@hcmiu.edu.vn'),(12,'Le Thanh Son','MSc.','ltson@hcmiu.edu.vn'),(13,'Nguyen Ngoc Hai','Dr.','nnhai@hcmiu.edu.vn'),(14,'Huynh Kim Lam','Dr.','hklam@hcmiu.edu.vn'),(15,'Mai Duc Thanh','Dr.','mdthanh@hcmiu.edu.vn'),(16,'Nguyen Van Thu','Prof.D.Sc','nvthu@hcmiu.edu.vn'),(17,'Pham Huynh Tram','Dr.','phtram@hcmiu.edu.vn'),(18,'Nguyen Hong Duc','MSc.','nhduc@hcmiu.edu.vn'),(19,'Phan Bao Ngoc','Assof.Dr.','pbngoc@hcmiu.edu.vn'),(20,'Do Xuan Hoi ','Dr.','dxhoi@hcmiu.edu.vn'),(21,'Mai Linh','Dr.','mlinh@hcmiu.edu.vn'),(22,'Vo Tan Phuoc','Dr.','vtphuoc@hcmiu.edu.vn'),(23,'Do Ngoc Hung','MSc.','dnhung@hcmiu.edu.vn'),(24,'Ton That Long','Dr.','ttlong@hcmiu.edu.vn'),(25,'Tran Xuan Phuoc','Dr.','txphuoc@hcmiu.edu.vn'),(26,'Nguyen Dinh Uyen','Dr.','nduyen@hcmiu.edu.vn'),(27,'Vo Minh Thanh','MSc.','vmthanh@hcmiu.edu.vn'),(28,'Nguyen Tien Dung','MSc.','ntdung@hcmiu.edu.vn'),(29,'Phan Nguyen Ky Phuc','Dr.','pnkphuc@hcmiu.edu.vn'),(30,'Dao Vu Truong Son','Dr.','dvtson@hcmiu.edu.vn'),(31,'Nguyen Van Hop','Dr.','nvhop@hcmiu.edu.vn'),(32,'Ha Thi Xuan Chi','Dr.','htxchi@hcmiu.edu.vn'),(33,'Bui Xuan Anh Dao','MSc.','bxadao@hcmiu.edu.vn'),(38,'Do Pham Minh Thu Cute','MSc','dpmthu@hcmiu.edu.vn'),(39,'Do Pham Minh Thu','MSc','dpmthu@hcmiu.edu.vn');
 /*!40000 ALTER TABLE `instructor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -376,7 +377,7 @@ CREATE TABLE `learning_outcome` (
   PRIMARY KEY (`id`),
   KEY `FK_LearningOutcome` (`course_id`),
   CONSTRAINT `FK_LearningOutcome` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -473,7 +474,7 @@ CREATE TABLE `result` (
   KEY `FK_result_class` (`class_id`),
   CONSTRAINT `FK_result_class` FOREIGN KEY (`class_id`) REFERENCES `class_session` (`id`),
   CONSTRAINT `FK_result_student` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -482,6 +483,7 @@ CREATE TABLE `result` (
 
 LOCK TABLES `result` WRITE;
 /*!40000 ALTER TABLE `result` DISABLE KEYS */;
+INSERT INTO `result` VALUES ('IT17106',10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('ITDSIU18012',10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('ITDSIU18023',10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('ITITIU17084',10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('ITITIU18102',10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('ITITIU18115',10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL),('ITITIU19002',10,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL,NULL);
 /*!40000 ALTER TABLE `result` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -520,8 +522,10 @@ DROP TABLE IF EXISTS `student`;
 CREATE TABLE `student` (
   `id` varchar(50) NOT NULL,
   `name` varchar(255) DEFAULT NULL,
+  `major` varchar(45) DEFAULT NULL,
+  `batch` int DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -530,6 +534,7 @@ CREATE TABLE `student` (
 
 LOCK TABLES `student` WRITE;
 /*!40000 ALTER TABLE `student` DISABLE KEYS */;
+INSERT INTO `student` VALUES ('IT17106','Dư Duy Bảo','IT',2017),('ITDSIU18012','Phạm Hoàng Minh','DS',2018),('ITDSIU18023','Nguyễn Quỳnh Hương','DS',2018),('ITITIU17084','Nguyễn Lê Thanh Tùng','IT',2017),('ITITIU18102','Cáp Kim Quang','IT',2018),('ITITIU18115','Nguyễn Huỳnh Phương Thanh','IT',2018),('ITITIU19002','Trịnh Quang Anh','IT',2019);
 /*!40000 ALTER TABLE `student` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -542,7 +547,7 @@ DROP TABLE IF EXISTS `uuid`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `uuid` (
   `next_val` bigint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -564,4 +569,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-08 18:06:06
+-- Dump completed on 2021-05-12 19:52:30
