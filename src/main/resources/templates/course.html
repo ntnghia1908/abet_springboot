@@ -14,10 +14,18 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="c : ${courses}">
-        <td th:text="${c.id}">Id</td>
-        <td th:text="${c.name}">Name</td>
-    </tr>
+    <h1 th:if="courses!=null">
+        <tr th:each="c : ${courses}">
+            <td th:text="${c.id}">Id</td>
+            <td th:text="${c.name}">Name</td>
+        </tr>
+    </h1>
+
+
+
+        <td th:text="${course.id}"></td>
+        <td th:text="${course.name}"></td>
+
     </tbody>
 </table>
 </body>
