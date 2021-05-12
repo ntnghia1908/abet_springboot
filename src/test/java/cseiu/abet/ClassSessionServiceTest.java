@@ -1,4 +1,5 @@
 package cseiu.abet;
+import cseiu.abet.model.Instructor;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import cseiu.abet.model.ClassSession;
@@ -11,9 +12,8 @@ public class ClassSessionServiceTest {
         ApplicationContext applicationContext = SpringApplication.run(CourseServiceTest.class, args);
         ClassSessionService classSessionService = applicationContext.getBean(ClassSessionService.class);
 
-        for (ClassSession cs: classSessionService.getClassSessionByInstructorAndYear(1, "2020-2021")){
-            System.out.println(cs.getCourseId());
+        for (Instructor instructor: classSessionService.getTeachingInstructor()){
+            System.out.println(instructor.getId());
         }
-
     }
 }
