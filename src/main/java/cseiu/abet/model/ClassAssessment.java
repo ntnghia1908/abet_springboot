@@ -5,6 +5,7 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.io.Serializable;
@@ -33,16 +34,19 @@ public class ClassAssessment implements Serializable {
     private Integer precentage;
 
     @XmlTransient
+    @JsonBackReference
     @JoinColumn(name = "assessment_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Assessment assessmentId;
 
     @XmlTransient
+    @JsonBackReference
     @JoinColumn(name = "class_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private ClassSession class1;
 
     @XmlTransient
+    @JsonBackReference
     @JoinColumn(name = "learning_outcome_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private LearningOutcome learningOutcomeId;

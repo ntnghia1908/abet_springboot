@@ -1,7 +1,6 @@
-package cseiu.abet.controller;
+package cseiu.abet.rest_controller;
 
 import cseiu.abet.model.ClassSession;
-import cseiu.abet.model.CloSlo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -13,12 +12,12 @@ import cseiu.abet.services.ClassSessionService;
 import java.util.List;
 
 @Controller
-@RequestMapping("/classSession")
-public class ClassSessionController {
+@RequestMapping("/classSession_api")
+public class ClassSessionControllerRest {
     private final ClassSessionService classSessionService;
 
 
-    public ClassSessionController(ClassSessionService classSessionService) {
+    public ClassSessionControllerRest(ClassSessionService classSessionService) {
         this.classSessionService = classSessionService;
     }
 

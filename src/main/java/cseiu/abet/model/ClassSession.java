@@ -20,7 +20,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
@@ -71,12 +70,12 @@ public class ClassSession implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "class1")
     private List<ClassAssessmentCourse> classAssessmentCourseList;
 
-    @JsonBackReference
+    @JsonBackReference(value = "course-class")
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    private Course courseId;
+    private Course course;
 
-    @JsonBackReference
+    @JsonBackReference(value = "instructor-class")
     @JoinColumn(name = "instructor_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Instructor instructorId;
@@ -154,12 +153,12 @@ public class ClassSession implements Serializable {
         this.classAssessmentCourseList = classAssessmentCourseList;
     }
 
-    public Course getCourseId() {
-        return courseId;
+    public Course getCourse() {
+        return course;
     }
 
-    public void setCourseId(Course courseId) {
-        this.courseId = courseId;
+    public void setCourse(Course courseId) {
+        this.course = courseId;
     }
 
     public Instructor getInstructorId() {

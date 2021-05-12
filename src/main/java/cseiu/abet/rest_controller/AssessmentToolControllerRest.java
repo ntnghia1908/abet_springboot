@@ -1,4 +1,4 @@
-package cseiu.abet.controller;
+package cseiu.abet.rest_controller;
 
 import cseiu.abet.model.AssessmentTool;
 import cseiu.abet.services.AssessmentToolService;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/assessment_tool")
-public class AssessmentToolController {
+@RequestMapping("/assessment_tool_api")
+public class AssessmentToolControllerRest {
     private final AssessmentToolService assessmentToolService;
 
-    public AssessmentToolController(AssessmentToolService assessmentToolService) {
+    public AssessmentToolControllerRest(AssessmentToolService assessmentToolService) {
         this.assessmentToolService = assessmentToolService;
     }
 

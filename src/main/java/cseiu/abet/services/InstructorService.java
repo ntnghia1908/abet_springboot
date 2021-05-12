@@ -33,7 +33,7 @@ public class InstructorService {
         return instructorRepository.findAll();
     }
 
-    public void deleleInstructor(int id) {
+    public void deleteInstructor(int id) {
         instructorRepository.deleteById(id);
     }
 

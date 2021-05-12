@@ -1,4 +1,4 @@
-package cseiu.abet.controller;
+package cseiu.abet.rest_controller;
 
 import cseiu.abet.model.CloSlo;
 import cseiu.abet.services.AbetService;
@@ -12,11 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import java.util.List;
 
 @Controller
-@RequestMapping("/abet")
-public class AbetController {
+@RequestMapping("/abet_api")
+public class AbetControllerRest {
     private final AbetService abetService;
 
-    public AbetController(AbetService abetService) {
+    public AbetControllerRest(AbetService abetService) {
         this.abetService = abetService;
     }
 

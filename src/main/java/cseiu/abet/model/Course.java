@@ -58,36 +58,36 @@ public class Course implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @XmlTransient
     @JsonManagedReference
+    @XmlTransient
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     private List<LearningOutcome> learningOutcomeList;
 
-    @XmlTransient
     @JsonManagedReference
+    @XmlTransient
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     private List<AssessmentTool> assessmentToolList;
 
+    @JsonBackReference
     @XmlTransient
     @JoinColumn(name = "course_level_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
-    @JsonBackReference
     private CourseLevel courseLevel;
 
-    @XmlTransient
     @JsonManagedReference
-    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+    @XmlTransient
+//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,  mappedBy = "course")
     private List<CourseAssessment> courseAssessmentList;
 
-    @XmlTransient
     @JsonManagedReference
+    @XmlTransient
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     private List<CourseProgram> courseProgramList;
 
-    @XmlTransient
     @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseId")
+    @XmlTransient
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     private List<ClassSession> classList;
 
 

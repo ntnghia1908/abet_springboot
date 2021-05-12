@@ -1,22 +1,19 @@
-package cseiu.abet.controller;
+package cseiu.abet.rest_controller;
 
 import cseiu.abet.model.Instructor;
 import cseiu.abet.services.InstructorService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/instructor")
-public class InstructorController {
+@RequestMapping("/instructor_api")
+public class InstructorControllerRest {
     private final InstructorService instructorService;
 
-    public InstructorController(InstructorService instructorService) {
+    public InstructorControllerRest(InstructorService instructorService) {
         this.instructorService = instructorService;
     }
 
@@ -30,5 +27,17 @@ public class InstructorController {
     public ResponseEntity<Instructor> getInstructor(@PathVariable("id") int id) {
         Instructor instructor = instructorService.findInstructorById(id);
         return new ResponseEntity<>(instructor, HttpStatus.OK);
+    }
+
+    @PostMapping("/add")
+    public ResponseEntity<Instructor> addInstructor(@RequestBody Instructor instructor) {
+        Instructor newInstructor = instructorService.addInstructor(instructor);
+        return  new ResponseEntity<>(newInstructor, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<?>deleteInstructor(@PathVariable("id") int id) {
+        instructorService.deleteInstructor(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

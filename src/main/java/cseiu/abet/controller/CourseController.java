@@ -4,12 +4,17 @@ import cseiu.abet.model.Course;
 import cseiu.abet.services.CourseService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
-@RestController
-@RequestMapping("/course")
+@Controller
+@RequestMapping("course")
 public class CourseController {
     private final CourseService courseService;
 
@@ -18,17 +23,17 @@ public class CourseController {
     }
 
     @GetMapping("/all")
-    public ResponseEntity<List<Course>> getAllCourseFromDB() {
+    public String getAllCourseFromDB(Model model) {
         List<Course> courses = courseService.getAllCourse();
-        return  new ResponseEntity<>(courses, HttpStatus.OK);
+        model.addAttribute("courses", courses);
+        return  "course";
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Course> getByIdCourse(@PathVariable("id") String id) {
-        Course courses = courseService.findCourseById(id);
-        return  new ResponseEntity<>(courses, HttpStatus.OK);
+    public String getByIdCourse(@PathVariable("id") String id, Model model) {
+        Course course = courseService.findCourseById(id);
+        model.addAttribute("course", course);
+        return  "course_detail";
     }
-
-
 
 }

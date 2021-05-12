@@ -50,8 +50,9 @@ public class CourseLevel implements Serializable {
     private String level;
 
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseLevel")
+    @JsonManagedReference
     @XmlTransient
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "courseLevel")
     private List<Course> courseList;
 
     public CourseLevel() {

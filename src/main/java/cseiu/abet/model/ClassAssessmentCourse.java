@@ -5,6 +5,8 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
+
 import java.io.Serializable;
 import javax.persistence.Basic;
 import javax.persistence.Column;
@@ -51,10 +53,12 @@ public class ClassAssessmentCourse implements Serializable {
     @Column(name = "slo_id")
     private int sloId;
 
+    @JsonBackReference
     @JoinColumn(name = "assessment_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Assessment assessment;
 
+    @JsonBackReference
     @JoinColumn(name = "class_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private ClassSession class1;

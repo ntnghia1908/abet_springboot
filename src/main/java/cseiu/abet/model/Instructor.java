@@ -40,7 +40,6 @@ public class Instructor implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "id")
-
     private Integer id;
 
     @Column(name = "name")
@@ -52,7 +51,7 @@ public class Instructor implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @JsonManagedReference
+    @JsonManagedReference(value = "instructor-class")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instructorId")
     private List<ClassSession> classList;
 
@@ -63,9 +62,7 @@ public class Instructor implements Serializable {
         this.id = id;
     }
 
-    public Integer getId() {
-        return id;
-    }
+    public Integer getId() { return id; }
 
     public void setId(Integer id) {
         this.id = id;
@@ -95,7 +92,7 @@ public class Instructor implements Serializable {
         this.email = email;
     }
 
-    @XmlTransient
+//    @XmlTransient
     public List<ClassSession> getClassList() {
         return classList;
     }
