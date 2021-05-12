@@ -1,6 +1,5 @@
 package cseiu.abet.repo;
 
-import cseiu.abet.model.Course;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -31,10 +30,41 @@ public interface ClassSessionRepository extends JpaRepository<ClassSession, Stri
                                         @Param("semester") int semester,
                                         @Param("year") String year);
 
-//    SAMPLE
-//    @Query(
-//            value = "SELECT  * FROM course c WHERE c.id= :id",
-//            nativeQuery = true
-//    )
-//    Course findCourseById(@Param("id") String id);
+    @Query(
+            value ="SELECT * from class_session cs" +
+                    " where cs.semester = :semester and cs.academic_year = :year",
+            nativeQuery = true
+    )
+    List<ClassSession> findClassSessionBySemesterAndYear(@Param("semester") int semester,
+                                                         @Param("year") String year);
+
+    @Query(
+            value ="select * from class_session cs " +
+                    "where cs.instructor_id = :instructor_id and cs.academic_year = :year",
+            nativeQuery = true
+    )
+    List<ClassSession> findClassSessionsByInstructorAndAcademicYear(@Param("instructor_id") int instructor_id,
+                                                                    @Param("year") String year);
+
+    @Query(
+            value ="select * from class_session cs where cs.course_id = :course_id and cs.academic_year = :year",
+            nativeQuery = true
+    )
+    List<ClassSession> findClassSessionsByCourseIdAndAcademicYear(@Param("course_id") String course_id,
+                                                                  @Param("year") String year);
+
+    @Query(
+            value ="select * from class_session cs where cs.course_id= :course_id",
+            nativeQuery = true
+    )
+    List<ClassSession> findClassSessionsByCourse(@Param("course_id") String course_id);
+
+    @Query(
+            value ="select * from class_session cs where cs.course_id = :course_id and cs.semester = :semester " +
+                    "and cs.academic_year = :year",
+            nativeQuery = true
+    )
+    List<ClassSession> findClassSessionsByCourseSemAndYear(@Param("course_id") String course_id,
+                                                           @Param("semester") int semester,
+                                                           @Param("year") String year);
 }

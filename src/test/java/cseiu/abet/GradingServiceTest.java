@@ -34,25 +34,29 @@ public class GradingServiceTest {
 
         List<CloSlo> abetMapping = abetService.getAbetMappingTable("IT079");
 
-        List<Result> gpaResult = gradingService.calculateGPA(studentResult, courseAssessmentList);
-
-        for (Result r: gpaResult){
-            System.out.println(r.getStudent().getId());
+        for (Result student: studentResult){
+            System.out.println(gradingService.calculateGPA(student,courseAssessmentList).getGpa());
         }
 
-        for (Result r: studentResult){
-            System.out.println(gradingService.calculateLearningOutcomeScore(assessmentToolList,courseAssessmentList,r));
-        }
+    //    List<Result> gpaResult = gradingService.calculateGPA(studentResult, courseAssessmentList);
 
-        for (CloSlo cloSlo: abetMapping){
-            System.out.println(cloSlo.getLearningOutcome().getId());
-        }
-
-        for (Result r: studentResult){
-            System.out.println(gradingService.calculateAbetScoreOfStudent(assessmentToolList,courseAssessmentList,abetMapping,r).getAbet4());
-        }
-     //   System.out.println(gradingService.transferAndConvertAbetMapping(abetMapping));
-        String excelOutputPath = "/Users/minhthu/Documents/IU/Project/IT079_result.xlsx";
-        utilityService.writeResultToExcelFile(gpaResult,excelOutputPath);
+//        for (Result r: gpaResult){
+//            System.out.println(r.getStudent().getId());
+//        }
+//
+//        for (Result r: studentResult){
+//            System.out.println(gradingService.calculateLearningOutcomeScore(assessmentToolList,courseAssessmentList,r));
+//        }
+//
+//        for (CloSlo cloSlo: abetMapping){
+//            System.out.println(cloSlo.getLearningOutcome().getId());
+//        }
+//
+//        for (Result r: studentResult){
+//            System.out.println(gradingService.calculateAbetScoreOfStudent(assessmentToolList,courseAssessmentList,abetMapping,r).getAbet4());
+//        }
+//     //   System.out.println(gradingService.transferAndConvertAbetMapping(abetMapping));
+//        String excelOutputPath = "/Users/minhthu/Documents/IU/Project/IT079_result.xlsx";
+//        utilityService.writeResultToExcelFile(gpaResult,excelOutputPath);
     }
 }

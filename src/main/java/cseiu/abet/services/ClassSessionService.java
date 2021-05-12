@@ -23,4 +23,19 @@ public class ClassSessionService {
     public List<ClassSession> getClassSession(int instructorId, int semester, String year) {
         return classSessionRepository.findClassSession(instructorId, semester, year);
     }
+    public List<ClassSession> getClassSessionBySemesterAndYear(int semester, String year){
+        return classSessionRepository.findClassSessionBySemesterAndYear(semester,year);
+    }
+    public List<ClassSession> getClassSessionByInstructorAndYear(int instructor_id, String year){
+        return classSessionRepository.findClassSessionsByInstructorAndAcademicYear(instructor_id, year);
+    }
+    public List<ClassSession> getClassSessionByCourseAndYear(String courseId, String year){
+        return classSessionRepository.findClassSessionsByCourseIdAndAcademicYear(courseId, year);
+    }
+    public List<ClassSession> getClassSessionByCourse(String courseId){
+        return classSessionRepository.findClassSessionsByCourse(courseId);
+    }
+    public List<ClassSession> getClassSessionByCourseAndSemAndYear(String courseId, int semester, String year){
+        return classSessionRepository.findClassSessionsByCourseSemAndYear(courseId,semester,year);
+    }
 }
