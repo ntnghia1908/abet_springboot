@@ -85,10 +85,6 @@ public interface ClassSessionRepository<Instructor> extends JpaRepository<ClassS
     )
     ClassSession findClassById(@Param("class_id") int class_id);
 
-    @Query(
-            value = "SELECT * FROM instructor WHERE id IN (SELECT DISTINCT instructor_id FROM class_session)",
-            nativeQuery = true
-    )
-    List<Instructor> findTeachingInstructor();
+
 
 }

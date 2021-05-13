@@ -45,12 +45,10 @@ public class ClassSessionService {
     public List<String> getAllAcademicYear(){
         return classSessionRepository.findAllAcademicYear();
     }
+
     public ClassSession getClassById(int class_id){
         return classSessionRepository.findClassById(class_id);
     }
 
-    public List<Instructor> getTeachingInstructor(){
-        return classSessionRepository.findTeachingInstructor();
-    }
 
 }

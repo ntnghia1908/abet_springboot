@@ -11,7 +11,7 @@
 </head>
 <body>
 <div class="container my-2">
-    <h1>Class Detail</h1>
+    <h1>CLASS DETAILS</h1>
     <br/><br/>
     <table border="1" class="table table-striped table-responsive-md">
         <thead>
@@ -34,7 +34,43 @@
         </tbody>
     </table>
     <br><br>
+    <h1> RESULT OF STUDENTS </h1>
+    <table border="1" class="table table-striped table-responsive-md">
+        <thead>
+        <th>Student ID</th>
+        <th>Student Name</th>
+        <th>In-class Score</th>
+        <th>Midterm Score</th>
+        <th>Final Score</th>
+        <th>GPA</th>
+        <th>ABET criteria 1 Score</th>
+        <th>ABET criteria 2 Score</th>
+        <th>ABET criteria 3 Score</th>
+        <th>ABET criteria 4 Score</th>
+        <th>ABET criteria 5 Score</th>
+        <th>ABET criteria 6 Score</th>
+        <th>ABET Average Score
+        <th>Action</th>
 
+        </thead>
+        <tbody>
+        <tr th:each="result : ${resultList}">
+            <td th:text="${result.getStudent().getId()}"></td>
+            <td th:text="${result.getStudent().getName()}"></td>
+            <td th:text="${result.getInClassScore()}"></td>
+            <td th:text="${result.getMidScore()}"></td>
+            <td th:text="${result.getFinalScore()}"></td>
+            <td th:text="${result.getGpa()}"></td>
+            <td th:text="${result.getAbet1()}"></td>
+            <td th:text="${result.getAbet2()}"></td>
+            <td th:text="${result.getAbet3()}"></td>
+            <td th:text="${result.getAbet4()}"></td>
+            <td th:text="${result.getAbet5()}"></td>
+            <td th:text="${result.getAbet6()}"></td>
+            <td th:text="${result.getAvg()}"></td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

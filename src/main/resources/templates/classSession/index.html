@@ -21,7 +21,8 @@
         <th>Instructor Name</th>
         <th>
           <select name="instructor_id">
-<!--            <option th:each="instructor : ${instructorList}" th:value="${instructor.getId()}" th:text="${instructor.getName()}"/>-->
+            <option value ="all">All</option>
+               <option th:each="instructor : ${instructorList}" th:value="${instructor.getKey()}" th:text="${instructor.getValue()}"/>-->
           </select>
         </th>
         <th></th>
@@ -31,6 +32,7 @@
         <th>Semester</th>
         <th>
           <select id="semester">
+            <option value ="all">All</option>
             <option value = "1"> Semester 1</option>
             <option value = "2"> Semester 2</option>
             <option value = "3"> Semester 1</option>
@@ -38,6 +40,7 @@
         </th>
         <th>
           <select name="year">
+            <option value ="all">All</option>
             <option th:each="year : ${academicList}" th:value="${year}" th:text="${year}"/>
           </select>
         </th>
