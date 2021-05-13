@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <style>
+        .loader {
+            border: 16px solid #f3f3f3;
+            border-radius: 50%;
+            border-top: 16px solid #3498db;
+            width: 120px;
+            height: 120px;
+            -webkit-animation: spin 2s linear infinite;
+            /* Safari */
+            animation: spin 2s linear infinite;
+        }
+        /* Safari */
+
+        @-webkit-keyframes spin {
+            0% {
+                -webkit-transform: rotate(0deg);
+            }
+            100% {
+                -webkit-transform: rotate(360deg);
+            }
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        .d-hidden {
+            display: none;
+        }
+    </style>
+</head>
+<body>
+<div class="sidebar" id="sidebar"  th:fragment="sidebar">
+    <!-- sidebar -->
+    <div class="sidebar-inner slimscroll">
+        <div id="sidebar-menu" class="sidebar-menu">
+            <ul>
+                <li class="menu-title">Main</li>
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> Students</span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled" style="display: none;">
+                        <li><a href="{{ route('students')}}">All Students</a></li>
+                        <li><a href="{{ route('get-add-student')}}">Add Student</a></li>
+                        <li><a href="{{ route('lecturer-get-import') }}">Import Student</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> Courses</span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled" style="display: none;">
+                        <li><a href="{{ route('lecturer_courses') }}">All Courses</a></li>
+                        <li><a href="{{ route('lecturer_get_add_course') }}">Add Course</a></li>
+                        <li><a href="" data-toggle="modal" data-target="#select_student">Assign Course</a></li>
+                        <li><a href="" data-toggle="modal" data-target="#course_outcome">Course Outcome</a></li>
+                        <li><a href="" data-toggle="modal" data-target="#program_outcome">Program Outcome</a></li>
+                        <li><a href="{{ route('lecturer_outcome_assessment') }}">Outcome Assessment</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> References</span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled" style="display: none;">
+                        <li><a href="{{ route('lecturer_references') }}">All References</a></li>
+                        <li><a href="{{ route('lecturer_get_add_ref') }}">Add Reference</a></li>
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> Score</span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled" style="display: none;">
+                        <li><a href="" data-toggle="modal" data-target="#view_score">View Score</a></li>
+                        <li><a href="" data-toggle="modal" data-target="#view_outcome_score">View Outcome Score</a></li>
+                        <li><a style="font-size: 13px;" href="" data-toggle="modal" data-target="#import-score">Import Outcome Score</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="{{route('lecturer-view-setting')}}"><i class="fa fa-cog" aria-hidden="true"></i> Settings</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+<div id="select_student" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <h4 class="modal-title">Assign Course for Student</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('get-registered-course') }}" method="post">
+                    @csrf
+                    <div class="form-group custom-mt-form-group">
+                        <select name="course_id" class="form-control">
+                            @php
+                            $courses = \App\Course::where('user_id', \Auth::user()->id)->get();
+                            @endphp
+                            @foreach ( $courses as $course )
+                            <option value="{{ $course->id }}"> {{ $course->name}} ({{$course->course_title}})</option>
+                            @endforeach
+                        </select>
+                        <label class="control-label">Course <span class="text-danger">*</span></label><i class="bar"></i>
+                    </div>
+                    <div class="m-t-20 text-center custom-mt-form-group">
+                        <button class="btn btn-primary btn-lg">Send Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="view_score" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <h4 class="modal-title">View Student Score</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('lecturer-view-score') }}" method="get">
+                    <input type="hidden" name="type" value="student">
+                    <div class="form-group custom-mt-form-group">
+                        <select name="course_id" required class="form-control">
+                            @php
+                            $courses = \App\Course::where('user_id', \Auth::user()->id)->get();
+                            @endphp
+                            @foreach ( $courses as $course )
+                            <option value="{{ $course->id }}"> {{ $course->name}} ({{$course->course_title}})</option>
+                            @endforeach
+                        </select>
+                        <label class="control-label">Course <span class="text-danger">*</span></label><i class="bar"></i>
+                    </div>
+                    <div class="m-t-20 text-center custom-mt-form-group">
+                        <button class="btn btn-primary btn-lg">Send Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="view_outcome_score" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <h4 class="modal-title">View Outcome Score</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('lecturer-view-score') }}" method="get">
+                    <input type="hidden" name="type" value="outcome">
+                    <div class="form-group custom-mt-form-group">
+                        <label>Course Name <span class="text-danger">*</span></label><i class="bar"></i></label>
+                        <select name="course_id" required id="course_id_2" class="form-control">
+                            @php
+                            $courses = \App\Course::where('user_id', \Auth::user()->id)->get();
+                            @endphp
+                            <option>-- Select Course --</option>
+                            @foreach ( $courses as $course )
+                            <option value="{{ $course->id }}"> {{ $course->name}} ({{$course->course_title}})</option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="loader d-hidden"></div>
+                    <div class="row d-hidden" id="select-user-2">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Student Name</label>
+                                <select name="user_id" id="user_id_2" required class="form-control">
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="m-t-20 text-center custom-mt-form-group">
+                        <button disabled id="btn-create-2" class="btn btn-primary btn-lg">Send Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="course_outcome" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <h4 class="modal-title">Course Outcome</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('lecturer-course-outcome') }}" method="get">
+                    <div class="form-group custom-mt-form-group">
+                        <select name="course_id" required class="form-control">
+                            @php
+                            $courses = \App\Course::where('user_id', \Auth::user()->id)->get();
+                            @endphp
+                            @foreach ( $courses as $course )
+                            <option value="{{ $course->id }}"> {{ $course->name}} ({{$course->course_title}})</option>
+                            @endforeach
+                        </select>
+                        <label class="control-label">Course <span class="text-danger">*</span></label><i class="bar"></i>
+                    </div>
+                    <div class="m-t-20 text-center custom-mt-form-group">
+                        <button class="btn btn-primary btn-lg">Send Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="program_outcome" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <h4 class="modal-title">Program Outcome</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('lecturer-program-outcome') }}" method="get">
+                    <div class="form-group custom-mt-form-group">
+                        <select name="course_id_1" required class="form-control">
+                            @php
+                            $courses = \App\Course::where('user_id', \Auth::user()->id)->get();
+                            @endphp
+                            @foreach ( $courses as $course )
+                            <option value="{{ $course->id }}"> {{ $course->name}} ({{$course->course_title}})</option>
+                            @endforeach
+                        </select>
+                        <label class="control-label">Course 1<span class="text-danger">*</span></label><i class="bar"></i>
+                    </div>
+                    <div class="form-group custom-mt-form-group">
+                        <select name="course_id_2" required class="form-control">
+                            @php
+                            $courses = \App\Course::where('user_id', \Auth::user()->id)->get();
+                            @endphp
+                            @foreach ( $courses as $course )
+                            <option value="{{ $course->id }}"> {{ $course->name}} ({{$course->course_title}})</option>
+                            @endforeach
+                        </select>
+                        <label class="control-label">Course 2<span class="text-danger">*</span></label><i class="bar"></i>
+                    </div>
+                    <div class="m-t-20 text-center custom-mt-form-group">
+                        <button class="btn btn-primary btn-lg">Send Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="import-score" class="modal" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content modal-md">
+            <div class="modal-header">
+                <h4 class="modal-title">Import Outcome Score</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+            </div>
+            <div class="modal-body">
+                <form action="{{ route('lecturer-import-outcome-score') }}" method="get">
+                    <div class="form-group custom-mt-form-group">
+                        <select name="course_id" required class="form-control">
+                            @php
+                            $courses = \App\Course::where('user_id', \Auth::user()->id)->get();
+                            @endphp
+                            @foreach ( $courses as $course )
+                            <option value="{{ $course->id }}"> {{ $course->name}} ({{$course->course_title}})</option>
+                            @endforeach
+                        </select>
+                        <label class="control-label">Course <span class="text-danger">*</span></label><i class="bar"></i>
+                    </div>
+                    <div class="m-t-20 text-center custom-mt-form-group">
+                        <button class="btn btn-primary btn-lg">Send Request</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
