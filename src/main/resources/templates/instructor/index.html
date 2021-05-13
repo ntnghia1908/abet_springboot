@@ -25,10 +25,10 @@
         </thead>
         <tbody>
         <tr th:each="instructor : ${instructorList}">
-            <td th:text="${instructor.id}"></td>
-            <td th:text="${instructor.name}"></td>
-            <td th:text="${instructor.degree}"></td>
-            <td th:text="${instructor.email}"></td>
+            <td th:text="${instructor.id}">Product ID</td>
+            <td th:text="${instructor.name}">Name</td>
+            <td th:text="${instructor.degree}">Brand</td>
+            <td th:text="${instructor.email}">Brand</td>
             <td>
                 <a th:href="@{'edit/' + ${instructor.id}}">Edit</a>
                 &nbsp;&nbsp;&nbsp;

@@ -30,7 +30,7 @@ public class InstructorController {
     @GetMapping("/{id}")
     public String getInstructor(@PathVariable("id") int id, Model model) {
         Instructor instructor = instructorService.findInstructorById(id);
-        model.addAttribute("instructorList", instructor);
+        model.addAttribute("instructor", instructor);
         return defaultUrl;
     }
 
