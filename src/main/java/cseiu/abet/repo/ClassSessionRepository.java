@@ -1,5 +1,6 @@
 package cseiu.abet.repo;
 
+import cseiu.abet.model.Instructor;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -11,7 +12,12 @@ import cseiu.abet.model.ClassSession;
 import java.util.List;
 import java.util.Optional;
 
-public interface ClassSessionRepository extends JpaRepository<ClassSession, String>{
+public interface ClassSessionRepository<Instructor> extends JpaRepository<ClassSession, String>{
+    @Query(
+            value ="select * from class_session",
+            nativeQuery = true
+    )
+    List<ClassSession> findAllClasses();
 
     @Query(
             value = "SELECT  * FROM class_session cs WHERE cs.instructor_id= :id",
@@ -67,4 +73,22 @@ public interface ClassSessionRepository extends JpaRepository<ClassSession, Stri
     List<ClassSession> findClassSessionsByCourseSemAndYear(@Param("course_id") String course_id,
                                                            @Param("semester") int semester,
                                                            @Param("year") String year);
+    @Query(
+            value ="select distinct r.academic_year from class_session r",
+            nativeQuery = true
+    )
+    List<String> findAllAcademicYear();
+
+    @Query(
+            value ="select * from class_session where class_session.id = :class_id",
+            nativeQuery = true
+    )
+    ClassSession findClassById(@Param("class_id") int class_id);
+
+    @Query(
+            value = "SELECT * FROM instructor WHERE id IN (SELECT DISTINCT instructor_id FROM class_session)",
+            nativeQuery = true
+    )
+    List<Instructor> findTeachingInstructor();
+
 }

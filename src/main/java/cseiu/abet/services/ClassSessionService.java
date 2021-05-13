@@ -1,5 +1,6 @@
 package cseiu.abet.services;
 import cseiu.abet.model.ClassSession;
+import cseiu.abet.model.Instructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cseiu.abet.repo.ClassSessionRepository;
@@ -16,6 +17,9 @@ public class ClassSessionService {
         this.classSessionRepository = classSessionRepository;
     }
 
+    public List<ClassSession> getAllClasses(){
+        return classSessionRepository.findAllClasses();
+    }
     public List<ClassSession> findClassGivenInstructor(int instructorId){
         return classSessionRepository.findClassForInstructor(instructorId);
     }
@@ -38,4 +42,15 @@ public class ClassSessionService {
     public List<ClassSession> getClassSessionByCourseAndSemAndYear(String courseId, int semester, String year){
         return classSessionRepository.findClassSessionsByCourseSemAndYear(courseId,semester,year);
     }
+    public List<String> getAllAcademicYear(){
+        return classSessionRepository.findAllAcademicYear();
+    }
+    public ClassSession getClassById(int class_id){
+        return classSessionRepository.findClassById(class_id);
+    }
+
+    public List<Instructor> getTeachingInstructor(){
+        return classSessionRepository.findTeachingInstructor();
+    }
+
 }
