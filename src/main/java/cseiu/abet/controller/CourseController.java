@@ -24,9 +24,10 @@ public class CourseController {
 
     @GetMapping("/all")
     public String getAllCourseFromDB(Model model) {
-        List<Course> courses = courseService.getAllCourse();
-        model.addAttribute("courses", courses);
-        return  "course";
+//        List<Course> courses = courseService.getAllCourse();
+//        model.addAttribute("courses", courses);
+//        return  "course";
+        return "lecturer/layout/sidebar";
     }
 
     @GetMapping("/{id}")
