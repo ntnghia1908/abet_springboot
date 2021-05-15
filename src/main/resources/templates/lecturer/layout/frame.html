@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">
-<!--      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">-->
-
 <!--&lt;!&ndash; Mirrored from dreamguys.co.in/preadmin/school/light/about-teacher.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Sep 2019 14:49:55 GMT &ndash;&gt;-->
 <head th:fragment="head-frame">
     <meta charset="utf-8">
@@ -21,6 +19,7 @@
 </head>
 
 <body>
+<!--START HEADER-->
 <div class="header"  th:fragment="hearder"> <!-- Header start -->
     <div class="header-left">
         <a th:href="@{/index.html}" class="logo">
@@ -132,7 +131,9 @@
         </div>
     </div>
 </div>
+<!--END HEADER-->
 
+<!-- START SIDEBAR -->
 <div class="sidebar" th:fragment="sidebar"> <!-- sidebar -->
     <div class="sidebar-inner slimscroll">
         <div id="sidebar-menu" class="sidebar-menu">
@@ -337,6 +338,7 @@
         </div>
     </div>
 </div>
+<!-- END SIDEBAR -->
 
 <div th:fragment="script">
 <!--    <script data-cfasync="false" th:src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>-->
@@ -350,7 +352,6 @@
     <script type="text/javascript" th:src="@{/js/app.js}"></script>
 </div>
 </body>
-
 
 <!-- Mirrored from dreamguys.co.in/preadmin/school/light/about-teacher.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Sep 2019 14:49:55 GMT -->
 </html>
