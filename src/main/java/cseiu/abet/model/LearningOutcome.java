@@ -64,7 +64,7 @@ public class LearningOutcome implements Serializable {
 
     @XmlTransient
     @JsonBackReference
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    @JoinColumn(name = "course_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Course course;
 

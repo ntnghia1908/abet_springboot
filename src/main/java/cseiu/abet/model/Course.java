@@ -70,7 +70,7 @@ public class Course implements Serializable {
 
     @JsonBackReference
     @XmlTransient
-    @JoinColumn(name = "course_level_id", referencedColumnName = "id")
+    @JoinColumn(name = "course_level_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private CourseLevel courseLevel;
 

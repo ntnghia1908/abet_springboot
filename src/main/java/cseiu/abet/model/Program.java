@@ -60,7 +60,7 @@ public class Program implements Serializable {
     private String type;
 
     @JsonBackReference
-    @JoinColumn(name = "major_id", referencedColumnName = "id")
+    @JoinColumn(name = "major_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne
     private Major major;
 
