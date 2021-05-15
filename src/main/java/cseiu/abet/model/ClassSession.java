@@ -71,12 +71,12 @@ public class ClassSession implements Serializable {
     private List<ClassAssessmentCourse> classAssessmentCourseList;
 
     @JsonBackReference(value = "course-class")
-    @JoinColumn(name = "course_id", referencedColumnName = "id")
+    @JoinColumn(name = "course_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Course course;
 
     @JsonBackReference(value = "instructor-class")
-    @JoinColumn(name = "instructor_id", referencedColumnName = "id")
+    @JoinColumn(name = "instructor_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Instructor instructorId;
 

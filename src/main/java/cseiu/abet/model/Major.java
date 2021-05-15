@@ -63,7 +63,7 @@ public class Major implements Serializable {
 
     @XmlTransient
     @JsonBackReference
-    @JoinColumn(name = "discipline_id", referencedColumnName = "id")
+    @JoinColumn(name = "discipline_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Discipline discipline;
 
