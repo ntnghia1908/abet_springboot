@@ -1,13 +1,13 @@
--- MySQL dump 10.13  Distrib 8.0.24, for Win64 (x86_64)
+-- MySQL dump 10.13  Distrib 5.7.34, for Linux (x86_64)
 --
--- Host: 127.0.0.1    Database: abet
+-- Host: localhost    Database: abet
 -- ------------------------------------------------------
--- Server version	8.0.24
+-- Server version	5.7.34
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!50503 SET NAMES utf8 */;
+/*!40101 SET NAMES utf8 */;
 /*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
 /*!40103 SET TIME_ZONE='+00:00' */;
 /*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
@@ -25,12 +25,12 @@ use `abet`;
 
 DROP TABLE IF EXISTS `assessment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `assessment` (
-  `id` int NOT NULL,
-  `type` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+                              `id` int(11) NOT NULL,
+                              `type` varchar(255) DEFAULT NULL,
+                              PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -49,20 +49,20 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `assessment_tool`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `assessment_tool` (
-  `assessment_id` int NOT NULL,
-  `course_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `loutcome_id` int NOT NULL,
-  `percentage` float DEFAULT NULL,
-  PRIMARY KEY (`assessment_id`,`course_id`,`loutcome_id`),
-  UNIQUE KEY `assessment_tool_id` (`course_id`,`assessment_id`,`loutcome_id`) USING BTREE,
-  KEY `FK_AssessmentTool_LOutcome` (`loutcome_id`),
-  KEY `FK_AssessmentTool_AssessmentCourse` (`assessment_id`,`course_id`),
-  CONSTRAINT `FK_AssessmentTool_Assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_AssessmentTool_Course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_AssessmentTool_LOutcome` FOREIGN KEY (`loutcome_id`) REFERENCES `learning_outcome` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                                   `assessment_id` int(11) NOT NULL,
+                                   `course_id` varchar(255) CHARACTER SET utf8 NOT NULL,
+                                   `loutcome_id` int(11) NOT NULL,
+                                   `percentage` float DEFAULT NULL,
+                                   PRIMARY KEY (`assessment_id`,`course_id`,`loutcome_id`),
+                                   UNIQUE KEY `assessment_tool_id` (`course_id`,`assessment_id`,`loutcome_id`) USING BTREE,
+                                   KEY `FK_AssessmentTool_LOutcome` (`loutcome_id`),
+                                   KEY `FK_AssessmentTool_AssessmentCourse` (`assessment_id`,`course_id`),
+                                   CONSTRAINT `FK_AssessmentTool_Assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                   CONSTRAINT `FK_AssessmentTool_Course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                   CONSTRAINT `FK_AssessmentTool_LOutcome` FOREIGN KEY (`loutcome_id`) REFERENCES `learning_outcome` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -81,20 +81,20 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `class_assessment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `class_assessment` (
-  `class_id` int NOT NULL,
-  `assessment_id` int NOT NULL,
-  `learning_outcome_id` int NOT NULL,
-  `precentage` int DEFAULT NULL,
-  PRIMARY KEY (`class_id`),
-  UNIQUE KEY `UK_4rl0dnl0bu15tbx8bws7jbuxr` (`class_id`),
-  KEY `fk_class_assemssment_assessment` (`assessment_id`) USING BTREE,
-  KEY `fk_class_assemssment_learning_outcome` (`learning_outcome_id`) USING BTREE,
-  CONSTRAINT `FK_class_assemssment_assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_class_assemssment_class` FOREIGN KEY (`class_id`) REFERENCES `class_session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_class_assemssment_learning_outcome` FOREIGN KEY (`learning_outcome_id`) REFERENCES `learning_outcome` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                                    `class_id` int(11) NOT NULL,
+                                    `assessment_id` int(11) NOT NULL,
+                                    `learning_outcome_id` int(11) NOT NULL,
+                                    `precentage` int(11) DEFAULT NULL,
+                                    PRIMARY KEY (`class_id`),
+                                    UNIQUE KEY `UK_4rl0dnl0bu15tbx8bws7jbuxr` (`class_id`),
+                                    KEY `fk_class_assemssment_assessment` (`assessment_id`) USING BTREE,
+                                    KEY `fk_class_assemssment_learning_outcome` (`learning_outcome_id`) USING BTREE,
+                                    CONSTRAINT `FK_class_assemssment_assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                    CONSTRAINT `FK_class_assemssment_class` FOREIGN KEY (`class_id`) REFERENCES `class_session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                    CONSTRAINT `FK_class_assemssment_learning_outcome` FOREIGN KEY (`learning_outcome_id`) REFERENCES `learning_outcome` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,19 +112,19 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `class_assessment_course`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `class_assessment_course` (
-  `class_id` int NOT NULL,
-  `assessment_id` int NOT NULL,
-  `percentage` int DEFAULT NULL,
-  `lo_id` int NOT NULL,
-  `slo_id` int NOT NULL,
-  PRIMARY KEY (`class_id`,`assessment_id`),
-  KEY `fk_class_assessment_course_assessment` (`assessment_id`) USING BTREE,
-  KEY `fk_class_assessment_course_class` (`class_id`) USING BTREE,
-  CONSTRAINT `FK_class_assessment_course_assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_class_assessment_course_class` FOREIGN KEY (`class_id`) REFERENCES `class_session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                                           `class_id` int(11) NOT NULL,
+                                           `assessment_id` int(11) NOT NULL,
+                                           `percentage` int(11) DEFAULT NULL,
+                                           `lo_id` int(11) NOT NULL,
+                                           `slo_id` int(11) NOT NULL,
+                                           PRIMARY KEY (`class_id`,`assessment_id`),
+                                           KEY `fk_class_assessment_course_assessment` (`assessment_id`) USING BTREE,
+                                           KEY `fk_class_assessment_course_class` (`class_id`) USING BTREE,
+                                           CONSTRAINT `FK_class_assessment_course_assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                           CONSTRAINT `FK_class_assessment_course_class` FOREIGN KEY (`class_id`) REFERENCES `class_session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -142,21 +142,21 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `class_session`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `class_session` (
-  `id` int NOT NULL,
-  `course_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `instructor_id` int NOT NULL,
-  `group` int DEFAULT NULL,
-  `group_lab` int DEFAULT NULL,
-  `semester` int DEFAULT NULL,
-  `academic_year` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`) USING BTREE,
-  KEY `FK_class_course` (`course_id`),
-  KEY `FKb3kre1tkyin4lxif7iy4jfxb0` (`instructor_id`),
-  CONSTRAINT `FK_class_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FKb3kre1tkyin4lxif7iy4jfxb0` FOREIGN KEY (`instructor_id`) REFERENCES `instructor` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                                 `id` int(11) NOT NULL,
+                                 `course_id` varchar(255) CHARACTER SET utf8 NOT NULL,
+                                 `instructor_id` int(11) NOT NULL,
+                                 `group` int(11) DEFAULT NULL,
+                                 `group_lab` int(11) DEFAULT NULL,
+                                 `semester` int(11) DEFAULT NULL,
+                                 `academic_year` varchar(255) DEFAULT NULL,
+                                 PRIMARY KEY (`id`) USING BTREE,
+                                 KEY `FK_class_course` (`course_id`),
+                                 KEY `FKb3kre1tkyin4lxif7iy4jfxb0` (`instructor_id`),
+                                 CONSTRAINT `FK_class_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                 CONSTRAINT `FKb3kre1tkyin4lxif7iy4jfxb0` FOREIGN KEY (`instructor_id`) REFERENCES `instructor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -175,17 +175,17 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `clo_slo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `clo_slo` (
-  `slo_id` int NOT NULL,
-  `lo_id` int NOT NULL,
-  `percentage` float DEFAULT NULL,
-  PRIMARY KEY (`lo_id`,`slo_id`),
-  KEY `fk_clo_slo_learning_outcome` (`lo_id`),
-  KEY `fk_clo_slo_slo` (`slo_id`),
-  CONSTRAINT `fk_clo_slo_learning_outcome` FOREIGN KEY (`lo_id`) REFERENCES `learning_outcome` (`id`),
-  CONSTRAINT `FKnu0yp3vha8fgl05wo50ak1iwq` FOREIGN KEY (`slo_id`) REFERENCES `slo` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                           `slo_id` int(11) NOT NULL,
+                           `lo_id` int(11) NOT NULL,
+                           `percentage` float DEFAULT NULL,
+                           PRIMARY KEY (`lo_id`,`slo_id`),
+                           KEY `fk_clo_slo_learning_outcome` (`lo_id`),
+                           KEY `fk_clo_slo_slo` (`slo_id`),
+                           CONSTRAINT `FKnu0yp3vha8fgl05wo50ak1iwq` FOREIGN KEY (`slo_id`) REFERENCES `slo` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                           CONSTRAINT `fk_clo_slo_learning_outcome` FOREIGN KEY (`lo_id`) REFERENCES `learning_outcome` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -204,19 +204,19 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `course`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `course` (
-  `id` varchar(255) NOT NULL,
-  `course_level_id` int NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `name_vn` varchar(255) NOT NULL,
-  `credit_theory` int DEFAULT NULL,
-  `credit_lab` int DEFAULT NULL,
-  `description` text NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_Course_CourseLevel` (`course_level_id`),
-  CONSTRAINT `FK_course_course_level` FOREIGN KEY (`course_level_id`) REFERENCES `course_level` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+                          `id` varchar(255) NOT NULL,
+                          `course_level_id` int(11) NOT NULL,
+                          `name` varchar(255) DEFAULT NULL,
+                          `name_vn` varchar(255) NOT NULL,
+                          `credit_theory` int(11) DEFAULT NULL,
+                          `credit_lab` int(11) DEFAULT NULL,
+                          `description` text NOT NULL,
+                          PRIMARY KEY (`id`),
+                          KEY `FK_Course_CourseLevel` (`course_level_id`),
+                          CONSTRAINT `FK_course_course_level` FOREIGN KEY (`course_level_id`) REFERENCES `course_level` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,16 +235,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `course_assessment`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `course_assessment` (
-  `assessment_id` int NOT NULL,
-  `course_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `percentage` int NOT NULL,
-  PRIMARY KEY (`assessment_id`,`course_id`),
-  KEY `Fk_AssessmentCourse_Course` (`course_id`),
-  CONSTRAINT `Fk_AssessmentCourse_Course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `FK_course_assessment_assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                                     `assessment_id` int(11) NOT NULL,
+                                     `course_id` varchar(255) CHARACTER SET utf8 NOT NULL,
+                                     `percentage` int(11) NOT NULL,
+                                     PRIMARY KEY (`assessment_id`,`course_id`),
+                                     KEY `Fk_AssessmentCourse_Course` (`course_id`),
+                                     CONSTRAINT `FK_course_assessment_assessment` FOREIGN KEY (`assessment_id`) REFERENCES `assessment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                     CONSTRAINT `Fk_AssessmentCourse_Course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -263,13 +263,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `course_level`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `course_level` (
-  `id` int NOT NULL,
-  `level` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  CONSTRAINT `fk_course_level_course` FOREIGN KEY (`id`) REFERENCES `course` (`course_level_id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+                                `id` int(11) NOT NULL,
+                                `level` varchar(255) DEFAULT NULL,
+                                PRIMARY KEY (`id`),
+                                CONSTRAINT `fk_course_level_course` FOREIGN KEY (`id`) REFERENCES `course` (`course_level_id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -288,18 +288,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `course_program`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `course_program` (
-  `course_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `program_id` int NOT NULL,
-  `course_code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `course_type_id` int NOT NULL,
-  PRIMARY KEY (`course_id`,`program_id`),
-  KEY `course_id` (`course_id`),
-  KEY `fk2_idx` (`program_id`),
-  CONSTRAINT `fk1` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`),
-  CONSTRAINT `fk2` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                                  `course_id` varchar(255) CHARACTER SET utf8 NOT NULL,
+                                  `program_id` int(11) NOT NULL,
+                                  `course_code` varchar(255) CHARACTER SET utf8 NOT NULL,
+                                  `course_type_id` int(11) NOT NULL,
+                                  PRIMARY KEY (`course_id`,`program_id`),
+                                  KEY `course_id` (`course_id`),
+                                  KEY `fk2_idx` (`program_id`),
+                                  CONSTRAINT `fk1` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                                  CONSTRAINT `fk2` FOREIGN KEY (`program_id`) REFERENCES `program` (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -318,11 +318,11 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `discipline`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `discipline` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+                              `id` int(11) NOT NULL AUTO_INCREMENT,
+                              `name` varchar(255) DEFAULT NULL,
+                              PRIMARY KEY (`id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -342,14 +342,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `instructor`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `instructor` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `name` varchar(255) DEFAULT NULL,
-  `degree` varchar(255) DEFAULT NULL,
-  `email` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8mb3;
+                              `id` int(11) NOT NULL AUTO_INCREMENT,
+                              `name` varchar(255) DEFAULT NULL,
+                              `degree` varchar(255) DEFAULT NULL,
+                              `email` varchar(255) DEFAULT NULL,
+                              PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=40 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -358,7 +358,7 @@ CREATE TABLE `instructor` (
 
 LOCK TABLES `instructor` WRITE;
 /*!40000 ALTER TABLE `instructor` DISABLE KEYS */;
-INSERT INTO `instructor` VALUES (1,'Nguyen Van Sinh','Dr.','nvsinh@hcmiu.edu.vn'),(2,'Tran Thanh Tung','Dr.','tttung@hcmiu.edu.vn'),(3,'Nguyen Quang Phu','MSc.','nqphu@hcmiu.edu.vn'),(4,'Nguyen Thi Thuy Loan','Dr.','nttloan@hcmiu.edu.vn'),(5,'Pham Quoc Son Lam','MSc.','pqslam@hcmiu.edu.vn'),(6,'Huynh Kha Tu','Dr.','hktu@hcmiu.edu.vn'),(7,'Dao Tran Hoang Chau','MSc.','dthchau@hcmiu.edu.vn'),(8,'Ly Tu Nga','Dr.','ltnga@hcmiu.edu.vn'),(9,'Vo Thi Luu Phuong','Assof.Dr.','vtlphuong@hcmiu.edu.vn'),(10,'Ha Viet Uyen Synh','Dr.','hvusynh@hcmiu.edu.vn'),(11,'Nguyen Thi Thanh Sang','Dr.','nttsang@hcmiu.edu.vn'),(12,'Le Thanh Son','MSc.','ltson@hcmiu.edu.vn'),(13,'Nguyen Ngoc Hai','Dr.','nnhai@hcmiu.edu.vn'),(14,'Huynh Kim Lam','Dr.','hklam@hcmiu.edu.vn'),(15,'Mai Duc Thanh','Dr.','mdthanh@hcmiu.edu.vn'),(16,'Nguyen Van Thu','Prof.D.Sc','nvthu@hcmiu.edu.vn'),(17,'Pham Huynh Tram','Dr.','phtram@hcmiu.edu.vn'),(18,'Nguyen Hong Duc','MSc.','nhduc@hcmiu.edu.vn'),(19,'Phan Bao Ngoc','Assof.Dr.','pbngoc@hcmiu.edu.vn'),(20,'Do Xuan Hoi ','Dr.','dxhoi@hcmiu.edu.vn'),(21,'Mai Linh','Dr.','mlinh@hcmiu.edu.vn'),(22,'Vo Tan Phuoc','Dr.','vtphuoc@hcmiu.edu.vn'),(23,'Do Ngoc Hung','MSc.','dnhung@hcmiu.edu.vn'),(24,'Ton That Long','Dr.','ttlong@hcmiu.edu.vn'),(25,'Tran Xuan Phuoc','Dr.','txphuoc@hcmiu.edu.vn'),(26,'Nguyen Dinh Uyen','Dr.','nduyen@hcmiu.edu.vn'),(27,'Vo Minh Thanh','MSc.','vmthanh@hcmiu.edu.vn'),(28,'Nguyen Tien Dung','MSc.','ntdung@hcmiu.edu.vn'),(29,'Phan Nguyen Ky Phuc','Dr.','pnkphuc@hcmiu.edu.vn'),(30,'Dao Vu Truong Son','Dr.','dvtson@hcmiu.edu.vn'),(31,'Nguyen Van Hop','Dr.','nvhop@hcmiu.edu.vn'),(32,'Ha Thi Xuan Chi','Dr.','htxchi@hcmiu.edu.vn'),(33,'Bui Xuan Anh Dao','MSc.','bxadao@hcmiu.edu.vn'),(38,'Do Pham Minh Thu Cute','MSc','dpmthu@hcmiu.edu.vn'),(39,'Do Pham Minh Thu','MSc','dpmthu@hcmiu.edu.vn');
+INSERT INTO `instructor` VALUES (1,'Nguyen Van Sinh','Dr.','nvsinh@hcmiu.edu.vn'),(2,'Tran Thanh Tung','Dr.','tttung@hcmiu.edu.vn'),(3,'Nguyen Quang Phu','MSc.','nqphu@hcmiu.edu.vn'),(4,'Nguyen Thi Thuy Loan','Dr.','nttloan@hcmiu.edu.vn'),(5,'Pham Quoc Son Lam','MSc.','pqslam@hcmiu.edu.vn'),(6,'Huynh Kha Tu','Dr.','hktu@hcmiu.edu.vn'),(7,'Dao Tran Hoang Chau','MSc.','dthchau@hcmiu.edu.vn'),(8,'Ly Tu Nga','Dr.','ltnga@hcmiu.edu.vn'),(9,'Vo Thi Luu Phuong','Assof.Dr.','vtlphuong@hcmiu.edu.vn'),(10,'Ha Viet Uyen Synh','Dr.','hvusynh@hcmiu.edu.vn'),(11,'Nguyen Thi Thanh Sang','Dr.','nttsang@hcmiu.edu.vn'),(12,'Le Thanh Son','MSc.','ltson@hcmiu.edu.vn'),(13,'Nguyen Ngoc Hai','Dr.','nnhai@hcmiu.edu.vn'),(14,'Huynh Kim Lam','Dr.','hklam@hcmiu.edu.vn'),(15,'Mai Duc Thanh','Dr.','mdthanh@hcmiu.edu.vn'),(16,'Nguyen Van Thu','Prof.D.Sc','nvthu@hcmiu.edu.vn'),(17,'Pham Huynh Tram','Dr.','phtram@hcmiu.edu.vn'),(18,'Nguyen Hong Duc','MSc.','nhduc@hcmiu.edu.vn'),(19,'Phan Bao Ngoc','Assof.Dr.','pbngoc@hcmiu.edu.vn'),(20,'Do Xuan Hoi ','Dr.','dxhoi@hcmiu.edu.vn'),(21,'Mai Linh','Dr.','mlinh@hcmiu.edu.vn'),(22,'Vo Tan Phuoc','Dr.','vtphuoc@hcmiu.edu.vn'),(23,'Do Ngoc Hung','MSc.','dnhung@hcmiu.edu.vn'),(24,'Ton That Long','Dr.','ttlong@hcmiu.edu.vn'),(25,'Tran Xuan Phuoc','Dr.','txphuoc@hcmiu.edu.vn'),(26,'Nguyen Dinh Uyen','Dr.','nduyen@hcmiu.edu.vn'),(27,'Vo Minh Thanh','MSc.','vmthanh@hcmiu.edu.vn'),(28,'Nguyen Tien Dung','MSc.','ntdung@hcmiu.edu.vn'),(29,'Phan Nguyen Ky Phuc','Dr.','pnkphuc@hcmiu.edu.vn'),(30,'Dao Vu Truong Son','Dr.','dvtson@hcmiu.edu.vn'),(31,'Nguyen Van Hop','Dr.','nvhop@hcmiu.edu.vn'),(32,'Ha Thi Xuan Chi','Dr.','htxchi@hcmiu.edu.vn'),(33,'Bui Xuan Anh Dao','MSc.','bxadao@hcmiu.edu.vn');
 /*!40000 ALTER TABLE `instructor` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -368,16 +368,16 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `learning_outcome`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `learning_outcome` (
-  `id` int NOT NULL,
-  `course_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `description` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  `description_vn` text CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_LearningOutcome` (`course_id`),
-  CONSTRAINT `FK_LearningOutcome` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                                    `id` int(11) NOT NULL,
+                                    `course_id` varchar(255) CHARACTER SET utf8 NOT NULL,
+                                    `description` text CHARACTER SET utf8 NOT NULL,
+                                    `description_vn` text CHARACTER SET utf8 NOT NULL,
+                                    PRIMARY KEY (`id`),
+                                    KEY `FK_LearningOutcome` (`course_id`),
+                                    CONSTRAINT `FK_LearningOutcome` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -396,15 +396,15 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `major`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `major` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `discipline_id` int NOT NULL,
-  `full_name` varchar(255) DEFAULT NULL,
-  `short_name` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_major_discipline` (`discipline_id`) USING BTREE,
-  CONSTRAINT `FK_major_discipline` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+                         `id` int(11) NOT NULL AUTO_INCREMENT,
+                         `discipline_id` int(11) NOT NULL,
+                         `full_name` varchar(255) DEFAULT NULL,
+                         `short_name` varchar(255) DEFAULT NULL,
+                         PRIMARY KEY (`id`),
+                         KEY `FK_major_discipline` (`discipline_id`) USING BTREE,
+                         CONSTRAINT `FK_major_discipline` FOREIGN KEY (`discipline_id`) REFERENCES `discipline` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -424,18 +424,18 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `program`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `program` (
-  `id` int NOT NULL,
-  `major_id` int DEFAULT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `duration` int DEFAULT NULL,
-  `version` varchar(4) DEFAULT NULL,
-  `type` varchar(50) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `FK_program_major` (`major_id`),
-  CONSTRAINT `FK_program_major` FOREIGN KEY (`major_id`) REFERENCES `major` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
+                           `id` int(11) NOT NULL,
+                           `major_id` int(11) DEFAULT NULL,
+                           `name` varchar(255) DEFAULT NULL,
+                           `duration` int(11) DEFAULT NULL,
+                           `version` varchar(4) DEFAULT NULL,
+                           `type` varchar(50) DEFAULT NULL,
+                           PRIMARY KEY (`id`),
+                           KEY `FK_program_major` (`major_id`),
+                           CONSTRAINT `FK_program_major` FOREIGN KEY (`major_id`) REFERENCES `major` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -454,27 +454,27 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `result`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `result` (
-  `student_id` varchar(50) NOT NULL,
-  `class_id` int NOT NULL,
-  `mid_score` int DEFAULT NULL,
-  `final_score` int DEFAULT NULL,
-  `in_class_score` int DEFAULT NULL,
-  `GPA` int DEFAULT NULL,
-  `abet_score` int DEFAULT NULL,
-  `abet_1` int DEFAULT NULL,
-  `abet_2` int DEFAULT NULL,
-  `abet_3` int DEFAULT NULL,
-  `abet_4` int DEFAULT NULL,
-  `abet_5` int DEFAULT NULL,
-  `abet_6` int DEFAULT NULL,
-  `avg` float DEFAULT NULL,
-  PRIMARY KEY (`student_id`,`class_id`),
-  KEY `FK_result_class` (`class_id`),
-  CONSTRAINT `FK_result_class` FOREIGN KEY (`class_id`) REFERENCES `class_session` (`id`),
-  CONSTRAINT `FK_result_student` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                          `student_id` varchar(50) NOT NULL,
+                          `class_id` int(11) NOT NULL,
+                          `mid_score` int(11) DEFAULT NULL,
+                          `final_score` int(11) DEFAULT NULL,
+                          `in_class_score` int(11) DEFAULT NULL,
+                          `GPA` int(11) DEFAULT NULL,
+                          `abet_score` int(11) DEFAULT NULL,
+                          `abet_1` int(11) DEFAULT NULL,
+                          `abet_2` int(11) DEFAULT NULL,
+                          `abet_3` int(11) DEFAULT NULL,
+                          `abet_4` int(11) DEFAULT NULL,
+                          `abet_5` int(11) DEFAULT NULL,
+                          `abet_6` int(11) DEFAULT NULL,
+                          `avg` float DEFAULT NULL,
+                          PRIMARY KEY (`student_id`,`class_id`),
+                          KEY `FK_result_class` (`class_id`),
+                          CONSTRAINT `FK_result_class` FOREIGN KEY (`class_id`) REFERENCES `class_session` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+                          CONSTRAINT `FK_result_student` FOREIGN KEY (`student_id`) REFERENCES `student` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -493,13 +493,13 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `slo`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `slo` (
-  `id` int NOT NULL AUTO_INCREMENT,
-  `description` varchar(255) DEFAULT NULL,
-  `criteria` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb3;
+                       `id` int(11) NOT NULL AUTO_INCREMENT,
+                       `description` varchar(255) DEFAULT NULL,
+                       `criteria` int(11) DEFAULT NULL,
+                       PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -518,14 +518,14 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `student`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `student` (
-  `id` varchar(50) NOT NULL,
-  `name` varchar(255) DEFAULT NULL,
-  `major` varchar(45) DEFAULT NULL,
-  `batch` int DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+                           `id` varchar(50) NOT NULL,
+                           `name` varchar(255) DEFAULT NULL,
+                           `major` varchar(45) DEFAULT NULL,
+                           `batch` int(11) DEFAULT NULL,
+                           PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -544,10 +544,10 @@ UNLOCK TABLES;
 
 DROP TABLE IF EXISTS `uuid`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!50503 SET character_set_client = utf8mb4 */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `uuid` (
-  `next_val` bigint DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+    `next_val` bigint(20) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -569,4 +569,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-12 19:52:30
+-- Dump completed on 2021-05-15 11:28:48
