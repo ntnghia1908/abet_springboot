@@ -37,7 +37,7 @@ public class Course implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "id")
-    @GeneratedValue(generator = "uuid")
+//    @GeneratedValue(generator = "uuid")
     private String id;
 
     @Column(name = "name")
