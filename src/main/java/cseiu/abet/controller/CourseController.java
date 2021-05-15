@@ -2,15 +2,12 @@ package cseiu.abet.controller;
 
 import cseiu.abet.model.Course;
 import cseiu.abet.services.CourseService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
@@ -25,10 +22,9 @@ public class CourseController {
 
     @GetMapping("/all")
     public String getAllCourseFromDB(Model model) {
-//        List<Course> courses = courseService.getAllCourse();
-//        model.addAttribute("courses", courses);
+        List<Course> courses = courseService.getAllCourse();
+        model.addAttribute("courses", courses);
         return  "course";
-//        return "lecturer/layout/sidebar";
     }
 
     @Transactional

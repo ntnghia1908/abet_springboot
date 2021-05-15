@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 //@RequestMapping("/")
 public class SampleController {
 
-    @GetMapping("/hello")
+    @GetMapping("/")
     public String greeting() {
         return "lecturer/layout/header";
     }
