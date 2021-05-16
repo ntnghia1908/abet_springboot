@@ -40,7 +40,7 @@ public class ClassSessionController {
         model.addAttribute("classSessionList", classSessionList);
         model.addAttribute("academicList", academicYearList);
         model.addAttribute("instructorList", instructorList);
-        return defaultUrl;
+        return "admin/course-list";
     }
 
     @GetMapping("/view/{id}")
