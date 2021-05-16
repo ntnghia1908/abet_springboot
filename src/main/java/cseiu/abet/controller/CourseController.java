@@ -24,7 +24,7 @@ public class CourseController {
     public String getAllCourseFromDB(Model model) {
         List<Course> courses = courseService.getAllCourse();
         model.addAttribute("courses", courses);
-        return  "course";
+        return "admin/course-detail";
     }
 
     @Transactional
@@ -32,7 +32,7 @@ public class CourseController {
     public String getByIdCourse(@PathVariable("id") String id, Model model) {
         Course course = courseService.findCourseById(id);
         model.addAttribute("course", course);
-        return  "course";
+        return "lecturer/layout/header";
     }
 
 }

@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+
+<!-- Mirrored from dreamguys.co.in/preadmin/school/light/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Sep 2019 14:49:17 GMT -->
+<head th:replace="/admin/layout/common.html::head-frame"></head>
+
+<body>
+<div class="main-wrapper">
+    <div th:replace="/admin/layout/header.html::header"></div>
+    <div th:replace="/admin/layout/sidebar.html::sidebar"></div>
+    <div class="page-wrapper"> <!-- content -->
+        <div layout:fragment="main"></div>
+    </div>
+
+</div>
+<th:block th:insert="/admin/layout/common.html::script"></th:block>
+</body>
+<!-- Mirrored from dreamguys.co.in/preadmin/school/light/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Sep 2019 14:49:43 GMT -->
+</html>

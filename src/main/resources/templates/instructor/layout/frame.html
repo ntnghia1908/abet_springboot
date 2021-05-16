@@ -4,26 +4,22 @@
 
 
 <!-- Mirrored from dreamguys.co.in/preadmin/school/light/index.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Sep 2019 14:49:17 GMT -->
-<head>
+<head th:fragment="head-frame">
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('light/assets/img/favicon.png')}}">
-    <title></title>
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="{{asset('light/assets/css/bootstrap.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('light/assets/css/font-awesome.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('light/assets/css/fullcalendar.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('light/assets/css/dataTables.bootstrap4.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('light/assets/css/select2.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('light/assets/css/bootstrap-datetimepicker.min.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('light/assets/plugins/morris/morris.css')}}">
-    <link rel="stylesheet" type="text/css" href="{{asset('light/assets/css/style.css')}}">
+    <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.png}">
+    <title>Preschool - Bootstrap Admin Template</title>
+    <link th:href="@{https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900}" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datetimepicker.min.css}">
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
     <!--[if lt IE 9]>
-		<script src="assets/js/html5shiv.min.js"></script>
-		<script src="assets/js/respond.min.js"></script>
-	<![endif]-->
+    <script th:src="@{/js/html5shiv.min.js}"></script>
+    <script th:src="@{/js/respond.min.js}"></script>
+    <![endif]-->
 </head>
-<!--@yield('stylesheet')-->
+
 <body>
     <div class="main-wrapper">
 <!--		@include('lecturer.layout.header')-->
