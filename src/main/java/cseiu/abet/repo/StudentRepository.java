@@ -34,4 +34,10 @@ public interface StudentRepository extends JpaRepository<Student, String>, JpaSp
     )
     List<Student> findStudentByMajorAndBatch(@Param("batch") int batch,
                                              @Param("major") String major);
+
+    @Query(
+            value ="select * from student where id = :id",
+            nativeQuery = true
+    )
+    Student findStudentByID(@Param("id") String id);
 }
