@@ -26,6 +26,6 @@ public interface ResultRepository extends JpaRepository<Result, Integer>, JpaSpe
             value ="select * from result r where r.student_id = :student_id and r.class_id = :class_id",
             nativeQuery = true
     )
-    List<Result> findResultByStudentAndClass(@Param("student_id") String student_id,
+    Result findResultByStudentAndClass(@Param("student_id") String student_id,
                                              @Param("class_id") int class_id);
 }

@@ -38,6 +38,6 @@ public class CourseService {
     }
 
     public void deleteCourse(String id) {
-        courseRepo.deleteCourseById(id);
+        courseRepo.deleteById(id);
     }
 }

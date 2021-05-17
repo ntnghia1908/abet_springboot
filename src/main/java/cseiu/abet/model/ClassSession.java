@@ -34,7 +34,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
         @NamedQuery(name = "Class.findAll", query = "SELECT c FROM ClassSession c")
         , @NamedQuery(name = "Class.findById", query = "SELECT c FROM ClassSession c WHERE c.id = :id")
-        , @NamedQuery(name = "Class.findByGroup", query = "SELECT c FROM ClassSession c WHERE c.group = :group")
+        , @NamedQuery(name = "Class.findByGroup", query = "SELECT c FROM ClassSession c WHERE c.groupTheory = :group")
         , @NamedQuery(name = "Class.findByGroupLab", query = "SELECT c FROM ClassSession c WHERE c.groupLab = :groupLab")
         , @NamedQuery(name = "Class.findBySemester", query = "SELECT c FROM ClassSession c WHERE c.semester = :semester")
         , @NamedQuery(name = "Class.findByAcademicYear", query = "SELECT c FROM ClassSession c WHERE c.academicYear = :academicYear")})
@@ -46,8 +46,8 @@ public class ClassSession implements Serializable {
     @Column(name = "id")
     private Integer id;
 
-    @Column(name = "group")
-    private Integer group;
+    @Column(name = "groupTheory")
+    private Integer groupTheory;
 
     @Column(name = "group_lab")
     private Integer groupLab;
@@ -71,12 +71,12 @@ public class ClassSession implements Serializable {
     private List<ClassAssessmentCourse> classAssessmentCourseList;
 
     @JsonBackReference(value = "course-class")
-    @JoinColumn(name = "course_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Course course;
 
     @JsonBackReference(value = "instructor-class")
-    @JoinColumn(name = "instructor_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @JoinColumn(name = "instructor_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Instructor instructorId;
 
@@ -95,12 +95,12 @@ public class ClassSession implements Serializable {
         this.id = id;
     }
 
-    public Integer getGroup() {
-        return group;
+    public Integer getGroupTheory() {
+        return groupTheory;
     }
 
-    public void setGroup(Integer group) {
-        this.group = group;
+    public void setGroupTheory(Integer group) {
+        this.groupTheory = group;
     }
 
     public Integer getGroupLab() {

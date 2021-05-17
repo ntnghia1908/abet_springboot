@@ -19,8 +19,6 @@ public interface CourseRepository extends JpaRepository<Course, String> {
     )
     Course findCourseById(@Param("id") String id);
 
-    void deleteCourseById(String id);
-
 
 
     @Query(
@@ -28,6 +26,7 @@ public interface CourseRepository extends JpaRepository<Course, String> {
             nativeQuery = true
     )
     List<Course> selectAllCourse();
+
 
 
     @Override

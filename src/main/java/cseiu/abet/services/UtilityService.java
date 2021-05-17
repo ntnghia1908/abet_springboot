@@ -24,43 +24,49 @@ public class UtilityService {
         return null;
     }
 
-    public List<Result> readStudentScoreFromExcelFile (String excelFilePath) throws IOException{
+    public List<Result> readStudentScoreFromExcelFile (String excelFilePath){
         List<Result> resultList = new ArrayList<>();
-        FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+        try{
+            FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 
-        Workbook workbook = new XSSFWorkbook(inputStream);
-        Sheet firstSheet = workbook.getSheetAt(0);
-        Iterator<Row> iterator = firstSheet.iterator();
+            Workbook workbook = new XSSFWorkbook(inputStream);
+            Sheet firstSheet = workbook.getSheetAt(0);
+            Iterator<Row> iterator = firstSheet.iterator();
 
-        iterator.next(); // skip the first row
-        while (iterator.hasNext()){
-            Row nextRow = iterator.next();
-            Iterator<Cell> cellIterator = nextRow.cellIterator();
-            Result student_result = new Result();
-            Student student = new Student();
-            while (cellIterator.hasNext()){
-                Cell nextCell = cellIterator.next();
-                int columnIndex = nextCell.getColumnIndex();
-                switch(columnIndex){
-                    case 1:
-                        student.setId((String) getCellValue(nextCell));
-                        student_result.setStudent(student);
-                        break;
-                    case 2:
-                        student_result.setInClassScore((int) (double)getCellValue(nextCell));
-                        break;
-                    case 3:
-                        student_result.setMidScore((int) (double) getCellValue(nextCell));
-                        break;
-                    case 4:
-                        student_result.setFinalScore((int) (double) getCellValue(nextCell));
-                        break;
+            iterator.next(); // skip the first row
+            while (iterator.hasNext()){
+                Row nextRow = iterator.next();
+                Iterator<Cell> cellIterator = nextRow.cellIterator();
+                Result student_result = new Result();
+                Student student = new Student();
+                while (cellIterator.hasNext()){
+                    Cell nextCell = cellIterator.next();
+                    int columnIndex = nextCell.getColumnIndex();
+                    switch(columnIndex){
+                        case 1:
+                            student.setId((String) getCellValue(nextCell));
+                            student_result.setStudent(student);
+                            break;
+                        case 2:
+                            student_result.setInClassScore((int) (double)getCellValue(nextCell));
+                            break;
+                        case 3:
+                            student_result.setMidScore((int) (double) getCellValue(nextCell));
+                            break;
+                        case 4:
+                            student_result.setFinalScore((int) (double) getCellValue(nextCell));
+                            break;
+                    }
                 }
+                resultList.add(student_result);
             }
-            resultList.add(student_result);
+            workbook.close();
+            inputStream.close();
+
+        } catch (Exception e){
+            System.out.println(e);
         }
-        workbook.close();
-        inputStream.close();
+
         return resultList;
     }
 
@@ -137,19 +143,75 @@ public class UtilityService {
         }
     }
 
-    public void writeResultToExcelFile(List<Result> listStudentResult, String excelFilePath) throws IOException{
-        Workbook workbook = new XSSFWorkbook();
-        Sheet sheet = workbook.createSheet();
-        createHeaderRow(sheet);
-        int rowCount = 0;
+    public void writeResultToExcelFile(List<Result> listStudentResult, String excelFilePath){
+        try{
+            Workbook workbook = new XSSFWorkbook();
+            Sheet sheet = workbook.createSheet();
+            createHeaderRow(sheet);
+            int rowCount = 0;
 
-        for (Result student_result : listStudentResult) {
-            Row row = sheet.createRow(++rowCount);
-            writeResult(student_result, row, rowCount);
+            for (Result student_result : listStudentResult) {
+                Row row = sheet.createRow(++rowCount);
+                writeResult(student_result, row, rowCount);
+            }
+
+            try (FileOutputStream outputStream = new FileOutputStream(excelFilePath)) {
+                workbook.write(outputStream);
+            }
+        }catch(Exception e){
+            System.out.println(e);
         }
 
-        try (FileOutputStream outputStream = new FileOutputStream(excelFilePath)) {
-            workbook.write(outputStream);
+    }
+
+    public List<Student> readStudentListFromExcelFile(String excelFilePath)  {
+        List<Student> listStudent = new ArrayList<>();
+        try{
+            FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+
+            Workbook workbook = new XSSFWorkbook(inputStream);
+            Sheet firstSheet = workbook.getSheetAt(0);
+            Iterator<Row> iterator = firstSheet.iterator();
+
+            iterator.next(); // skip the first row
+            while (iterator.hasNext()){
+                Row nextRow = iterator.next();
+                Iterator<Cell> cellIterator = nextRow.cellIterator();
+                Student student = new Student();
+                while (cellIterator.hasNext()){
+                    Cell nextCell = cellIterator.next();
+                    int columnIndex = nextCell.getColumnIndex();
+                    switch(columnIndex) {
+                        case 1:
+                            String studentID = (String) getCellValue(nextCell);
+                            student.setId(studentID);
+                            List<String> tokens = new ArrayList<>();
+                            for (int start = 0; start < studentID.length(); start += 2) {
+                                tokens.add(studentID.substring(start, Math.min(studentID.length(), start + 2)));
+                            }
+                            switch(tokens.get(2)){
+                                case "IU":
+                                    student.setMajor(tokens.get(1));
+                                    break;
+                                default:
+                                    student.setMajor("LK");
+                                    break;
+                            }
+                            student.setBatch(Integer.parseInt(tokens.get(3)));
+                            break;
+                        case 2:
+                            student.setName((String) getCellValue(nextCell));
+                            break;
+                    }
+                }
+                listStudent.add(student);
+            }
+            workbook.close();
+            inputStream.close();
+        }catch(Exception e){
+            System.out.println(e);
         }
+        return listStudent;
+
     }
 }

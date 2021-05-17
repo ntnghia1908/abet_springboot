@@ -12,7 +12,7 @@ import cseiu.abet.model.ClassSession;
 import java.util.List;
 import java.util.Optional;
 
-public interface ClassSessionRepository<Instructor> extends JpaRepository<ClassSession, String>{
+public interface ClassSessionRepository extends JpaRepository<ClassSession, String>{
     @Query(
             value ="select * from class_session",
             nativeQuery = true

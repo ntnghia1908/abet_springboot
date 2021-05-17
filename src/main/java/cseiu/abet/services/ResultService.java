@@ -4,9 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cseiu.abet.repo.ResultRepository;
 
+import javax.transaction.Transactional;
 import java.util.List;
 
 @Service
+@Transactional
 public class ResultService {
     private final ResultRepository resultRepository;
 
@@ -23,7 +25,11 @@ public class ResultService {
         return resultRepository.findResultByStudent(studentId);
     }
 
-    public List<Result> getResultByStudentAndClass (String student_id, int class_id){
+    public Result getResultByStudentAndClass (String student_id, int class_id){
         return resultRepository.findResultByStudentAndClass(student_id, class_id);
     }
+
+    public Result addResultToClass (Result r) {return resultRepository.save(r);}
+
+    public Result updateResultToClass (Result r){return resultRepository.save(r);}
 }
