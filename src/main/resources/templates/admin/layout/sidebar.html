@@ -35,13 +35,21 @@
                         <!--                        <li><a th:href="@{/course/add}">Add Course</a></li>-->
                     </ul>
                 </li>
-                <!--                <li class="submenu">-->
-                <!--                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> References</span> <span class="menu-arrow"></span></a>-->
-                <!--                    <ul class="list-unstyled" style="display: none;">-->
-                <!--                        <li><a th:href="@{admin_references') }}">All References</a></li>-->
-                <!--                        <li><a th:href="@{admin_get_add_ref') }}">Add Reference</a></li>-->
-                <!--                    </ul>-->
-                <!--                </li>-->
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> Instructors</span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled" style="display: none;">
+                        <li><a th:href="@{/instructor/all}">All Instructors</a></li>
+<!--                                        <li><a th:href="@{admin_get_add_ref') }}">Add Reference</a></li>-->
+                    </ul>
+                </li>
+                <li class="submenu">
+                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> Student</span> <span class="menu-arrow"></span></a>
+                    <ul class="list-unstyled" style="display: none;">
+                        <li><a th:href="@{/student/all}">All Student</a></li>
+                        <!--                                        <li><a th:href="@{admin_get_add_ref') }}">Add Reference</a></li>-->
+                    </ul>
+                </li>
+
             </ul>
         </div>
     </div>

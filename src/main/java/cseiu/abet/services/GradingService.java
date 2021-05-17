@@ -10,12 +10,13 @@ import java.util.Arrays;
 import java.util.Hashtable;
 import java.util.List;
 import java.util.Set;
+import cseiu.abet.services.CourseAssessmentService;
 
 @Service
 public class GradingService {
 
     // CALCULATE THE GPA OF LIST OF STUDENTS//
-    public Result calculateGPA (Result student, List<CourseAssessment> courseAssessmentList) {
+    public Result calculateGPA (Result student,  List<CourseAssessment> courseAssessmentList) {
         int assignment_weight =0, midterm_weight=0, final_weight=0;
         for(CourseAssessment ca: courseAssessmentList){
             switch (ca.getCourseAssessmentPK().getAssessmentId()){

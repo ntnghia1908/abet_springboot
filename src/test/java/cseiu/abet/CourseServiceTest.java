@@ -13,10 +13,23 @@ public class CourseServiceTest {
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(CourseServiceTest.class, args);
         CourseService courseService = applicationContext.getBean(CourseService.class);
-//        Course c = courseService.findCourseById("IT079");
-//        System.out.println(c.getId());
-        Course newCourse = new Course("IT002", "Mon test", "Test Course");
-        newCourse.setCourseLevel(new CourseLevel(1));
-        courseService.addCourse(newCourse);
+        // TEST INSERT COURSE
+//        Course newCourse = new Course("IT002", "Mon test", "Test Course");
+//        newCourse.setCourseLevel(new CourseLevel(1));
+//        courseService.addCourse(newCourse);
+
+        // TEST UPDATE COURSE
+//        Course course = courseService.findCourseById("IT002");
+//        course.setName("Test course");
+//        courseService.updateCourses(course);
+
+        //DELETE COURSE
+//        courseService.deleteCourse("IT002");
+
+        //FIND ALL COURSE
+//        for (Course c: courseService.getAllCourse()){
+//            System.out.println(c.getName());
+//        }
+
     }
 }

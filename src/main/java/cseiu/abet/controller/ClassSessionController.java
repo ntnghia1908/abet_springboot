@@ -40,7 +40,7 @@ public class ClassSessionController {
         model.addAttribute("classSessionList", classSessionList);
         model.addAttribute("academicList", academicYearList);
         model.addAttribute("instructorList", instructorList);
-        return "admin/course-list";
+        return "admin/class-list";
     }
 
     @GetMapping("/view/{id}")
@@ -53,4 +53,10 @@ public class ClassSessionController {
         return mav;
     }
 
+    @RequestMapping("/delete/{id}")
+    public String deleteClass(@PathVariable(name="id") int id){
+        ClassSession classSession = classSessionService.getClassById(id);
+        classSessionService.deleteClass(classSession);
+        return "redirect:/classSession/all";
+    }
 }

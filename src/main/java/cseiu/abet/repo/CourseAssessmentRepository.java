@@ -15,4 +15,10 @@ public interface CourseAssessmentRepository extends JpaRepository<CourseAssessme
     )
     List<CourseAssessment> findCourseAssessmentsByCourseId (@Param("courseId") String courseId);
 
+    @Query(
+            value ="select * from course_assessment where course_id = :course_id and assessment_id = :assessment_id",
+            nativeQuery = true
+    )
+    CourseAssessment findByCourseAndAssessment(@Param("course_id") String course_id,
+                                               @Param("assessment_id") int assessment_id);
 }

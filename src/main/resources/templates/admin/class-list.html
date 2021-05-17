@@ -7,13 +7,13 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-lg-7 col-md-12 col-sm-12 col-12">
-                    <h5 class="text-uppercase">Course list</h5>
+                    <h5 class="text-uppercase">CLASS LIST</h5>
                 </div>
                 <div class="col-lg-5 col-md-12 col-sm-12 col-12">
                     <ul class="list-inline breadcrumb float-right">
                         <li class="list-inline-item"><a href="#">Home</a></li>
-                        <li class="list-inline-item"><a href="#">Courses</a></li>
-                        <li class="list-inline-item"> Course list</li>
+                        <li class="list-inline-item"><a href="#">Class</a></li>
+                        <li class="list-inline-item"> Class list</li>
                     </ul>
                 </div>
             </div>
@@ -23,7 +23,7 @@
 
             </div>
             <div class="col-sm-8 col-9 text-right m-b-20">
-                <a href="" class="btn btn-primary float-right btn-rounded"><i class="fa fa-plus"></i> Add Course</a>
+                <a href="" class="btn btn-primary float-right btn-rounded"><i class="fa fa-plus"></i> Add Class</a>
             </div>
         </div>
         <div class="content-page">
@@ -54,7 +54,7 @@
                             <th>Group</th>
                             <th>Semester</th>
                             <th>Academic Year</th>
-                            <th>Action</th>
+                            <th class ="text-right">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -68,14 +68,20 @@
                             <td th:text="${cl.id}">Id</td>
                             <td th:text="${cl.instructorId.name}">Name</td>
                             <td th:text="${cl.course.name}">Id</td>
-                            <td th:text="${cl.group}">Name</td>
+                            <td th:text="${cl.groupTheory}">Name</td>
                             <td th:text="${cl.semester}">Name</td>
                             <td th:text="${cl.academicYear}">Name</td>
 
-                            <td>
-                                <a th:href="@{'view/'+ ${cl.id}}"> View </a>
-                                <a th:href="@{'edit/' + ${cl.id}}">Edit</a>&nbsp;&nbsp;&nbsp;
-                                <a th:href="@{'delete/' + ${cl.id}}">Delete</a>
+                            <td class="text-right">
+                                <a th:href="@{'view/'+ ${cl.id}}" class="btn btn-primary btn-sm mb-1">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>&nbsp;&nbsp;&nbsp;
+                                <a th:href="@{'edit/' + ${cl.id}}" class="btn btn-primary btn-sm mb-1">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>&nbsp;&nbsp;&nbsp;
+                                <a th:href="@{'delete/' + ${cl.id}}" class="btn btn-danger btn-sm mb-1 btn-delete">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
                             </td>
                             <!--                        <td class="text-right" >-->
                             <!--                            <a href="{{ route('admin_get_edit_course', ['id' => $course->id]) }}" class="btn btn-primary btn-sm mb-1">-->

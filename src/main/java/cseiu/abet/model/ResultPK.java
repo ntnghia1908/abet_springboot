@@ -6,9 +6,7 @@
 package cseiu.abet.model;
 
 import java.io.Serializable;
-import javax.persistence.Basic;
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import javax.persistence.*;
 
 /**
  *
@@ -20,6 +18,8 @@ public class ResultPK implements Serializable {
     @Basic(optional = false)
     @Column(name = "student_id")
     private String studentId;
+
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
     @Column(name = "class_id")
     private int classId;

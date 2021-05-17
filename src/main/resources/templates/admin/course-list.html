@@ -7,13 +7,13 @@
         <div class="page-header">
             <div class="row">
                 <div class="col-lg-7 col-md-12 col-sm-12 col-12">
-                    <h5 class="text-uppercase">Course list</h5>
+                    <h5 class="text-uppercase">INSTRUCTOR LIST</h5>
                 </div>
                 <div class="col-lg-5 col-md-12 col-sm-12 col-12">
                     <ul class="list-inline breadcrumb float-right">
                         <li class="list-inline-item"><a href="#">Home</a></li>
-                        <li class="list-inline-item"><a href="#">Courses</a></li>
-                        <li class="list-inline-item"> Course list</li>
+                        <li class="list-inline-item"><a href="#">Instructor</a></li>
+                        <li class="list-inline-item"> Instructor list</li>
                     </ul>
                 </div>
             </div>
@@ -29,32 +29,30 @@
         <div class="content-page">
             <div class="row">
                 <div class="col-md-12">
-                    <!--                @if ( Session::has('flag') )-->
-                    <!--                <div class="alert alert-{{Session::get('flag')}} alert-dismissible fade show" role="alert">-->
-                    <!--                    <strong>{{ Session::get('key') }}!</strong> {{ Session::get('message') }}-->
-                    <!--                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
-                    <!--                        <span aria-hidden="true">&times;</span>-->
-                    <!--                    </button>-->
-                    <!--                </div>-->
-                    <!--                @endif-->
+<!--                                    @if ( Session::has('flag') )-->
+<!--                                    <div class="alert alert-{{Session::get('flag')}} alert-dismissible fade show" role="alert">-->
+<!--                                        <strong>{{ Session::get('key') }}!</strong> {{ Session::get('message') }}-->
+<!--                                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">-->
+<!--                                            <span aria-hidden="true">&times;</span>-->
+<!--                                        </button>-->
+<!--                                    </div>-->
+<!--                                    @endif-->
                     <table class="table table-striped custom-table" id="datatable">
                         <thead>
                         <tr>
-                            <!--                        <th style="min-width:70px;">Course Name </th>-->
-                            <!--                        <th style="min-width:50px;">Course Title</th>-->
-                            <!--                        <th style="min-width:50px;">Lecturer</th>-->
-                            <!--                        <th style="min-width:50px;">Credit</th>-->
-                            <!--                        <th style="min-width:50px;">Semester</th>-->
-                            <!--                        <th style="min-width:50px;">Year</th>-->
-                            <!--                        <th class="text-right">Action</th>-->
+<!--                                                    <th style="min-width:70px;">Course ID </th>-->
+<!--                                                    <th style="min-width:50px;">Course Title</th>-->
+<!--                                                    <th style="min-width:50px;">Course Level</th>-->
+<!--                                                    <th style="min-width:50px;">Credit Theory</th>-->
+<!--                                                    <th style="min-width:50px;">Credit Lab</th>-->
+<!--                                                    <th class="text-right">Action</th>-->
 
-                            <th>ID</th>
-                            <th>Instructor</th>
-                            <th>Course</th>
-                            <th>Group</th>
-                            <th>Semester</th>
-                            <th>Academic Year</th>
-                            <th>Action</th>
+                            <th>Course ID</th>
+                            <th>Course Name</th>
+                            <th>Course Level</th>
+                            <th>Credit Theory</th>
+                            <th>Credit Lab</th>
+                            <th class ="text-right">Action</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -64,27 +62,32 @@
                             <!--                            <h2><a href="{{ route('admin-get-course-detail', ['id' => $course->id]) }}" class="avatar text-white">{{ $course->name[0] }}</a></h2>-->
                             <!--                            <h2><a href="{{ route('admin-get-course-detail', ['id' => $course->id]) }}">{{ $course->name }}</a></h2>-->
                             <!--                        </td>-->
-                        <tr th:each="cl : ${classSessionList}">
-                            <td th:text="${cl.id}">Id</td>
-                            <td th:text="${cl.instructorId.name}">Name</td>
-                            <td th:text="${cl.course.name}">Id</td>
-                            <td th:text="${cl.group}">Name</td>
-                            <td th:text="${cl.semester}">Name</td>
-                            <td th:text="${cl.academicYear}">Name</td>
+                        <tr th:each="course : ${courses}">
+                            <td th:text="${course.id}"></td>
+                            <td th:text="${course.name}"></td>
+                            <td th:text="${course.courseLevel.level}"></td>
+                            <td th:text="${course.creditLab}"></td>
+                            <td th:text="${course.creditTheory}"></td>
 
-                            <td>
-                                <a th:href="@{'view/'+ ${cl.id}}"> View </a>
-                                <a th:href="@{'edit/' + ${cl.id}}">Edit</a>&nbsp;&nbsp;&nbsp;
-                                <a th:href="@{'delete/' + ${cl.id}}">Delete</a>
+                            <td class="text-right">
+                                <a th:href="@{'view/'+ ${course.id}}" class="btn btn-primary btn-sm mb-1">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>&nbsp;&nbsp;&nbsp;
+                                <a th:href="@{'edit/' + ${course.id}}" class="btn btn-primary btn-sm mb-1">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>&nbsp;&nbsp;&nbsp;
+                                <a th:href="@{'delete/' + ${course.id}}" class="btn btn-danger btn-sm mb-1 btn-delete">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
+                                </a>
                             </td>
-                            <!--                        <td class="text-right" >-->
-                            <!--                            <a href="{{ route('admin_get_edit_course', ['id' => $course->id]) }}" class="btn btn-primary btn-sm mb-1">-->
-                            <!--                                <i class="fa fa-pencil" aria-hidden="true"></i>-->
-                            <!--                            </a>-->
-                            <!--                            <button type="submit" data-toggle="modal" data-id="{{ $course->id }}" data-target="#delete_employee" class="btn btn-danger btn-sm mb-1 btn-delete">-->
-                            <!--                                <i class="fa fa-trash" aria-hidden="true"></i>-->
-                            <!--                            </button>-->
-                            <!--                        </td>-->
+<!--                                                    <td class="text-right" >-->
+<!--                                                        <a href="{{ route('admin_get_edit_course', ['id' => $course->id]) }}" class="btn btn-primary btn-sm mb-1">-->
+<!--                                                            <i class="fa fa-pencil" aria-hidden="true"></i>-->
+<!--                                                        </a>-->
+<!--                                                        <button type="submit" data-toggle="modal" data-id="{{ $course->id }}" data-target="#delete_employee" class="btn btn-danger btn-sm mb-1 btn-delete">-->
+<!--                                                            <i class="fa fa-trash" aria-hidden="true"></i>-->
+<!--                                                        </button>-->
+<!--                                                    </td>-->
                         </tr>
                         </tbody>
                     </table>

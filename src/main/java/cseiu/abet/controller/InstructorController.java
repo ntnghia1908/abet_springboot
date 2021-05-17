@@ -24,7 +24,7 @@ public class InstructorController {
     public String getInstructor(Model model) {
         List<Instructor> instructors = instructorService.findAllInstructor();
         model.addAttribute("instructorList", instructors);
-        return defaultUrl;
+        return "admin/instructor-list";
     }
 
     @GetMapping("/{id}")

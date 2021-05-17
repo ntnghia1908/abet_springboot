@@ -26,12 +26,6 @@ public class ResultControllerRest {
         return new ResponseEntity<>(resultLists, HttpStatus.OK);
     }
 
-    @GetMapping("/{student_id}/{class_id}")
-    public ResponseEntity<List<Result>> getResultByStudentAndClass(@PathVariable String student_id,
-                                                                   @PathVariable int class_id){
-        List<Result> resultList = resultService.getResultByStudentAndClass(student_id, class_id);
-        return new ResponseEntity<>(resultList, HttpStatus.OK);
-    }
 
     @GetMapping("/getByStudent/{student_id}")
     public ResponseEntity<List<Result>> getResultByStudent (@PathVariable String student_id){

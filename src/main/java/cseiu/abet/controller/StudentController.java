@@ -1,4 +1,5 @@
 package cseiu.abet.controller;
+import cseiu.abet.model.ClassSession;
 import cseiu.abet.model.Student;
 import cseiu.abet.services.StudentService;
 import org.springframework.http.HttpStatus;
@@ -26,7 +27,13 @@ public class StudentController {
     public String getAllStudent(Model model){
         List<Student> studentList = studentService.getAllStudent();
         model.addAttribute("studentList", studentList);
-        return defaultUrl;
+        return "admin/student-list";
+    }
+
+    @RequestMapping("/delete/{id}")
+    public String deleteStudent(@PathVariable(name="id") String id){
+        studentService.deleteStudent(id);
+        return "redirect:/student/all";
     }
 
 //    @GetMapping("/getByMajor/{major}")
