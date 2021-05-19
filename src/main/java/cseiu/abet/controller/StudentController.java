@@ -1,9 +1,8 @@
 package cseiu.abet.controller;
-import cseiu.abet.model.ClassSession;
+import cseiu.abet.model.Result;
 import cseiu.abet.model.Student;
+import cseiu.abet.services.ResultService;
 import cseiu.abet.services.StudentService;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +15,14 @@ import java.util.List;
 @RequestMapping("/student")
 public class StudentController {
     private final StudentService studentService;
+    private final ResultService resultService;
     public final String templateDir = "student/";
     public final String defaultUrl = "student/index";
 
-    public StudentController(StudentService studentService) {
+    public StudentController(StudentService studentService, ResultService resultService) {
+
         this.studentService = studentService;
+        this.resultService = resultService;
     }
 
     @GetMapping("/all")
@@ -35,6 +37,14 @@ public class StudentController {
         studentService.deleteStudent(id);
         return "redirect:/student/all";
     }
+     @RequestMapping("view/{id}")
+    public String viewStudentInfor(@PathVariable(name="id") String id, Model model){
+        Student student = studentService.getStudentByID(id);
+        List<Result> studentResults = resultService.getResultByStudent(id);
+        model.addAttribute("studentResults", studentResults);
+        model.addAttribute("student", student);
+        return "admin/student-detail";
+     }
 
 //    @GetMapping("/getByMajor/{major}")
 //    public String getStudentByMajor(@PathVariable String major, Model model){

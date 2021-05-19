@@ -4,6 +4,7 @@ import cseiu.abet.services.ResultService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,6 +19,7 @@ public class ResultController {
     public ResultController(ResultService resultService) {
         this.resultService = resultService;
     }
+
 
 //    @GetMapping("/getByClass/{class_id}")
 //    public ResponseEntity<List<Result>> getResultByClass(@PathVariable int class_id){

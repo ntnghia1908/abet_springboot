@@ -3,55 +3,160 @@
       layout:decorate="~{admin/layout/frame.html}">
 
 <div class="content container-fluid" layout:fragment="main">
-    <p>Heloo</p>
-    <!--    <div class="page-header">-->
-    <!--        <div class="row">-->
-    <!--            <div class="col-lg-7 col-md-12 col-sm-12 col-12">-->
-    <!--                <h5 class="text-uppercase">course detail</h5>-->
-    <!--            </div>-->
-    <!--            <div class="col-lg-5 col-md-12 col-sm-12 col-12">-->
-    <!--                <ul class="list-inline breadcrumb float-right">-->
-    <!--                    <li class="list-inline-item"><a href="{{route('admin_dashboard')}}">Home</a></li>-->
-    <!--                    <li class="list-inline-item"><a href="{{route('admin_courses')}}">Courses</a></li>-->
-    <!--                    <li class="list-inline-item"> Course detail</li>-->
-    <!--                </ul>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
-    <!--    <div class="page-content">-->
-    <!--        <div class="row">-->
-    <!--            <div class="col-lg-6 col-md-6 col-sm-6 col-12">-->
-    <!--                <div class="card">-->
-    <!--                    <div class="page-title">-->
-    <!--                        <div class="row">-->
-    <!--                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">-->
-    <!--                                <div class="page-title">Course Detail</div>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                    <div class="card-body">-->
-    <!--                        <div class="row">-->
-    <!--                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">-->
-    <!--                                <ul class="list-group list-group-flush">-->
-    <!--                                    <li class="list-group-item list-group-item-info">-->
-    <!--                                        Course Name: {{ $course->name }}-->
-    <!--                                    </li>-->
-    <!--                                    <li class="list-group-item">Course Title : {{ $course->course_title }}</li>-->
-    <!--                                    <li class="list-group-item list-group-item-info">Lecturer : {{ $course->user->name }}</li>-->
-    <!--                                    <li class="list-group-item">Credit : {{ $course->credit }}</li>-->
-    <!--                                    <li class="list-group-item list-group-item-info">Semester : {{ $course->semester }}</li>-->
-    <!--                                    <li class="list-group-item">School Year : {{ $course->year }}</li>-->
-    <!--                                    <li class="list-group-item list-group-item-info">Quiz Percent : {{ $course->detail->quiz }}%</li>-->
-    <!--                                    <li class="list-group-item">Present Percent : {{ $course->detail->present }}%</li>-->
-    <!--                                    <li class="list-group-item list-group-item-info">Mid Percent : {{ $course->detail->mid }}%</li>-->
-    <!--                                    <li class="list-group-item">Final Percent : {{ $course->detail->final }}%</li>-->
-    <!--                                </ul>-->
-    <!--                            </div>-->
-    <!--                        </div>-->
-    <!--                    </div>-->
-    <!--                </div>-->
-    <!--            </div>-->
-    <!--        </div>-->
-    <!--    </div>-->
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+            </div>
+            <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                <ul class="list-inline breadcrumb float-right">
+                    <li class="list-inline-item"><a href="/course/all">Home</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content-page">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="aboutprofile-sidebar">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+                            <div class="aboutme-profile mt-4">
+                                <div class="card">
+                                    <div class="page-title">
+                                        <h4>Course General Information</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"><b>Course ID</b>
+                                                <a href="#" class="float-right" th:text="${course.id}"></a>
+                                            </li>
+                                            <li class="list-group-item"><b>Course Title</b>
+                                                <a href="#" class="float-right" th:text="${course.name}"></a>
+                                            </li>
+                                            <li class="list-group-item"><b>Course Level</b>
+                                                <a href="#" class="float-right"
+                                                   th:text="${course.courseLevel.level}"></a>
+                                            </li>
+                                            <li class="list-group-item"><b> Theory Credit</b>
+                                                <a href="#" class="float-right" th:text="${course.creditTheory}"> </a>
+                                            </li>
+                                            <li class="list-group-item"><b> Lab Credit</b>
+                                                <a href="#" class="float-right" th:text="${course.creditLab}"> </a>
+                                            </li>
+                                            <li class="list-group-item"><b>Course Description</b>
+                                                <a href="#" class="float-right" th:text="${course.description}"></a>
+                                            </li>
+                                            <!--                                            <li class="list-group-item"><b>LearningOutcome</b>-->
+                                            <!--                                                &lt;!&ndash;                                                <li th:each="lo : ${loList}">&ndash;&gt;-->
+                                            <!--                                                &lt;!&ndash;                                                   <b th:text="${lo.getKey()}" ></b>&ndash;&gt;-->
+                                            <!--                                                &lt;!&ndash;                                                    <a href="#" class="float-right"  th:text="${lo.getValue()}"></a>&ndash;&gt;-->
+                                            <!--                                                &lt;!&ndash;                                                </li>&ndash;&gt;-->
+                                            <!--                                            </li>-->
+                                        </ul>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-12">
+                            <div class="profile-content">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav customtab">
+                                                <li class="nav-item"><a href="#" class="nav-link active show">Assessment
+                                                    Tools</a></li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane active show">
+                                                    <div id="biography" class="biography">
+                                                        <table class="table table-striped custom-table" id="datatable">
+                                                            <thead>
+                                                            <tr>
+                                                                <th style="min-width:50px;">Description</th>
+                                                                <p th:each="ca :${courseAssessment}">
+                                                                <th th:text="${ca.assessment.type}">
+                                                                </th>
+                                                            </p>
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="lo : ${loList}">
+                                                                <td th:text="${lo.getValue()}"></td>
+                                                            </tr>
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav customtab">
+                                                <li class="nav-item"><a href="#" class="nav-link active show">Opened
+                                                    classes</a></li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane active show">
+                                                    <div id="biography" class="biography">
+                                                        <!--                                                        <table class="table table-striped custom-table" id="datatable">-->
+                                                        <!--                                                            <thead>-->
+                                                        <!--                                                            <tr>-->
+                                                        <!--                                                                <th style="min-width:50px;">LearningOutcome ID</th>-->
+                                                        <!--                                                                <th style="min-width:50px;">CourseName</th>-->
+                                                        <!--                                                            </tr>-->
+                                                        <!--                                                            </thead>-->
+                                                        <!--                                                            <tbody>-->
+                                                        <!--                                                            <tr th:each="lo : ${loList}">-->
+                                                        <!--                                                                <td th:text="${lo.getKey()}"></td>-->
+                                                        <!--                                                                <td th:text="${lo.getValue()}"></td>-->
+                                                        <!--                                                            </tr>-->
+                                                        <!--                                                            </tbody>-->
+
+                                                        <!--                                                        </table>-->
+                                                        <table class="table table-striped custom-table" id="datatable">
+                                                            <thead>
+                                                            <tr>
+                                                                <th style="min-width:50px;">Class ID</th>
+                                                                <th style="min-width:50px;">CourseName</th>
+                                                                <th style="min-width:50px;">Instructor</th>
+                                                                <th style="min-width:50px;">Group</th>
+                                                                <th style="min-width:50px;">Semester</th>
+                                                                <th style="min-width:50px;">Year</th>
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <!--                                                            <tr th:each="result : ${studentResults}">-->
+                                                            <!--                                                                <td th:text="${result.class1.course.name}"></td>-->
+                                                            <!--                                                                <td th:text="${result.class1.instructorId.name}"></td>-->
+                                                            <!--                                                                <td th:text="${result.class1.groupTheory}"></td>-->
+                                                            <!--                                                                <td th:text="${result.class1.semester}"></td>-->
+                                                            <!--                                                                <td th:text="${result.class1.academicYear}"></td>-->
+                                                            <!--                                                                <td th:text="${result.gpa}"></td>-->
+                                                            <!--                                                                <td th:text="${result.abetScore}"></td>-->
+                                                            <!--                                                            </tr>-->
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
+<script type="text/javascript" th:src="@{js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{js/dataTables.bootstrap4.min.js}"></script>
+
 </html>

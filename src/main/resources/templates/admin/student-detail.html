@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/layout/frame.html}">
+
+<div class="content container-fluid" layout:fragment="main">
+  <div class="page-header">
+    <div class="row">
+      <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+      </div>
+      <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+        <ul class="list-inline breadcrumb float-right">
+          <li class="list-inline-item"><a href="/student/all">Home</a></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="content-page">
+    <div class="row">
+      <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+        <div class="aboutprofile-sidebar">
+          <div class="row">
+            <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+              <div class="aboutme-profile mt-4">
+                <div class="card">
+                  <div class="page-title">
+                    <h4>About Student</h4>
+                  </div>
+                  <div class="card-body">
+                    <ul class="list-group list-group-flush">
+                      <li class="list-group-item"><b>StudentID</b><a href="#" class="float-right" th:text="${student.id}"></a></li>
+                      <li class="list-group-item"><b>Student Name</b><a href="#" class="float-right" th:text="${student.name}"></a></li>
+                      <li class="list-group-item"><b>Major</b><a href="#" class="float-right" th:text="${student.major}"></a></li>
+                      <li class="list-group-item"><b>Batch</b><a href="#" class="float-right" th:text="${student.batch}"></a></li>
+
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-lg-9 col-md-12 col-sm-12 col-12">
+              <div class="profile-content">
+                <div class="row">
+                  <div class="col-lg-12">
+                    <div class="card">
+                      <!-- Nav tabs -->
+                      <ul class="nav customtab">
+                        <li class="nav-item"><a href="#" class="nav-link active show">Class Result</a></li>
+                      </ul>
+                      <!-- Tab panes -->
+                      <div class="tab-content">
+                        <div class="tab-pane active show">
+                          <div id="biography" class="biography">
+                            <table class="table table-striped custom-table" id="datatable">
+                              <thead>
+                              <tr>
+                                <th style="min-width:50px;">Course Name</th>
+                                <th style="min-width:50px;">Instructor</th>
+                                <th style="min-width:50px;">Group</th>
+                                <th style="min-width:50px;">Semester</th>
+                                <th style="min-width:50px;">Year</th>
+                                <th style="min-width:50px;">GPA</th>
+                                <th style="min-width:50px;">Avg ABET score</th>
+
+                              </tr>
+                              </thead>
+                              <tbody>
+                              <tr th:each="result : ${studentResults}">
+                                <td th:text="${result.class1.course.name}"></td>
+                                <td th:text="${result.class1.instructorId.name}"></td>
+                                <td th:text="${result.class1.groupTheory}"></td>
+                                <td th:text="${result.class1.semester}"></td>
+                                <td th:text="${result.class1.academicYear}"></td>
+                                <td th:text="${result.gpa}"></td>
+                                <td th:text="${result.abetScore}"></td>
+                              </tr>
+                              </tbody>
+                            </table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script type="text/javascript" th:src="@{js/jquery.dataTables.min.js}"></script>
+<script type="text/javascript" th:src="@{js/dataTables.bootstrap4.min.js}"></script>
+
+</html>

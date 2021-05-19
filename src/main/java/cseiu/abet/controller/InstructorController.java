@@ -1,6 +1,8 @@
 package cseiu.abet.controller;
 
+import cseiu.abet.model.ClassSession;
 import cseiu.abet.model.Instructor;
+import cseiu.abet.services.ClassSessionService;
 import cseiu.abet.services.InstructorService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,9 +15,13 @@ import java.util.List;
 @RequestMapping("/instructor")
 public class InstructorController {
     private final InstructorService instructorService;
+    private final ClassSessionService classSessionService;
 
-    public InstructorController(InstructorService instructorService) {
+    public InstructorController(InstructorService instructorService,
+                                ClassSessionService classSessionService) {
+
         this.instructorService = instructorService;
+        this.classSessionService = classSessionService;
     }
     public final String templateDir = "instructor/";
     public final String defaultUrl = "instructor/index";
@@ -27,11 +33,13 @@ public class InstructorController {
         return "admin/instructor-list";
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/view/{id}")
     public String getInstructor(@PathVariable("id") int id, Model model) {
         Instructor instructor = instructorService.findInstructorById(id);
+        List<ClassSession> classSessionList = classSessionService.findClassGivenInstructor(id);
         model.addAttribute("instructor", instructor);
-        return defaultUrl;
+        model.addAttribute("classList",classSessionList);
+        return "admin/instructor-detail";
     }
 
     @RequestMapping("/add")

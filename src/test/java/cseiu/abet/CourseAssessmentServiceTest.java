@@ -16,7 +16,6 @@ public class CourseAssessmentServiceTest {
         // FIND COURSE ASSESSMENT OF GIVEN COURSE
         List<CourseAssessment> courseAssessmentList = courseAssessmentService.getCourseAssessmentByCourseId("IT079");
         for (CourseAssessment c: courseAssessmentList){
-            System.out.println(c.getCourseAssessmentPK().getAssessmentId());
         }
 
 //        // ADD COURSE ASSESSMENT FOR GIVEN COURSE

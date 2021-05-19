@@ -20,6 +20,10 @@ public class CourseAssessmentService {
         return courseAssessmentRepository.findCourseAssessmentsByCourseId(courseId);
     }
 
+    public List<CourseAssessment> getCourseAssessmentByCourseWithoutComboAss (String courseId){
+        return courseAssessmentRepository.findCourseAssessmentByCourseWithoutComboAss(courseId);
+    }
+
     public CourseAssessment addCourseAssessment(CourseAssessment ca){
         return courseAssessmentRepository.save(ca);
     }

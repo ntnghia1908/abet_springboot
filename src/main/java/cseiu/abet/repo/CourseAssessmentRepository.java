@@ -21,4 +21,10 @@ public interface CourseAssessmentRepository extends JpaRepository<CourseAssessme
     )
     CourseAssessment findByCourseAndAssessment(@Param("course_id") String course_id,
                                                @Param("assessment_id") int assessment_id);
+
+    @Query(
+            value = "select * from course_assessment where course_id = :courseId and assessment_id not in (10)",
+            nativeQuery = true
+    )
+    List<CourseAssessment> findCourseAssessmentByCourseWithoutComboAss(@Param("courseId") String courseId);
 }

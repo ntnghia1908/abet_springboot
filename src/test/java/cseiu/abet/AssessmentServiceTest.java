@@ -7,6 +7,8 @@ import org.springframework.context.ApplicationContext;
 import cseiu.abet.model.AssessmentTool;
 import cseiu.abet.services.AssessmentToolService;
 
+import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 @SpringBootApplication
@@ -16,10 +18,15 @@ public class AssessmentServiceTest {
         ApplicationContext applicationContext = SpringApplication.run(CourseServiceTest.class, args);
         AssessmentToolService assessmentToolService = applicationContext.getBean(AssessmentToolService.class);
 
+
         // FIND ASSESSMENT TOOL FOR GIVEN COURSE
         List<AssessmentTool> assessmentToolList = assessmentToolService.getAssessmentTootTableByCourse("IT079");
-        for (AssessmentTool as: assessmentToolList){
-            System.out.println(as.getAssessment().getId());
+        Hashtable<Integer, List> new_ass_tools = new Hashtable<>();
+        Hashtable<Integer, String> listLearningOutcome = new Hashtable<>();
+
+        for (AssessmentTool as: assessmentToolList) {
+            listLearningOutcome.put(as.getLearningOutcome().getId(), as.getLearningOutcome().getDescription());
+
         }
 
 //        //ADD ASSESSMENT TOOL FOR GIVEN COURSE
