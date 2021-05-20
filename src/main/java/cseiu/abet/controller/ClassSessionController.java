@@ -1,6 +1,7 @@
 package cseiu.abet.controller;
 
 import cseiu.abet.model.ClassSession;
+import cseiu.abet.model.Instructor;
 import cseiu.abet.model.Result;
 import cseiu.abet.services.ClassSessionService;
 import cseiu.abet.services.ResultService;
@@ -44,13 +45,26 @@ public class ClassSessionController {
     }
 
     @GetMapping("/view/{id}")
-    public ModelAndView showDetailClassPage(@PathVariable(name = "id") int id) {
+    public String showDetailClassPage(@PathVariable(name = "id") int id ,Model model) {
         ModelAndView mav = new ModelAndView("classSession/class_detail");
         ClassSession classSession = classSessionService.getClassById(id);
         List<Result> resultList = resultService.getResultByClass(id);
-        mav.addObject("classSession", classSession);
-        mav.addObject("resultList", resultList);
-        return mav;
+        model.addAttribute("classSession", classSession);
+        model.addAttribute("resultList", resultList);
+        return "/admin/class-detail";
+    }
+    @RequestMapping("/add")
+    public String showAddClassPage(Model model) {
+        ClassSession classSession = new ClassSession();
+        model.addAttribute("classSession", classSession);
+        return "admin/class-edit";
+    }
+
+    @RequestMapping("/edit/{class_id}")
+    public String showUpdateClassPage(@PathVariable("class_id") int class_id, Model model){
+        ClassSession classSession = classSessionService.getClassById(class_id);
+        model.addAttribute("classSession", classSession);
+        return "admin/class-edit";
     }
 
     @RequestMapping("/delete/{id}")
