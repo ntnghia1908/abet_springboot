@@ -37,7 +37,7 @@
 <!--                                        </button>-->
 <!--                                    </div>-->
 <!--                                    @endif-->
-                    <table class="table table-striped custom-table" id="datatable">
+                    <table class="table table-striped custom-table table-bordered" id="datatable">
                         <thead>
                         <tr>
                             <th style="min-width:70px;">Course ID</th>
@@ -52,7 +52,7 @@
                         <tr th:each="course : ${courses}">
                             <td th:text="${course.id}"></td>
                             <td th:text="${course.name}"></td>
-                            <td th:text="${course.courseLevel.level}"></td>
+                            <td th:text="${course.courseLevel.level}">Level</td>
                             <td th:text="${course.creditLab}"></td>
                             <td th:text="${course.creditTheory}"></td>
                             <td class="text-right">
