@@ -20,6 +20,14 @@ public class ResultController {
         this.resultService = resultService;
     }
 
+    @GetMapping("/detailForStudent/{class_id}/{student_id}")
+    public String showDetailResultOfStudentInSpecificClass(@PathVariable(name="class_id") int class_id,
+                                                           @PathVariable(name="student_id") String student_id,
+                                                           Model model){
+        Result result = resultService.getResultByStudentAndClass(student_id, class_id);
+        model.addAttribute("result", result);
+        return "/admin/student-resultDetail";
+    }
 
 //    @GetMapping("/getByClass/{class_id}")
 //    public ResponseEntity<List<Result>> getResultByClass(@PathVariable int class_id){

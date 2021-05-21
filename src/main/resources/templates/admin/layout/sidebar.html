@@ -17,36 +17,30 @@
                             class="menu-arrow"></span></a>
                     <ul class="list-unstyled" style="display: none;">
                         <li><a th:href="@{/classSession/all}">All Class</a></li>
-                        <!--                        <li><a th:href="@{admin-get-add-user', ['id' => \App\Role::LECTURER]) }}">Add Lecturer</a></li>-->
+                        <li><a th:href="@{/classSession/add}">Add new Class</a></li>
                     </ul>
                 </li>
-                <!--                <li class="submenu">-->
-                <!--                    <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> Students</span> <span class="menu-arrow"></span></a>-->
-                <!--                    <ul class="list-unstyled" style="display: none;">-->
-                <!--                        <li><a th:href="@{admin_users', ['id' => \App\Role::STUDENT]) }}">All Students</a></li>-->
-                <!--                        <li><a th:href="@{admin-get-add-user', ['id' => \App\Role::STUDENT]) }}">Add Student</a></li>-->
-                <!--                    </ul>-->
-                <!--                </li>-->
+
                 <li class="submenu">
                     <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> Courses</span> <span
                             class="menu-arrow"></span></a>
                     <ul class="list-unstyled" style="display: none;">
                         <li><a th:href="@{/course/all}">All Courses</a></li>
-                        <!--                        <li><a th:href="@{/course/add}">Add Course</a></li>-->
+                        <li><a th:href="@{/course/add}">Add new course</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> Instructors</span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled" style="display: none;">
                         <li><a th:href="@{/instructor/all}">All Instructors</a></li>
-<!--                                        <li><a th:href="@{admin_get_add_ref') }}">Add Reference</a></li>-->
+                        <li><a th:href="@{/instructor/add}">All new instructor</a></li>
                     </ul>
                 </li>
                 <li class="submenu">
                     <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> Student</span> <span class="menu-arrow"></span></a>
                     <ul class="list-unstyled" style="display: none;">
                         <li><a th:href="@{/student/all}">All Student</a></li>
-                        <!--                                        <li><a th:href="@{admin_get_add_ref') }}">Add Reference</a></li>-->
+                        <li><a th:href="@{/course/add}">All new students</a></li>
                     </ul>
                 </li>
 

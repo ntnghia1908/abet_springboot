@@ -10,7 +10,7 @@
             </div>
             <div class="col-lg-5 col-md-12 col-sm-12 col-12">
                 <ul class="list-inline breadcrumb float-right">
-                    <li class="list-inline-item"><a href="/course/all">Home</a></li>
+                    <li class="list-inline-item"><a href="/classSession/all">Home</a></li>
                 </ul>
             </div>
         </div>
@@ -24,35 +24,37 @@
                             <div class="aboutme-profile mt-4">
                                 <div class="card">
                                     <div class="page-title">
-                                        <h4>Course General Information</h4>
+                                        <h4>Class General Information</h4>
                                     </div>
                                     <div class="card-body">
                                         <ul class="list-group list-group-flush">
-                                            <li class="list-group-item"><b>Course ID</b>
-                                                <a href="#" class="float-right" th:text="${course.id}"></a>
-                                            </li>
                                             <li class="list-group-item"><b>Course Title</b>
-                                                <a href="#" class="float-right" th:text="${course.name}"></a>
+                                                <a th:href="@{'/course/view/'+ ${classSession.course.id}}"
+                                                   class="float-right"
+                                                   th:text="${classSession.course.id} +'-'+${classSession.course.name}"></a>
                                             </li>
                                             <li class="list-group-item"><b>Course Level</b>
                                                 <a href="#" class="float-right"
-                                                   th:text="${course.courseLevel.level}"></a>
+                                                   th:text="${classSession.course.courseLevel.level}"></a>
                                             </li>
-                                            <li class="list-group-item"><b> Theory Credit</b>
-                                                <a href="#" class="float-right" th:text="${course.creditTheory}"> </a>
+                                            <li class="list-group-item"><b> Credit</b>
+                                                <a href="#" class="float-right"
+                                                   th:text="${classSession.course.creditTheory} +'(theory) + '+ ${classSession.course.creditLab} + '(lab)'"> </a>
                                             </li>
-                                            <li class="list-group-item"><b> Lab Credit</b>
-                                                <a href="#" class="float-right" th:text="${course.creditLab}"> </a>
+                                            <li class="list-group-item"><b>Instructor </b>
+                                                <a th:href="@{'/instructor/view/'+ ${classSession.instructorId.id}}"
+                                                   class="float-right"
+                                                   th:text="${classSession.instructorId.name}"> </a>
                                             </li>
-                                            <li class="list-group-item"><b>Course Description</b>
-                                                <a href="#" class="float-right" th:text="${course.description}"></a>
+                                            <li class="list-group-item"><b>Group</b>
+                                                <a href="#" class="float-right"
+                                                   th:text="${classSession.groupTheory}"></a>
                                             </li>
-                                            <!--                                            <li class="list-group-item"><b>LearningOutcome</b>-->
-                                            <!--                                                &lt;!&ndash;                                                <li th:each="lo : ${loList}">&ndash;&gt;-->
-                                            <!--                                                &lt;!&ndash;                                                   <b th:text="${lo.getKey()}" ></b>&ndash;&gt;-->
-                                            <!--                                                &lt;!&ndash;                                                    <a href="#" class="float-right"  th:text="${lo.getValue()}"></a>&ndash;&gt;-->
-                                            <!--                                                &lt;!&ndash;                                                </li>&ndash;&gt;-->
-                                            <!--                                            </li>-->
+                                            <li class="list-group-item"><b>Semester - Academic Year</b>
+                                                <a href="#" class="float-right"
+                                                   th:text="${classSession.semester} +'-'+ ${classSession.academicYear}"></a>
+                                            </li>
+
                                         </ul>
                                     </div>
                                 </div>
@@ -76,18 +78,18 @@
                                                             <thead>
                                                             <tr>
                                                                 <th style="min-width:50px;">Description</th>
-                                                                <p th:each="ca :${courseAssessment}">
-                                                                <th th:text="${ca.assessment.type} + ':' + ${ca.percentage} +'%' ">
+                                                                <!--                                                                <p th:each="ca :${courseAssessment}">-->
+                                                                <!--                                                                <th th:text="${ca.assessment.type} + ':' + ${ca.percentage} +'%' ">-->
                                                                 </th>
                                                                 </p>
 
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr th:each="lo : ${loList}">
-                                                                <td th:text="${lo.getValue()}"></td>
-                                                                <th th:each="pe : ${assessmentTools.get(lo.getKey())}"></th>
-                                                            </tr>
+                                                            <!--                                                            <tr th:each="lo : ${loList}">-->
+                                                            <!--                                                                <td th:text="${lo.getValue()}"></td>-->
+                                                            <!--                                                                <th th:each="pe : ${assessmentTools.get(lo.getKey())}"></th>-->
+                                                            <!--                                                            </tr>-->
                                                             </tbody>
 
                                                         </table>
@@ -121,10 +123,10 @@
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr th:each="lo : ${loList}">
-                                                                <td th:text="${lo.getValue()}"></td>
-                                                                <th th:each="pe : ${assessmentTools.get(lo.getKey())}"></th>
-                                                            </tr>
+                                                            <!--                                                            <tr th:each="lo : ${loList}">-->
+                                                            <!--                                                                <td th:text="${lo.getValue()}"></td>-->
+                                                            <!--                                                                <th th:each="pe : ${assessmentTools.get(lo.getKey())}"></th>-->
+                                                            <!--                                                            </tr>-->
                                                             </tbody>
 
                                                         </table>
@@ -145,23 +147,40 @@
                                                         <table class="table table-striped custom-table" id="datatable">
                                                             <thead>
                                                             <tr>
-                                                                <th style="min-width:50px;">Class ID</th>
-                                                                <th style="min-width:50px;">CourseName</th>
-                                                                <th style="min-width:50px;">Instructor</th>
-                                                                <th style="min-width:50px;">Group</th>
-                                                                <th style="min-width:50px;">Semester</th>
-                                                                <th style="min-width:50px;">Year</th>
+                                                                <th style="min-width:50px;">Student ID</th>
+                                                                <th style="min-width:50px;">Student Name</th>
+                                                                <th style="min-width:50px;">In-class Score</th>
+                                                                <th style="min-width:50px;">Midterm Score</th>
+                                                                <th style="min-width:50px;">Final Score</th>
+                                                                <th style="min-width:50px;">GPA</th>
+                                                                <th style="min-width:50px;">Average ABET achieved (%)
+                                                                </th>
+                                                                <th style="min-width:50px;">View detail</th>
 
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr th:each="class : ${classSessionList}">
-                                                                <td th:text="${class.id}"></td>
-                                                                <td th:text="${class.course.name}"></td>
-                                                                <td th:text="${class.instructorId.degree + class.instructorId.name}"></td>
-                                                                <td th:text="${class.groupTheory}"></td>
-                                                                <td th:text="${class.semester}"></td>
-                                                                <td th:text="${class.academicYear}"></td>
+                                                            <tr th:each="result : ${resultList}">
+                                                                <td> <a th:href="@{'/student/view/'+ ${result.student.id}}"
+                                                                       th:text="${result.student.id}"> </a></td>
+                                                                <td th:text="${result.student.name}"></td>
+                                                                <td th:text="${result.inClassScore}"></td>
+                                                                <td th:text="${result.midScore}"></td>
+                                                                <td th:text="${result.finalScore}"></td>
+                                                                <td th:text="${result.gpa}"></td>
+                                                                <td th:text="${result.abetScore}"></td>
+                                                                <td class="text-right">
+                                                                    <a th:href="@{'/result/detailForStudent/'+ ${classSession.id} +'/'+ ${result.student.id}}"
+                                                                       class="btn btn-primary btn-sm mb-1">
+                                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                    </a>&nbsp;&nbsp;&nbsp;
+                                                                    <!--                                                                    <a th:href="@{'edit/' + ${cl.id}}" class="btn btn-primary btn-sm mb-1">-->
+                                                                    <!--                                                                        <i class="fa fa-pencil" aria-hidden="true"></i>-->
+                                                                    <!--                                                                    </a>&nbsp;&nbsp;&nbsp;-->
+                                                                    <!--                                                                    <a th:href="@{'delete/' + ${cl.id}}" class="btn btn-danger btn-sm mb-1 btn-delete">-->
+                                                                    <!--                                                                        <i class="fa fa-trash" aria-hidden="true"></i>-->
+                                                                    <!--                                                                    </a>-->
+                                                                </td>
                                                             </tr>
                                                             </tbody>
                                                         </table>

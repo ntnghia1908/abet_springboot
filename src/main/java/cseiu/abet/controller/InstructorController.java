@@ -46,22 +46,36 @@ public class InstructorController {
     public String showNewInstructorPage(Model model) {
         Instructor instructor = new Instructor();
         model.addAttribute("instructor", instructor);
-        return "instructor/add_instructor";
+        return "admin/instructor-edit";
+    }
+
+    @RequestMapping("/edit/{instructor_id}")
+    public String showUpdateInstructorPage(@PathVariable("instructor_id") int instructor_id, Model model){
+        Instructor instructor = instructorService.findInstructorById(instructor_id);
+        model.addAttribute("instructor", instructor);
+        return "admin/instructor-edit";
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String saveProduct(@ModelAttribute("instructor") Instructor instructor) {
+    public String editInstructor (@ModelAttribute("instructor") Instructor instructor, Model model) {
         instructorService.addInstructor(instructor);
-        return "redirect:/instructor/all";
+        model.addAttribute("instructor", instructor);
+        return "admin/instructor-detail";
     }
-
-    @RequestMapping("/edit/{id}")
-    public ModelAndView showEditInstructorPage(@PathVariable(name = "id") int id) {
-        ModelAndView mav = new ModelAndView("instructor/edit_instructor");
-        Instructor instructor = instructorService.findInstructorById(id);
-        mav.addObject("instructor", instructor);
-        return mav;
-    }
+//
+//    @RequestMapping(value = "/save", method = RequestMethod.POST)
+//    public String saveProduct(@ModelAttribute("instructor") Instructor instructor) {
+//        instructorService.addInstructor(instructor);
+//        return "redirect:/instructor/all";
+//    }
+//
+//    @RequestMapping("/edit/{id}")
+//    public ModelAndView showEditInstructorPage(@PathVariable(name = "id") int id) {
+//        ModelAndView mav = new ModelAndView("instructor/edit_instructor");
+//        Instructor instructor = instructorService.findInstructorById(id);
+//        mav.addObject("instructor", instructor);
+//        return mav;
+//    }
 
     @RequestMapping("/delete/{id}")
     public String deleteInstructor(@PathVariable(name = "id") int id) {

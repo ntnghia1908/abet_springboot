@@ -1,6 +1,7 @@
 package cseiu.abet.controller;
 
 import cseiu.abet.model.AssessmentTool;
+import cseiu.abet.model.ClassSession;
 import cseiu.abet.model.Course;
 import cseiu.abet.model.CourseAssessment;
 import cseiu.abet.services.*;
@@ -45,17 +46,36 @@ public class CourseController {
     public String getByIdCourse(@PathVariable("id") String id, Model model) {
         Course course = courseService.findCourseById(id);
 
-        List<AssessmentTool> assessmentTools = assessmentToolService.getAssessmentTootTableByCourse(id);
+        List<AssessmentTool> assessmentToolList = assessmentToolService.getAssessmentTootTableByCourse(id);
         Hashtable<Integer, String> listLearningOutcome = new Hashtable<>();
-        List<CourseAssessment> courseAssessments = courseAssessmentService.getCourseAssessmentByCourseWithoutComboAss(id);
-
-        for (AssessmentTool as:assessmentTools){
+        List<CourseAssessment> courseAssessmentList = courseAssessmentService.getCourseAssessmentByCourseWithoutComboAss(id);
+        Hashtable<Integer, Hashtable> newAssessmentTool = new Hashtable<>();
+        List<ClassSession> classSessionList = classSessionService.getClassSessionByCourse(id);
+       for (AssessmentTool as: assessmentToolList) {
             listLearningOutcome.put(as.getLearningOutcome().getId(), as.getLearningOutcome().getDescription());
+//            Hashtable<Integer, Float> listPercentage = new Hashtable<>();
+//            for (CourseAssessment ca: courseAssessmentList){
+//                int count =0;
+//                for (AssessmentTool at: assessmentToolList){
+//                    if (at.getAssessment().getId() == ca.getAssessment().getId()
+//                            && at.getLearningOutcome().getId() == as.getLearningOutcome().getId()){
+//                        listPercentage.put(at.getAssessment().getId(), at.getPercentage());
+//                        count =1;
+//                        break;
+//                    }
+//                }
+//                if (count==0){
+//                    listPercentage.put(ca.getAssessment().getId(),0F);
+//                }
+//            }
+//            newAssessmentTool.put(as.getLearningOutcome().getId(), listPercentage);
+//
         }
         model.addAttribute("course", course);
-        model.addAttribute("assessmentTools", assessmentTools);
+        model.addAttribute("assessmentTools", newAssessmentTool);
         model.addAttribute("loList", listLearningOutcome);
-        model.addAttribute("courseAssessment", courseAssessments);
+        model.addAttribute("courseAssessment", courseAssessmentList);
+        model.addAttribute("classSessionList", classSessionList);
         return "admin/course-detail";
     }
 
