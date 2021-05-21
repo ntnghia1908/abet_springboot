@@ -1,16 +1,17 @@
 <!DOCTYPE html>
 <html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{admin/layout/frame.html}">
+      layout:decorate="~{admin/layout/frame.html}"
+      xmlns:th="http://www.thymeleaf.org">
 
 <div class="content container-fluid" layout:fragment="main">
-  <div class="page-header">
-    <div class="row">
-      <div class="col-lg-7 col-md-12 col-sm-12 col-12">
-      </div>
-      <div class="col-lg-5 col-md-12 col-sm-12 col-12">
-        <ul class="list-inline breadcrumb float-right">
-          <li class="list-inline-item"><a href="/student/all">Home</a></li>
-        </ul>
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+            </div>
+            <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                <ul class="list-inline breadcrumb float-right">
+                    <li class="list-inline-item"><a href="/student/all">Home</a></li>
+                </ul>
       </div>
     </div>
   </div>
@@ -65,13 +66,13 @@
                               </thead>
                               <tbody>
                               <tr th:each="result : ${studentResults}">
-                                <td th:text="${result.class1.course.name}"></td>
-                                <td th:text="${result.class1.instructorId.name}"></td>
-                                <td th:text="${result.class1.groupTheory}"></td>
-                                <td th:text="${result.class1.semester}"></td>
-                                <td th:text="${result.class1.academicYear}"></td>
-                                <td th:text="${result.gpa}"></td>
-                                <td th:text="${result.abetScore}"></td>
+                                  <td th:text="${result.class1.course.name}"></td>
+                                  <td th:number="${result.class1.instructorId.name}"></td>
+                                  <td th:number="${result.class1.groupTheory}"></td>
+                                  <td th:text="${result.class1.semester}"></td>
+                                  <td th:text="${result.class1.academicYear}"></td>
+                                  <td th:text="${result.gpa}"></td>
+                                  <td th:text="${result.abetScore}"></td>
                               </tr>
                               </tbody>
                             </table>

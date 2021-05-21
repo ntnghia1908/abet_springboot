@@ -40,35 +40,21 @@
                     <table class="table table-striped custom-table" id="datatable">
                         <thead>
                         <tr>
-<!--                                                    <th style="min-width:70px;">Course ID </th>-->
-<!--                                                    <th style="min-width:50px;">Course Title</th>-->
-<!--                                                    <th style="min-width:50px;">Course Level</th>-->
-<!--                                                    <th style="min-width:50px;">Credit Theory</th>-->
-<!--                                                    <th style="min-width:50px;">Credit Lab</th>-->
-<!--                                                    <th class="text-right">Action</th>-->
-
-                            <th>Course ID</th>
-                            <th>Course Name</th>
-                            <th>Course Level</th>
-                            <th>Credit Theory</th>
-                            <th>Credit Lab</th>
-                            <th class ="text-right">Action</th>
+                            <th style="min-width:70px;">Course ID</th>
+                            <th style="min-width:50px;">Course Name</th>
+                            <th style="min-width:50px;">Course Level</th>
+                            <th style="min-width:50px;">Credit Theory</th>
+                            <th style="min-width:50px;">Credit Lab</th>
+                            <th class="text-right">Action</th>
                         </tr>
                         </thead>
                         <tbody>
-
-                        <tr>
-                            <!--                        <td>-->
-                            <!--                            <h2><a href="{{ route('admin-get-course-detail', ['id' => $course->id]) }}" class="avatar text-white">{{ $course->name[0] }}</a></h2>-->
-                            <!--                            <h2><a href="{{ route('admin-get-course-detail', ['id' => $course->id]) }}">{{ $course->name }}</a></h2>-->
-                            <!--                        </td>-->
                         <tr th:each="course : ${courses}">
                             <td th:text="${course.id}"></td>
                             <td th:text="${course.name}"></td>
                             <td th:text="${course.courseLevel.level}"></td>
                             <td th:text="${course.creditLab}"></td>
                             <td th:text="${course.creditTheory}"></td>
-
                             <td class="text-right">
                                 <a th:href="@{'view/'+ ${course.id}}" class="btn btn-primary btn-sm mb-1">
                                     <i class="fa fa-eye" aria-hidden="true"></i>
@@ -106,9 +92,8 @@
             </div>
         </div>
     </div>
-
-    <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
-    <script type="text/javascript" th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
+</div>
+<th:block layout:fragment="more-script">
     <script th:inline="javascript">
         $(function () {
             $('.btn-delete').on('click', function () {
@@ -117,5 +102,5 @@
             });
         })
     </script>
-</div>
+</th:block>
 </html>

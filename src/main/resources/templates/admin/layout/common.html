@@ -12,7 +12,13 @@
   <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
   <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
   <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datetimepicker.min.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/dataTables.bootstrap4.min.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/select2.min.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap-datetimepicker.min.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/plugins/morris/morris.css}">
   <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+
+
   <!--[if lt IE 9]>
   <script th:src="@{/js/html5shiv.min.js}"></script>
   <script th:src="@{/js/respond.min.js}"></script>
@@ -20,8 +26,9 @@
 </head>
 
 <body>
-<div th:fragment="script">
-  <!--    <script data-cfasync="false" th:src="cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>-->
+<th:block th:fragment="script">
+  <div class="sidebar-overlay" data-reff=""></div>
+  <!--  <script data-cfasync="false" src="http://cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>-->
   <script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
@@ -29,7 +36,14 @@
   <script type="text/javascript" th:src="@{/js/select2.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/moment.min.js}"></script>
   <script type="text/javascript" th:src="@{/js/bootstrap-datetimepicker.min.js}"></script>
+  <script type="text/javascript" th:src="@{/plugins/morris/morris.min.js}"></script>
+  <script type="text/javascript" th:src="@{/plugins/raphael/raphael-min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/fullcalendar.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery.fullcalendar.js}"></script>
+  <script type="text/javascript" th:src="@{/js/chart.js}"></script>
   <script type="text/javascript" th:src="@{/js/app.js}"></script>
+  <script type="text/javascript" th:src="@{/js/jquery.dataTables.min.js}"></script>
+  <script type="text/javascript" th:src="@{/js/dataTables.bootstrap4.min.js}"></script>
 
   <script th:inline="javascript">
     $(function () {
@@ -38,7 +52,7 @@
       })
     })
   </script>
-</div>
+</th:block>
 </body>
 </html>
 <!-- Mirrored from dreamguys.co.in/preadmin/school/light/about-teacher.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Sep 2019 14:49:55 GMT -->
