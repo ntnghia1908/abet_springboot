@@ -59,12 +59,12 @@ public class Program implements Serializable {
     @Column(name = "type")
     private String type;
 
-    @JsonBackReference
+
     @JoinColumn(name = "major_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne
     private Major major;
 
-    @JsonManagedReference
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "program")
     private List<CourseProgram> courseProgramList;
 
@@ -123,7 +123,7 @@ public class Program implements Serializable {
         this.major = major;
     }
 
-    @XmlTransient
+
     public List<CourseProgram> getCourseProgramList() {
         return courseProgramList;
     }

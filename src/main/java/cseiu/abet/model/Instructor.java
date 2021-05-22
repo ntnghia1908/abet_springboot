@@ -46,7 +46,6 @@ public class Instructor implements Serializable {
     @Column(name = "email")
     private String email;
 
-    @JsonManagedReference(value = "instructor-class")
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instructorId")
     private List<ClassSession> classList;
 
@@ -87,7 +86,7 @@ public class Instructor implements Serializable {
         this.email = email;
     }
 
-//    @XmlTransient
+//    
     public List<ClassSession> getClassList() {
         return classList;
     }

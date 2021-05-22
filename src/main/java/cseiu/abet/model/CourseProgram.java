@@ -50,14 +50,12 @@ public class CourseProgram implements Serializable {
     @Column(name = "course_type_id")
     private int courseTypeId;
 
-    @JsonBackReference
-    @XmlTransient
+
     @JoinColumn(name = "course_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Course course;
 
-    @JsonBackReference
-    @XmlTransient
+
     @JoinColumn(name = "program_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Program program;

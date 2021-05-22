@@ -57,24 +57,20 @@ public class LearningOutcome implements Serializable {
     @Column(name = "description_vn")
     private String descriptionVn;
 
-    @XmlTransient
-    @JsonManagedReference
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "learningOutcome")
     private List<CloSlo> cloSloList;
 
-    @XmlTransient
-    @JsonBackReference
+
     @JoinColumn(name = "course_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Course course;
 
-    @XmlTransient
-    @JsonManagedReference
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "learningOutcome")
     private List<AssessmentTool> assessmentToolList;
 
-    @XmlTransient
-    @JsonManagedReference
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "learningOutcomeId")
     private List<ClassAssessment> classAssessmentList;
 
@@ -115,7 +111,7 @@ public class LearningOutcome implements Serializable {
         this.descriptionVn = descriptionVn;
     }
 
-    @XmlTransient
+
     public List<CloSlo> getCloSloList() {
         return cloSloList;
     }
@@ -132,7 +128,7 @@ public class LearningOutcome implements Serializable {
         this.course = course;
     }
 
-    @XmlTransient
+
     public List<AssessmentTool> getAssessmentToolList() {
         return assessmentToolList;
     }
@@ -141,7 +137,7 @@ public class LearningOutcome implements Serializable {
         this.assessmentToolList = assessmentToolList;
     }
 
-    @XmlTransient
+
     public List<ClassAssessment> getClassAssessmentList() {
         return classAssessmentList;
     }

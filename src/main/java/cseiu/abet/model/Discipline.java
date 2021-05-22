@@ -45,7 +45,7 @@ public class Discipline implements Serializable {
     @Column(name = "name")
     private String name;
 
-    @JsonManagedReference
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "discipline")
     private List<Major> majorList;
 
@@ -72,7 +72,7 @@ public class Discipline implements Serializable {
         this.name = name;
     }
 
-    @XmlTransient
+
     public List<Major> getMajorList() {
         return majorList;
     }

@@ -58,35 +58,29 @@ public class Course implements Serializable {
     @Column(name = "description")
     private String description;
 
-    @JsonManagedReference
-    @XmlTransient
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     private List<LearningOutcome> learningOutcomeList;
 
-    @JsonManagedReference
-    @XmlTransient
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     private List<AssessmentTool> assessmentToolList;
 
-    @JsonBackReference
-    @XmlTransient
+
     @JoinColumn(name = "course_level_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private CourseLevel courseLevel;
 
-    @JsonManagedReference
-    @XmlTransient
-//    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
+
+    //    @JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
     @OneToMany(cascade = CascadeType.ALL,fetch = FetchType.LAZY,  mappedBy = "course")
     private List<CourseAssessment> courseAssessmentList;
 
-    @JsonManagedReference
-    @XmlTransient
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     private List<CourseProgram> courseProgramList;
 
-    @JsonManagedReference
-    @XmlTransient
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "course")
     private List<ClassSession> classList;
 
@@ -160,7 +154,7 @@ public class Course implements Serializable {
         this.courseLevel = courseLevel;
     }
 
-    @XmlTransient
+
     public List<LearningOutcome> getLearningOutcomeList() {
         return learningOutcomeList;
     }
@@ -169,7 +163,7 @@ public class Course implements Serializable {
         this.learningOutcomeList = learningOutcomeList;
     }
 
-    @XmlTransient
+
     public List<AssessmentTool> getAssessmentToolList() {
         return assessmentToolList;
     }
@@ -186,7 +180,7 @@ public class Course implements Serializable {
         this.courseAssessmentList = courseAssessments;
     }
 
-    @XmlTransient
+
     public List<CourseProgram> getCourseProgramList() {
         return courseProgramList;
     }
@@ -195,7 +189,7 @@ public class Course implements Serializable {
         this.courseProgramList = courseProgramList;
     }
 
-    @XmlTransient
+
     public List<ClassSession> getClassList() {
         return classList;
     }

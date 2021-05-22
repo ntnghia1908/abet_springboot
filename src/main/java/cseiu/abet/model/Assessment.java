@@ -48,23 +48,18 @@ public class Assessment implements Serializable {
     private String type;
 
 
-    @XmlTransient
-    @JsonManagedReference
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "assessment")
     private List<AssessmentTool> assessmentToolList;
 
-    @XmlTransient
-    @JsonManagedReference
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "assessmentId")
     private List<ClassAssessment> classAssessmentList;
 
-    @XmlTransient
-    @JsonManagedReference
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "assessment")
     private List<ClassAssessmentCourse> classAssessmentCourseList;
 
-    @XmlTransient
-    @JsonManagedReference
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "assessment")
     private List<CourseAssessment> courseAssessmentList;
 
@@ -91,7 +86,7 @@ public class Assessment implements Serializable {
         this.type = type;
     }
 
-    @XmlTransient
+
     public List<AssessmentTool> getAssessmentToolList() {
         return assessmentToolList;
     }
@@ -100,7 +95,7 @@ public class Assessment implements Serializable {
         this.assessmentToolList = assessmentToolList;
     }
 
-    @XmlTransient
+
     public List<ClassAssessment> getClassAssessmentList() {
         return classAssessmentList;
     }
@@ -109,7 +104,7 @@ public class Assessment implements Serializable {
         this.classAssessmentList = classAssessmentList;
     }
 
-    @XmlTransient
+
     public List<ClassAssessmentCourse> getClassAssessmentCourseList() {
         return classAssessmentCourseList;
     }
@@ -118,7 +113,7 @@ public class Assessment implements Serializable {
         this.classAssessmentCourseList = classAssessmentCourseList;
     }
 
-    @XmlTransient
+
     public List<CourseAssessment> getCourseAssessmentList() {
         return courseAssessmentList;
     }

@@ -40,12 +40,12 @@ public class CloSlo implements Serializable {
     @Column(name = "percentage")
     private Float percentage;
 
-    @JsonBackReference
+
     @JoinColumn(name ="slo_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Slo slo;
 
-    @JsonBackReference
+
     @JoinColumn(name = "lo_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private LearningOutcome learningOutcome;

@@ -5,8 +5,6 @@
  */
 package cseiu.abet.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
@@ -19,7 +17,6 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -59,14 +56,10 @@ public class Result implements Serializable {
     @Column(name = "abet_score")
     private Integer abetScore;
 
-    @XmlTransient
-    @JsonBackReference
     @JoinColumn(name = "class_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    private ClassSession class1;
+    private ClassSession classSession;
 
-    @XmlTransient
-    @JsonBackReference
     @JoinColumn(name = "student_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Student student;
@@ -151,12 +144,12 @@ public class Result implements Serializable {
         this.abetScore = abetScore;
     }
 
-    public ClassSession getClass1() {
-        return class1;
+    public ClassSession getClassSession() {
+        return classSession;
     }
 
-    public void setClass1(ClassSession class1) {
-        this.class1 = class1;
+    public void setClassSession(ClassSession class1) {
+        this.classSession = class1;
     }
 
     public Student getStudent() {

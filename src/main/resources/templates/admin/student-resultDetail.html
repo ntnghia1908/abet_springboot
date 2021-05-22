@@ -11,7 +11,8 @@
       <div class="col-lg-5 col-md-12 col-sm-12 col-12">
         <ul class="list-inline breadcrumb float-right">
           <li class="list-inline-item"><a href="/classSession/all">Home</a></li>
-          <li class="list-inline-item"><a th:href="@{'/classSession/view/'+ ${result.class1.id}}">Back to class</a></li>
+          <li class="list-inline-item"><a th:href="@{'/classSession/view/'+ ${result.classSession.id}}">Back to
+              class</a></li>
         </ul>
       </div>
     </div>
@@ -29,21 +30,22 @@
                   </div>
                   <div class="card-body">
                     <ul class="list-group list-group-flush">
-                      <li class="list-group-item"><b>Course</b>
-                        <a th:href="@{'/course/view/'+ ${result.class1.course.id}}" class="float-right"
-                           th:text="${result.class1.course.id} +'-'+${result.class1.course.name}"></a>
-                      </li>
+                        <li class="list-group-item"><b>Course</b>
+                            <a th:href="@{'/course/view/'+ ${result.classSession.course.id}}" class="float-right"
+                               th:text="${result.classSession.course.id} +'-'+${result.classSession.course.name}"></a>
+                        </li>
                       <li class="list-group-item"><b>Student</b>
                         <a th:href="@{'/student/view/'+ ${result.student.id}}" class="float-right"
                            th:text="${result.student.id} +'-'+${result.student.name}"></a>
                       </li>
-                      <li class="list-group-item"><b> Instructor</b>
-                        <a th:href="@{'/instructor/view/'+ ${result.class1.instructorId.id}}" class="float-right"
-                           th:text="${result.class1.instructorId.degree} + ${result.class1.instructorId.name}"> </a>
-                      </li>
+                        <li class="list-group-item"><b> Instructor</b>
+                            <a th:href="@{'/instructor/view/'+ ${result.classSession.instructorId.id}}"
+                               class="float-right"
+                               th:text="${result.classSession.instructorId.degree} + ${result.classSession.instructorId.name}"> </a>
+                        </li>
                       <li class="list-group-item"><b>Semester - Academic Year</b>
-                        <a href="#" class="float-right"
-                           th:text="'Semester '+ ${result.class1.semester} +'-'+ ${result.class1.academicYear}"></a>
+                          <a href="#" class="float-right"
+                             th:text="'Semester '+ ${result.classSession.semester} +'-'+ ${result.classSession.academicYear}"></a>
                       </li>
 
                     </ul>

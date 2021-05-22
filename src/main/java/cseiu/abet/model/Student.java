@@ -52,8 +52,7 @@ public class Student implements Serializable {
     @Column(name = "batch")
     private int batch;
 
-    @XmlTransient
-    @JsonManagedReference
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "student")
     private List<Result> resultList;
 
@@ -96,7 +95,7 @@ public class Student implements Serializable {
         this.batch = batch;
     }
 
-    @XmlTransient
+
     public List<Result> getResultList() {
         return resultList;
     }

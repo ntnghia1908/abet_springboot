@@ -48,17 +48,17 @@ public class CourseAssessment implements Serializable {
     @Column(name = "percentage")
     private int percentage;
 
-    @XmlTransient
+
     @JoinColumn(name = "assessment_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    @JsonBackReference
+
     private Assessment assessment;
 
 
     @JoinColumn(name = "course_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
-    @XmlTransient
-    @JsonBackReference
+
+
     private Course course;
 
     public CourseAssessment() {

@@ -10,17 +10,7 @@ import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import java.io.Serializable;
 import java.util.List;
-import javax.persistence.Basic;
-import javax.persistence.CascadeType;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -44,6 +34,7 @@ public class ClassSession implements Serializable {
     @Id
     @Basic(optional = false)
     @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
     @Column(name = "groupTheory")
@@ -58,24 +49,16 @@ public class ClassSession implements Serializable {
     @Column(name = "academic_year")
     private String academicYear;
 
-    @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "class1")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classSession")
     private List<Result> resultList;
 
-//    @JoinColumn(name = "class", referencedColumnName = "class_id")
-//    @ManyToOne(optional = false)
-//    private ClassAssessment classAssessment;
-
-    @JsonManagedReference
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "class1")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classSession")
     private List<ClassAssessmentCourse> classAssessmentCourseList;
 
-    @JsonBackReference(value = "course-class")
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Course course;
 
-    @JsonBackReference(value = "instructor-class")
     @JoinColumn(name = "instructor_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Instructor instructorId;
@@ -127,7 +110,7 @@ public class ClassSession implements Serializable {
         this.academicYear = academicYear;
     }
 
-    @XmlTransient
+
     public List<Result> getResultList() {
         return resultList;
     }
@@ -144,7 +127,7 @@ public class ClassSession implements Serializable {
 //        this.classAssessment = classAssessment;
 //    }
 
-    @XmlTransient
+
     public List<ClassAssessmentCourse> getClassAssessmentCourseList() {
         return classAssessmentCourseList;
     }

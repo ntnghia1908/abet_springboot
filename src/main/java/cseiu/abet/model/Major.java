@@ -56,13 +56,11 @@ public class Major implements Serializable {
     @Column(name = "short_name")
     private String shortName;
 
-    @XmlTransient
-    @JsonManagedReference
+
     @OneToMany(mappedBy = "major")
     private List<Program> programList;
 
-    @XmlTransient
-    @JsonBackReference
+
     @JoinColumn(name = "discipline_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Discipline discipline;
@@ -98,7 +96,7 @@ public class Major implements Serializable {
         this.shortName = shortName;
     }
 
-    @XmlTransient
+
     public List<Program> getProgramList() {
         return programList;
     }

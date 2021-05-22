@@ -66,13 +66,13 @@
                               </thead>
                               <tbody>
                               <tr th:each="result : ${studentResults}">
-                                <td th:text="${result.class1.course.name}"></td>
-                                <td th:text="${result.class1.instructorId.name}"></td>
-                                <td th:text="${result.class1.groupTheory}"></td>
-                                <td th:text="${result.class1.semester}"></td>
-                                <td th:text="${result.class1.academicYear}"></td>
-                                <td th:text="${result.gpa}"></td>
-                                <td th:text="${result.abetScore}"></td>
+                                  <td th:text="${result.classSession.course.name}"></td>
+                                  <td th:text="${result.classSession.instructorId.name}"></td>
+                                  <td th:text="${result.classSession.groupTheory}"></td>
+                                  <td th:text="${result.classSession.semester}"></td>
+                                  <td th:text="${result.classSession.academicYear}"></td>
+                                  <td th:text="${result.gpa}"></td>
+                                  <td th:text="${result.abetScore}"></td>
                               </tr>
                               </tbody>
                             </table>

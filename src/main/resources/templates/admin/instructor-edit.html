@@ -24,23 +24,26 @@
         <div class="row">
           <div class="col-lg-12 col-md-12 col-sm-12 col-12">
             <div class="card">
-              <div class="page-title">
-                <div class="row">
-                  <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                    <div class="page-title">Basic Information</div>
-                  </div>
+                <div class="page-title">
+                    <div class="row">
+                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                            <div class="page-title">Basic Information</div>
+                        </div>
+                    </div>
                 </div>
-              </div>
-              <form method="post" th:action="@{/instructor/save}" th:object="${instructor}"  enctype="multipart/form-data" >
-                <div class="card-body">
-                  <div class="row">
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                      <div class="form-group custom-mt-form-group">
-                          <div th:if="${instructor.id} !=null">
-                              <input type="text" th:field="*{name}" th:value="${instructor.name}" required>
-                          </div>
-                          <div th:unless="${instructor.id}!=null">
-                              <input type="text" th:field="*{name}" required>
+                <form method="post" th:action="@{/instructor/edit}" th:object="${instructor}"
+                      enctype="multipart/form-data">
+
+                    <div class="card-body">
+                        <div class="row">
+                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                <div class="form-group custom-mt-form-group">
+                                    <div th:if="${instructor.id} !=null">
+                                        <input type="text" th:field="*{name}"
+                                               th:value="${instructor.name != null} ? ${instructor.name} :'' " required>
+                                    </div>
+                                    <div th:unless="${instructor.id}!=null">
+                                        <input type="text" th:field="*{name}" required>
                           </div>
                         <label class="control-label">Name <span class="text-red">*</span> </label><i class="bar"></i>
                       </div>
