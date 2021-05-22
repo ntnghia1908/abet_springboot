@@ -26,7 +26,7 @@ DROP TABLE IF EXISTS `assessment`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `assessment`
 (
-    `id`   int NOT NULL,
+    `id`   int NOT NULL AUTO_INCREMENT,
     `type` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -814,7 +814,7 @@ DROP TABLE IF EXISTS `class_assessment_course`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `class_assessment_course`
 (
-    `class_id`      int NOT NULL,
+    `class_id`      int NOT NULL AUTO_INCREMENT,
     `assessment_id` int NOT NULL,
     `percentage`    int DEFAULT NULL,
     `lo_id`         int NOT NULL,
@@ -1694,7 +1694,7 @@ DROP TABLE IF EXISTS `course_level`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `course_level`
 (
-    `id`    int NOT NULL,
+    `id`    int NOT NULL AUTO_INCREMENT,
     `level` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
@@ -2774,7 +2774,7 @@ DROP TABLE IF EXISTS `instructor`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `instructor`
 (
-    `id`     int NOT NULL,
+    `id`     int NOT NULL AUTO_INCREMENT,
     `name`   varchar(255) DEFAULT NULL,
     `degree` varchar(255) DEFAULT NULL,
     `email`  varchar(255) DEFAULT NULL,
@@ -2837,7 +2837,7 @@ DROP TABLE IF EXISTS `learning_outcome`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `learning_outcome`
 (
-    `id`             int                                                     NOT NULL,
+    `id`             int                                                     NOT NULL AUTO_INCREMENT,
     `course_id`      varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
     `description`    text CHARACTER SET utf8 COLLATE utf8_general_ci         NOT NULL,
     `description_vn` text CHARACTER SET utf8 COLLATE utf8_general_ci         NOT NULL,
@@ -3562,7 +3562,7 @@ DROP TABLE IF EXISTS `program`;
 /*!50503 SET character_set_client = utf8mb4 */;
 CREATE TABLE `program`
 (
-    `id`       int NOT NULL,
+    `id`       int NOT NULL AUTO_INCREMENT,
     `major_id` int          DEFAULT NULL,
     `name`     varchar(255) DEFAULT NULL,
     `duration` int          DEFAULT NULL,
