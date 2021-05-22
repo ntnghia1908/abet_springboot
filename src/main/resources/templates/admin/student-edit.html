@@ -10,7 +10,7 @@
                     <h5 th:text="'Update '+${student.name}" class="text-uppercase"></h5>
                 </div>
                 <div th:unless="${student.id !=null}">
-                    <h5  class="text-uppercase">Add new Instructor</h5>
+                    <h5 class="text-uppercase">Add new Student</h5>
                 </div>
             </div>
             <div class="col-lg-5 col-md-12 col-sm-12 col-12">
@@ -44,7 +44,8 @@
                                         <div th:unless="${student.id}!=null">
                                             <input type="text" th:field="*{id}" required>
                                         </div>
-                                        <label class="control-label">Student ID <span class="text-red">*</span> </label><i class="bar"></i>
+                                        <label class="control-label">Student ID <span class="text-red">*</span> </label><i
+                                            class="bar"></i>
                                     </div>
                                     <div class="form-group custom-mt-form-group">
                                         <div th:if="${student.id} !=null">
@@ -53,17 +54,19 @@
                                         <div th:unless="${student.id}!=null">
                                             <input type="text" th:field="*{name}" required/>
                                         </div>
-                                        <label class="control-label">Student Name <span class="text-red">*</span></label><i class="bar"></i>
+                                        <label class="control-label">Student Name <span
+                                                class="text-red">*</span></label><i class="bar"></i>
                                     </div>
                                 </div>
                                 <div class="col-lg-6 col-md-6 col-sm-6 col-12">
                                     <div class="form-group custom-mt-form-group">
                                         <select th:field="*{major}">
-                                            <option value ="Information Technology"> Information Technology </option>
-                                            <option value ="Data Science">Data Science</option>
-                                            <option value ="Twinning Program"> Twinning Program </option>
+                                            <option value="Information Technology"> Information Technology</option>
+                                            <option value="Data Science">Data Science</option>
+                                            <option value="Twinning Program"> Twinning Program</option>
                                         </select>
-                                        <label class="control-label">Major<span class="text-red">*</span></label><i class="bar"></i>
+                                        <label class="control-label">Major<span class="text-red">*</span></label><i
+                                            class="bar"></i>
                                     </div>
 
                                     <div class="form-group custom-mt-form-group">
@@ -72,7 +75,8 @@
                                                     th:value="${i}"
                                                     th:utext="${i}"/>
                                         </select>
-                                        <label class="control-label">Batch <span class="text-red">*</span></label><i class="bar"></i>
+                                        <label class="control-label">Batch <span class="text-red">*</span></label><i
+                                            class="bar"></i>
                                     </div>
 
                                 </div>
@@ -85,6 +89,68 @@
                             </div>
                         </div>
                     </form>
+                </div>
+            </div>
+        </div>
+        <div class="page-content">
+            <div class="row">
+                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                    <div class="card">
+                        <div class="page-title">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="page-title">Import file</div>
+                                </div>
+                            </div>
+                        </div>
+                        <form th:action="@{/student/saveAuto}" enctype="multipart/form-data" method="post">
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group custom-mt-form-group">
+                                            <input type="file" name="file" required class="form-control-file">
+                                        </div>
+                                        <div class="form-group custom-mt-form-group">
+                                            <button class="btn btn-primary mr-2" type="submit">Import students</button>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </form>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                    <div class="form-group custom-mt-form-group">
+                                        <h4 class="card-title">File format</h4><br>
+                                        <table class="table table-hover m-b-0">
+                                            <thead>
+                                            <tr>
+                                                <th>Fields</th>
+                                                <th>Description</th>
+                                            </tr>
+                                            </thead>
+                                            <tbody>
+                                            <tr>
+                                                <td>Index <span class="text-red">*</span></td>
+                                                <td>Ex: 1,2,3,4</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Student ID <span class="text-red">*</span></td>
+                                                <td>Ex: ITITIU20001</td>
+                                            </tr>
+                                            <tr>
+                                                <td>Student Name <span class="text-red">*</span></td>
+                                                <td>Ex: Nguyễn Văn A</td>
+                                            </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

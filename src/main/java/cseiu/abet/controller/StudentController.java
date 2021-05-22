@@ -1,13 +1,23 @@
 package cseiu.abet.controller;
-import cseiu.abet.model.Instructor;
 import cseiu.abet.model.Result;
 import cseiu.abet.model.Student;
 import cseiu.abet.services.ResultService;
 import cseiu.abet.services.StudentService;
+import cseiu.abet.services.UtilityService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -15,13 +25,15 @@ import java.util.List;
 public class StudentController {
     private final StudentService studentService;
     private final ResultService resultService;
-    public final String templateDir = "student/";
-    public final String defaultUrl = "student/index";
+    private final UtilityService utilityService;
+    private static String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
-    public StudentController(StudentService studentService, ResultService resultService) {
+
+    public StudentController(StudentService studentService, ResultService resultService, UtilityService utilityService) {
 
         this.studentService = studentService;
         this.resultService = resultService;
+        this.utilityService = utilityService;
     }
 
     @GetMapping("/all")
@@ -64,6 +76,16 @@ public class StudentController {
         studentService.addStudent(student);
         model.addAttribute("student", student);
         return "admin/student-detail";
+    }
+
+    @RequestMapping(value ="/saveAuto", method = RequestMethod.POST)
+    public String saveStudentAutomatic(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) throws IOException {
+
+//        List<Student> studentList = utilityService.readStudentListFromExcelFile(path);
+//        for (Student student: studentList){
+//            studentService.addStudent(student); }
+
+        return "redirect:/student/all";
     }
 
 //    @GetMapping("/getByMajor/{major}")
