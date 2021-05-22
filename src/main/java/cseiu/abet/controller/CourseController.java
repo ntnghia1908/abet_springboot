@@ -53,23 +53,6 @@ public class CourseController {
         List<ClassSession> classSessionList = classSessionService.getClassSessionByCourse(id);
        for (AssessmentTool as: assessmentToolList) {
             listLearningOutcome.put(as.getLearningOutcome().getId(), as.getLearningOutcome().getDescription());
-//            Hashtable<Integer, Float> listPercentage = new Hashtable<>();
-//            for (CourseAssessment ca: courseAssessmentList){
-//                int count =0;
-//                for (AssessmentTool at: assessmentToolList){
-//                    if (at.getAssessment().getId() == ca.getAssessment().getId()
-//                            && at.getLearningOutcome().getId() == as.getLearningOutcome().getId()){
-//                        listPercentage.put(at.getAssessment().getId(), at.getPercentage());
-//                        count =1;
-//                        break;
-//                    }
-//                }
-//                if (count==0){
-//                    listPercentage.put(ca.getAssessment().getId(),0F);
-//                }
-//            }
-//            newAssessmentTool.put(as.getLearningOutcome().getId(), listPercentage);
-//
         }
         model.addAttribute("course", course);
         model.addAttribute("assessmentTools", newAssessmentTool);
@@ -77,6 +60,12 @@ public class CourseController {
         model.addAttribute("courseAssessment", courseAssessmentList);
         model.addAttribute("classSessionList", classSessionList);
         return "admin/course-detail";
+    }
+
+    @RequestMapping("/delete/{id}")
+    public String deleteCourse(@PathVariable(name = "id") String id) {
+        courseService.deleteCourse(id);
+        return "redirect:/course/all";
     }
 
 }

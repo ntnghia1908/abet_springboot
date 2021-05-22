@@ -11,9 +11,6 @@
                 </div>
                 <div class="col-lg-5 col-md-12 col-sm-12 col-12">
                     <ul class="list-inline breadcrumb float-right">
-                        <li class="list-inline-item"><a href="#">Home</a></li>
-                        <li class="list-inline-item"><a href="#">Instructor</a></li>
-                        <li class="list-inline-item"> Instructor list</li>
                     </ul>
                 </div>
             </div>
@@ -53,8 +50,8 @@
                             <td th:text="${course.id}"></td>
                             <td th:text="${course.name}"></td>
                             <td th:text="${course.courseLevel.level}">Level</td>
-                            <td th:text="${course.creditLab}"></td>
                             <td th:text="${course.creditTheory}"></td>
+                            <td th:text="${course.creditLab}"></td>
                             <td class="text-right">
                                 <a th:href="@{'view/'+ ${course.id}}" class="btn btn-primary btn-sm mb-1">
                                     <i class="fa fa-eye" aria-hidden="true"></i>

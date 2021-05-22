@@ -10,7 +10,8 @@
             </div>
             <div class="col-lg-5 col-md-12 col-sm-12 col-12">
                 <ul class="list-inline breadcrumb float-right">
-                    <li class="list-inline-item"><a href="/classSession/all">Home</a></li>
+                    <li class="list-inline-item"><a href="/classSession/all">Class list</a></li>
+
                 </ul>
             </div>
         </div>
@@ -161,7 +162,8 @@
                                                             </thead>
                                                             <tbody>
                                                             <tr th:each="result : ${resultList}">
-                                                                <td> <a th:href="@{'/student/view/'+ ${result.student.id}}"
+                                                                <td>
+                                                                    <a th:href="@{'/student/view/'+ ${result.student.id}}"
                                                                        th:text="${result.student.id}"> </a></td>
                                                                 <td th:text="${result.student.name}"></td>
                                                                 <td th:text="${result.inClassScore}"></td>

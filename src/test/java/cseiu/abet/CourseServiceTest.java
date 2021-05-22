@@ -31,5 +31,9 @@ public class CourseServiceTest {
 //            System.out.println(c.getName());
 //        }
 
+        //TEST SEARCH COURSENAME
+        for (String name: courseService.searchCourseName("prog")){
+            System.out.println(name);
+        }
     }
 }

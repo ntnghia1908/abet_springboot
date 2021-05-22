@@ -27,6 +27,11 @@ public interface CourseRepository extends JpaRepository<Course, String> {
     )
     List<Course> selectAllCourse();
 
+    @Query(
+            value ="select course.name from course where course.name like %:keyword%",
+            nativeQuery = true
+    )
+    List<String> searchCourseName(@Param("keyword") String keyword);
 
 
     @Override

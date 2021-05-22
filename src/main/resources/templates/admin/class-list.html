@@ -11,9 +11,6 @@
                 </div>
                 <div class="col-lg-5 col-md-12 col-sm-12 col-12">
                     <ul class="list-inline breadcrumb float-right">
-                        <li class="list-inline-item"><a href="#">Home</a></li>
-                        <li class="list-inline-item"><a href="#">Class</a></li>
-                        <li class="list-inline-item"> Class list</li>
                     </ul>
                 </div>
             </div>
@@ -23,7 +20,8 @@
 
             </div>
             <div class="col-sm-8 col-9 text-right m-b-20">
-                <a href="" class="btn btn-primary float-right btn-rounded"><i class="fa fa-plus"></i> Add Class</a>
+                <a href="/classSession/add" class="btn btn-primary float-right btn-rounded"><i class="fa fa-plus"></i>
+                    Add Class</a>
             </div>
         </div>
         <div class="content-page">
@@ -54,33 +52,33 @@
                             <th>Group</th>
                             <th>Semester</th>
                             <th>Academic Year</th>
-                            <th class ="text-right">Action</th>
+                            <th class="text-right">Action</th>
                         </tr>
                         </thead>
                         <tbody>
 
-<!--                        <tr>-->
-<!--                        <td>-->
-                            <!--                            <h2><a href="{{ route('admin-get-course-detail', ['id' => $course->id]) }}" class="avatar text-white">{{ $course->name[0] }}</a></h2>-->
-                            <!--                            <h2><a href="{{ route('admin-get-course-detail', ['id' => $course->id]) }}">{{ $course->name }}</a></h2>-->
-                            <!--                        </td>-->
-<tr th:each="cl : ${classSessionList}">
-    <td th:text="${cl.id}">Id</td>
-    <td th:text="${cl.instructorId.name}">Name</td>
-    <td th:text="${cl.course.name}">Id</td>
-    <td th:text="${cl.groupTheory}">Group</td>
-    <td th:text="${cl.semester}">Semester</td>
-    <td th:text="${cl.academicYear}">aYear</td>
+                        <!--                        <tr>-->
+                        <!--                        <td>-->
+                        <!--                            <h2><a href="{{ route('admin-get-course-detail', ['id' => $course->id]) }}" class="avatar text-white">{{ $course->name[0] }}</a></h2>-->
+                        <!--                            <h2><a href="{{ route('admin-get-course-detail', ['id' => $course->id]) }}">{{ $course->name }}</a></h2>-->
+                        <!--                        </td>-->
+                        <tr th:each="cl : ${classSessionList}">
+                            <td th:text="${cl.id}">Id</td>
+                            <td th:text="${cl.instructorId.name}">Name</td>
+                            <td th:text="${cl.course.name}">Id</td>
+                            <td th:text="${cl.groupTheory}">Group</td>
+                            <td th:text="${cl.semester}">Semester</td>
+                            <td th:text="${cl.academicYear}">aYear</td>
 
-    <td class="text-right">
-        <a th:href="@{'view/'+ ${cl.id}}" class="btn btn-primary btn-sm mb-1">
-            <i class="fa fa-eye" aria-hidden="true"></i>
-        </a>&nbsp;&nbsp;&nbsp;
-        <a th:href="@{'edit/' + ${cl.id}}" class="btn btn-primary btn-sm mb-1">
-            <i class="fa fa-pencil" aria-hidden="true"></i>
-        </a>&nbsp;&nbsp;&nbsp;
-        <a th:href="@{'delete/' + ${cl.id}}" class="btn btn-danger btn-sm mb-1 btn-delete">
-            <i class="fa fa-trash" aria-hidden="true"></i>
+                            <td class="text-right">
+                                <a th:href="@{'view/'+ ${cl.id}}" class="btn btn-primary btn-sm mb-1">
+                                    <i class="fa fa-eye" aria-hidden="true"></i>
+                                </a>&nbsp;&nbsp;&nbsp;
+                                <a th:href="@{'edit/' + ${cl.id}}" class="btn btn-primary btn-sm mb-1">
+                                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                                </a>&nbsp;&nbsp;&nbsp;
+                                <a th:href="@{'delete/' + ${cl.id}}" class="btn btn-danger btn-sm mb-1 btn-delete">
+                                    <i class="fa fa-trash" aria-hidden="true"></i>
                                 </a>
                             </td>
                         </tr>

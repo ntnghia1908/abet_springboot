@@ -1,13 +1,12 @@
 package cseiu.abet.controller;
+import cseiu.abet.model.Instructor;
 import cseiu.abet.model.Result;
 import cseiu.abet.model.Student;
 import cseiu.abet.services.ResultService;
 import cseiu.abet.services.StudentService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -45,6 +44,27 @@ public class StudentController {
         model.addAttribute("student", student);
         return "admin/student-detail";
      }
+
+    @RequestMapping("/add")
+    public String showNewStudentPage(Model model) {
+        Student student = new Student();
+        model.addAttribute("student", student);
+        return "admin/student-edit";
+    }
+
+    @RequestMapping("/edit/{student_id}")
+    public String showUpdateStudentPage(@PathVariable("student_id") String student_id, Model model){
+        Student student = studentService.getStudentByID(student_id);
+        model.addAttribute("student", student);
+        return "admin/student-edit";
+    }
+
+    @RequestMapping(value = "/save", method = RequestMethod.POST)
+    public String editInstructor (@ModelAttribute("student") Student student, Model model) {
+        studentService.addStudent(student);
+        model.addAttribute("student", student);
+        return "admin/student-detail";
+    }
 
 //    @GetMapping("/getByMajor/{major}")
 //    public String getStudentByMajor(@PathVariable String major, Model model){

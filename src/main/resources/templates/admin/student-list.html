@@ -11,9 +11,9 @@
                 </div>
                 <div class="col-lg-5 col-md-12 col-sm-12 col-12">
                     <ul class="list-inline breadcrumb float-right">
-                        <li class="list-inline-item"><a href="#">Home</a></li>
-                        <li class="list-inline-item"><a href="#">Student</a></li>
-                        <li class="list-inline-item"> Student List</li>
+<!--                        <li class="list-inline-item"><a href="admin/dashboard">Home</a></li>-->
+<!--                        <li class="list-inline-item"><a href="/student/all">Student</a></li>-->
+<!--                        <li class="list-inline-item"> Student List</li>-->
                     </ul>
                 </div>
             </div>
@@ -23,7 +23,7 @@
 
             </div>
             <div class="col-sm-8 col-9 text-right m-b-20">
-                <a href="" class="btn btn-primary float-right btn-rounded"><i class="fa fa-plus"></i> Add Student</a>
+                <a href="/student/add" class="btn btn-primary float-right btn-rounded"><i class="fa fa-plus"></i> Add Student</a>
             </div>
         </div>
         <div class="content-page">
@@ -87,7 +87,7 @@
         $(function () {
             $('.btn-delete').on('click', function () {
                 console.log($(this).data('id'));
-                $('#course_id').val($(this).data('id'));
+                $('#id').val($(this).data('id'));
             });
         })
     </script>
