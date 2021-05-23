@@ -53,12 +53,12 @@ public class StudentServiceTest {
 //        }
 
         // IMPORT STUDENTS BY UPLOADING EXCEL FILE
-        String studentFilePath ="/Users/minhthu/Documents/IU/Project/studentList.xlsx";
-        List<Student> studentList = utilityService.readStudentListFromExcelFile(studentFilePath);
-        for (Student s: studentList){
-            studentService.addStudent(s);
+//        String studentFilePath ="/Users/minhthu/Documents/IU/Project/studentList.xlsx";
+//        List<Student> studentList = utilityService.readStudentListFromExcelFile(studentFilePath);
+//        for (Student s: studentList){
+//            studentService.addStudent(s);
           //  studentService.deleteStudent(s.getId());
-        }
+       // }
 
 
 

@@ -10,89 +10,129 @@
                     <h5 th:text="'Update '+${instructor.degree}+' '+${instructor.name}" class="text-uppercase"></h5>
                 </div>
                 <div th:unless="${instructor.id !=null}">
-                    <h5  class="text-uppercase">Add new Instructor</h5>
+                    <h5 class="text-uppercase">Add new Instructor</h5>
                 </div>
             </div>
-                  <div class="col-lg-5 col-md-12 col-sm-12 col-12">
-                    <ul class="list-inline breadcrumb float-right">
-                      <li class="list-inline-item"><a href="/instructor/all">Instructor list</a></li>
-                    </ul>
-                  </div>
+            <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                <ul class="list-inline breadcrumb float-right">
+                    <li class="list-inline-item"><a href="/instructor/all">Instructor list</a></li>
+                </ul>
+            </div>
         </div>
     </div>
-      <div class="page-content">
+    <div class="page-content">
         <div class="row">
-          <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-            <div class="card">
-                <div class="page-title">
-                    <div class="row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                            <div class="page-title">Basic Information</div>
-                        </div>
-                    </div>
-                </div>
-                <form method="post" th:action="@{/instructor/save}" th:object="${instructor}"
-                      enctype="multipart/form-data">
-
-                    <div class="card-body">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="card">
+                    <div class="page-title">
                         <div class="row">
-                            <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                                <div class="form-group custom-mt-form-group">
-                                    <div th:if="${instructor.id} !=null">
-                                        <input type="text" th:field="*{name}"
-                                               th:value="${instructor.name != null} ? ${instructor.name} :'' " required>
-                                    </div>
-                                    <div th:unless="${instructor.id}!=null">
-                                        <input type="text" th:field="*{name}" required>
-                          </div>
-                        <label class="control-label">Name <span class="text-red">*</span> </label><i class="bar"></i>
-                      </div>
-<!--                      <div class="form-group custom-mt-form-group">-->
-<!--                        <input type="password" name="password" {{ isset($user) ? '' : 'required' }}/>-->
-<!--                        <label class="control-label">Password <span class="text-red">*</span></label><i class="bar"></i>-->
-<!--                        @if ( isset($user) )-->
-<!--                        <small class="text-red">Leave blank if not change</small>-->
-<!--                        @endif-->
-<!--                      </div>-->
-                      <div class="form-group custom-mt-form-group">
-                          <select th:field="*{degree}">
-                              <option th:value ="Prof.Dr."> Prof.Dr </option>
-                              <option th:value ="Assof.Dr.">Assof.Dr.</option>
-                              <option th:value ="Dr."> PhD/Dr </option>
-                              <option th:value ="MSc.">MSc.</option>
-                          </select>
-                        <label class="control-label">Degree</label><i class="bar"></i>
-                      </div>
-                    </div>
-                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
-                      <div class="form-group custom-mt-form-group">
-                          <div th:if="${instructor.id} !=null">
-                              <input type="email" th:field="*{email}" th:value="${instructor.email}" required/>
-                          </div>
-                          <div th:unless="${instructor.id}!=null">
-                              <input type="email" th:field="*{email}" name="email" required/>
-                          </div>
-                        <label class="control-label">Email <span class="text-red">*</span></label><i class="bar"></i>
-                      </div>
-                        <div class="form-group custom-mt-form-group">
-                            <div th:if="${instructor.id} !=null">
-                                <input type="text" th:field="*{id}" th:value="${instructor.id}" required/>
-                                <label class="control-label">Instructor ID <span class="text-red">*</span></label><i class="bar"></i>
+                            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                <div class="page-title">Basic Information</div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
-                      <div class="form-group text-center custom-mt-form-group">
-                        <button class="btn btn-primary mr-2" type="submit">Submit</button>
-                        <button class="btn btn-secondary" type="reset">Cancel</button>
-                      </div>
+                    <div th:if="${instructor.id} !=null">
+                        <form method="post" th:action="@{'/instructor/update/' + ${instructor.id}}" th:object="${instructor}"
+                              enctype="multipart/form-data">
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group custom-mt-form-group">
+
+                                            <input type="text" th:field="*{name}"
+                                                   th:value="${instructor.name != null} ? ${instructor.name} :'' "
+                                                   required>
+                                            <label class="control-label">Name <span class="text-red">*</span> </label><i
+                                                class="bar"></i>
+                                        </div>
+                                        <!--                      <div class="form-group custom-mt-form-group">-->
+                                        <!--                        <input type="password" name="password" {{ isset($user) ? '' : 'required' }}/>-->
+                                        <!--                        <label class="control-label">Password <span class="text-red">*</span></label><i class="bar"></i>-->
+                                        <!--                        @if ( isset($user) )-->
+                                        <!--                        <small class="text-red">Leave blank if not change</small>-->
+                                        <!--                        @endif-->
+                                        <!--                      </div>-->
+                                        <div class="form-group custom-mt-form-group">
+                                            <select th:field="*{degree}">
+                                                <option th:value="Prof.Dr."> Prof.Dr</option>
+                                                <option th:value="Assof.Dr.">Assof.Dr.</option>
+                                                <option th:value="Dr."> PhD/Dr</option>
+                                                <option th:value="MSc.">MSc.</option>
+                                            </select>
+                                            <label class="control-label">Degree</label><i class="bar"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group custom-mt-form-group">
+                                                <input type="email" th:field="*{email}" th:value="${instructor.email}"
+                                                       required/>
+                                            <label class="control-label">Email <span class="text-red">*</span></label><i
+                                                class="bar"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="form-group text-center custom-mt-form-group">
+                                            <button class="btn btn-primary mr-2" type="submit">Submit</button>
+                                            <button class="btn btn-secondary" type="reset">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
-                  </div>
+
+                    <div th:unless="${instructor.id} !=null">
+                        <form method="post" th:action="@{/instructor/save}" th:object="${instructor}"
+                              enctype="multipart/form-data">
+
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group custom-mt-form-group">
+
+                                            <input type="text" th:field="*{name}" required>
+                                            <label class="control-label">Name <span class="text-red">*</span> </label><i
+                                                class="bar"></i>
+                                        </div>
+                                        <!--                      <div class="form-group custom-mt-form-group">-->
+                                        <!--                        <input type="password" name="password" {{ isset($user) ? '' : 'required' }}/>-->
+                                        <!--                        <label class="control-label">Password <span class="text-red">*</span></label><i class="bar"></i>-->
+                                        <!--                        @if ( isset($user) )-->
+                                        <!--                        <small class="text-red">Leave blank if not change</small>-->
+                                        <!--                        @endif-->
+                                        <!--                      </div>-->
+                                        <div class="form-group custom-mt-form-group">
+                                            <select th:field="*{degree}">
+                                                <option th:value="Prof.Dr."> Prof.Dr</option>
+                                                <option th:value="Assof.Dr.">Assof.Dr.</option>
+                                                <option th:value="Dr."> PhD/Dr</option>
+                                                <option th:value="MSc.">MSc.</option>
+                                            </select>
+                                            <label class="control-label">Degree</label><i class="bar"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-6 col-md-6 col-sm-6 col-12">
+                                        <div class="form-group custom-mt-form-group">
+                                            <input type="email" th:field="*{email}" required/>
+                                            <label class="control-label">Email <span class="text-red">*</span></label><i
+                                                class="bar"></i>
+                                        </div>
+                                    </div>
+                                    <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div class="form-group text-center custom-mt-form-group">
+                                            <button class="btn btn-primary mr-2" type="submit">Submit</button>
+                                            <button class="btn btn-secondary" type="reset">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
-              </form>
             </div>
-          </div>
         </div>
-      </div>
+    </div>
 </div>
 </html>

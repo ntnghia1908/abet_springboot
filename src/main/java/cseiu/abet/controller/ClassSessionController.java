@@ -11,10 +11,12 @@ import cseiu.abet.services.ResultService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.BufferedOutputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Hashtable;
 import java.util.List;
 
 @Controller
@@ -57,7 +59,7 @@ public class ClassSessionController {
         ClassSession classSession = new ClassSession();
         List<Course> courseList = courseService.getAllCourse();
         List<String> courseName = new ArrayList<>();
-        for (Course c:courseList){
+        for (Course c : courseList) {
             courseName.add(c.getName());
         }
         List<Instructor> instructorList = instructorService.findAllInstructor();
@@ -73,7 +75,7 @@ public class ClassSessionController {
         ClassSession classSession = classSessionService.getClassById(class_id);
         List<Course> courseList = courseService.getAllCourse();
         List<String> courseName = new ArrayList<>();
-        for (Course c:courseList){
+        for (Course c : courseList) {
             courseName.add(c.getName());
         }
         List<Instructor> instructorList = instructorService.findAllInstructor();
@@ -86,18 +88,21 @@ public class ClassSessionController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String editInstructor (@ModelAttribute("classSession") ClassSession classSession,Model model ) {
+    public String editInstructor(@ModelAttribute("classSession") ClassSession classSession, Model model) {
         classSessionService.addClassSession(classSession);
         model.addAttribute("classSession", classSession);
         return "/admin/class-detail";
     }
+
     @RequestMapping("/delete/{id}")
     public String deleteClass(@PathVariable(name = "id") int id) {
         ClassSession classSession = classSessionService.getClassById(id);
         classSessionService.deleteClass(classSession);
         return "redirect:/classSession/all";
     }
-}
 
+
+
+}
 
 

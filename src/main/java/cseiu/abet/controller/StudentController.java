@@ -18,6 +18,7 @@ import java.io.InputStream;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -72,20 +73,26 @@ public class StudentController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String editInstructor (@ModelAttribute("student") Student student, Model model) {
+    public String addStudent (@ModelAttribute("student") Student student, Model model) {
         studentService.addStudent(student);
         model.addAttribute("student", student);
         return "admin/student-detail";
     }
 
     @RequestMapping(value ="/saveAuto", method = RequestMethod.POST)
-    public String saveStudentAutomatic(@RequestParam("file") MultipartFile file, RedirectAttributes attributes) throws IOException {
+    public String saveStudentAutomatic(@RequestParam("file") MultipartFile file) throws IOException {
+        List<Student> studentList = utilityService.readStudentListFromExcelFile(file.getInputStream());
+        for (Student student: studentList) {
+            studentService.addStudent(student);
+        }
+            return "redirect:/student/all";
+    }
 
-//        List<Student> studentList = utilityService.readStudentListFromExcelFile(path);
-//        for (Student student: studentList){
-//            studentService.addStudent(student); }
-
-        return "redirect:/student/all";
+    @RequestMapping(value ="/update/{student_id}" , method = RequestMethod.POST)
+    public String updateStudent(@ModelAttribute("student") Student student, @PathVariable(name="student_id") String student_id){
+        student.setId(student_id);
+        studentService.updateStudent(student);
+        return "redirect:/student/view/"+student_id;
     }
 
 //    @GetMapping("/getByMajor/{major}")

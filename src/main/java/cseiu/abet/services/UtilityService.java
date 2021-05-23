@@ -1,8 +1,5 @@
 package cseiu.abet.services;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.util.Iterator;
 import java.util.*;
 import cseiu.abet.model.Result;
@@ -24,10 +21,10 @@ public class UtilityService {
         return null;
     }
 
-    public List<Result> readStudentScoreFromExcelFile (String excelFilePath){
+    public List<Result> readStudentScoreFromExcelFile (InputStream inputStream){
         List<Result> resultList = new ArrayList<>();
         try{
-            FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+         //   FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
 
             Workbook workbook = new XSSFWorkbook(inputStream);
             Sheet firstSheet = workbook.getSheetAt(0);
@@ -43,17 +40,17 @@ public class UtilityService {
                     Cell nextCell = cellIterator.next();
                     int columnIndex = nextCell.getColumnIndex();
                     switch(columnIndex){
-                        case 1:
+                        case 0:
                             student.setId((String) getCellValue(nextCell));
                             student_result.setStudent(student);
                             break;
-                        case 2:
+                        case 1:
                             student_result.setInClassScore((int) (double)getCellValue(nextCell));
                             break;
-                        case 3:
+                        case 2:
                             student_result.setMidScore((int) (double) getCellValue(nextCell));
                             break;
-                        case 4:
+                        case 3:
                             student_result.setFinalScore((int) (double) getCellValue(nextCell));
                             break;
                     }
@@ -74,20 +71,30 @@ public class UtilityService {
         Cell cell = row.createCell(0);
         cell.setCellValue(index);
 
-        cell = row.createCell(1);
-        cell.setCellValue(student_result.getStudent().getId());
+        try{
+            cell = row.createCell(1);
+            cell.setCellValue(student_result.getStudent().getId());
+        }catch(Exception e){}
 
-        cell = row.createCell(2);
-        cell.setCellValue(student_result.getInClassScore());
+        try{
+            cell = row.createCell(2);
+            cell.setCellValue(student_result.getInClassScore());
+        } catch(Exception e){}
 
-        cell = row.createCell(3);
-        cell.setCellValue(student_result.getMidScore());
+        try{
+            cell = row.createCell(3);
+            cell.setCellValue(student_result.getMidScore());
+        } catch(Exception e){}
 
-        cell = row.createCell(4);
-        cell.setCellValue(student_result.getFinalScore());
+        try{
+            cell = row.createCell(4);
+            cell.setCellValue(student_result.getFinalScore());
+        }catch(Exception e){}
 
-        cell = row.createCell(5);
-        cell.setCellValue(student_result.getGpa());
+        try{
+            cell = row.createCell(5);
+            cell.setCellValue(student_result.getGpa());
+        }catch(Exception e){}
 
         try {
             cell = row.createCell(6);
@@ -164,11 +171,10 @@ public class UtilityService {
 
     }
 
-    public List<Student> readStudentListFromExcelFile(String excelFilePath)  {
+
+    public List<Student> readStudentListFromExcelFile(InputStream inputStream)  {
         List<Student> listStudent = new ArrayList<>();
         try{
-            FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
-
             Workbook workbook = new XSSFWorkbook(inputStream);
             Sheet firstSheet = workbook.getSheetAt(0);
             Iterator<Row> iterator = firstSheet.iterator();
@@ -182,7 +188,7 @@ public class UtilityService {
                     Cell nextCell = cellIterator.next();
                     int columnIndex = nextCell.getColumnIndex();
                     switch(columnIndex) {
-                        case 1:
+                        case 0:
                             String studentID = (String) getCellValue(nextCell);
                             student.setId(studentID);
                             List<String> tokens = new ArrayList<>();
@@ -206,7 +212,7 @@ public class UtilityService {
                             }
                             student.setBatch(Integer.parseInt(tokens.get(3)));
                             break;
-                        case 2:
+                        case 1:
                             student.setName((String) getCellValue(nextCell));
                             break;
                     }

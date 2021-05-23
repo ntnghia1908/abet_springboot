@@ -19,11 +19,11 @@ public class UtilityServiceTest {
 //        for (Result sr: studentResult){
 //            System.out.println(sr.getMidScore());
 //        }
-        String studentFilePath ="/Users/minhthu/Documents/IU/Project/studentList.xlsx";
-        List<Student> studentList = utilityS.readStudentListFromExcelFile(studentFilePath);
-        for (Student s: studentList){
-            System.out.println(s.getId()+"--"+s.getName()+"--"+s.getMajor()+"--"+s.getBatch());
-        }
+//        String studentFilePath ="/Users/minhthu/Documents/IU/Project/studentList.xlsx";
+//        List<Student> studentList = utilityS.readStudentListFromExcelFile(studentFilePath);
+//        for (Student s: studentList){
+//            System.out.println(s.getId()+"--"+s.getName()+"--"+s.getMajor()+"--"+s.getBatch());
+//        }
 
 
     }

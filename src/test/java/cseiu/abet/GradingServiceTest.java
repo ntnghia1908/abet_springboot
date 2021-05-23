@@ -21,18 +21,18 @@ public class GradingServiceTest {
 
 
        // String excelFilePath = "F:/Documents/SCSE/TA/C Programming/testData.xlsx";
-        String excelFilePath = "/Users/minhthu/Documents/IU/Project/IT079.xlsx";
-        List<Result> studentResult = utilityService.readStudentScoreFromExcelFile(excelFilePath);
-
-        List<CourseAssessment> courseAssessmentList = courseAssessmentService.getCourseAssessmentByCourseId("IT079");
-
-        List<AssessmentTool> assessmentToolList = assessmentToolService.getAssessmentTootTableByCourse("IT079");
-
-        List<CloSlo> abetMapping = abetService.getAbetMappingTable("IT079");
-
-        for (Result student: studentResult){
-         //   System.out.println(gradingService.calculateGPA(student,courseAssessmentList).getGpa());
-        }
+//        String excelFilePath = "/Users/minhthu/Documents/IU/Project/IT079.xlsx";
+//        List<Result> studentResult = utilityService.readStudentScoreFromExcelFile(excelFilePath);
+//
+//        List<CourseAssessment> courseAssessmentList = courseAssessmentService.getCourseAssessmentByCourseId("IT079");
+//
+//        List<AssessmentTool> assessmentToolList = assessmentToolService.getAssessmentTootTableByCourse("IT079");
+//
+//        List<CloSlo> abetMapping = abetService.getAbetMappingTable("IT079");
+//
+//        for (Result student: studentResult){
+//         //   System.out.println(gradingService.calculateGPA(student,courseAssessmentList).getGpa());
+//        }
 
 
 //        List<Result> finalResult = new ArrayList<>();

@@ -57,10 +57,18 @@ public class InstructorController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String editInstructor (@ModelAttribute("instructor") Instructor instructor, Model model) {
+    public String addInstructor (@ModelAttribute("instructor") Instructor instructor, Model model) {
         instructorService.addInstructor(instructor);
         model.addAttribute("instructor", instructor);
         return "admin/instructor-detail";
+    }
+
+    @RequestMapping("/update/{instructor_id}")
+    public String updateInstructor(@ModelAttribute("instructor") Instructor instructor,
+                                   @PathVariable("instructor_id") int instructor_id){
+        instructor.setId(instructor_id);
+        instructorService.updateInstructor(instructor);
+        return "redirect:/instructor/view/"+instructor_id;
     }
 //
 //    @RequestMapping(value = "/save", method = RequestMethod.POST)
