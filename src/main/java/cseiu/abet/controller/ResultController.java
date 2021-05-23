@@ -34,6 +34,13 @@ public class ResultController {
         return "/admin/student-resultDetail";
     }
 
+    @GetMapping("/deleteStudentInClass/{class_id}/{student_id}")
+    public String deleteStudentFromClass (@PathVariable(name ="class_id") int class_id,
+                                          @PathVariable(name="student_id") String student_id){
+        resultService.deleteStudentInClass(student_id, class_id);
+        return "redirect:/classSession/view/"+class_id;
+    }
+
     @RequestMapping(value ="/upload/{class_id}", method = RequestMethod.POST)
     public String saveStudentListForClass(@RequestParam("file") MultipartFile file,
                                           @PathVariable(name="class_id") int class_id) throws IOException {

@@ -12,27 +12,28 @@ public class InstructorServiceTest {
         ApplicationContext applicationContext = SpringApplication.run(InstructorServiceTest.class, args);
         InstructorService instructorSevice = applicationContext.getBean(InstructorService.class);
 
-        // FIND ALL INSTRUCTOR//
-        for (Instructor instructor: instructorSevice.findAllInstructor()){
-            System.out.println(instructor.getName());
-        }
-
-        //FIND SPECIFIC INSTRUCTOR//
-        Instructor instructor = instructorSevice.findInstructorById(2);
-        System.out.println(instructor.getName()+"---"+instructor.getEmail());
-
-        //ADD NEW INSTRUCTOR
-        Instructor new_instructor = new Instructor();
-        new_instructor.setId(34);
-        new_instructor.setName("Le Duy Tan");
-        instructorSevice.addInstructor((new_instructor));
-
-        //UPDATE INSTRUCTOR//
-        Instructor update_instructor = instructorSevice.findInstructorById(4);
-        update_instructor.setDegree("Assof.Pro.Dr");
-
-        //DELETE INSTRUCTOR
-        instructorSevice.deleteInstructor(33);
+//        // FIND ALL INSTRUCTOR//
+//        for (Instructor instructor: instructorSevice.findAllInstructor()){
+//            System.out.println(instructor.getName());
+//        }
+//
+//        //FIND SPECIFIC INSTRUCTOR//
+//        Instructor instructor = instructorSevice.findInstructorById(2);
+//        System.out.println(instructor.getName()+"---"+instructor.getEmail());
+//
+//        //ADD NEW INSTRUCTOR
+//        Instructor new_instructor = new Instructor();
+//        new_instructor.setId(34);
+//        new_instructor.setName("Le Duy Tan");
+//        instructorSevice.addInstructor((new_instructor));
+//
+//        //UPDATE INSTRUCTOR//
+//        Instructor update_instructor = instructorSevice.findInstructorById(4);
+//        update_instructor.setDegree("Assof.Pro.Dr");
+//
+//        //DELETE INSTRUCTOR
+//        instructorSevice.deleteInstructor(33);
+      //  System.out.println(instructorSevice.searchInstructorIdByName("Nguyen Thi Thanh Sang"));
 
 
     }

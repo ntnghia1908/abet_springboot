@@ -4,19 +4,15 @@ import cseiu.abet.model.ClassSession;
 import cseiu.abet.model.Course;
 import cseiu.abet.model.Instructor;
 import cseiu.abet.model.Result;
-import cseiu.abet.services.ClassSessionService;
-import cseiu.abet.services.CourseService;
-import cseiu.abet.services.InstructorService;
-import cseiu.abet.services.ResultService;
+import cseiu.abet.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
-import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedOutputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 @Controller
@@ -29,13 +25,15 @@ public class ClassSessionController {
     private final ResultService resultService;
     private final CourseService courseService;
     private final InstructorService instructorService;
+    private final UtilityService utilityService;
 
 
-    public ClassSessionController(ClassSessionService classSessionService, ResultService resultService, CourseService courseService, InstructorService instructorService) {
+    public ClassSessionController(ClassSessionService classSessionService, ResultService resultService, CourseService courseService, InstructorService instructorService, UtilityService utilityService) {
         this.classSessionService = classSessionService;
         this.resultService = resultService;
         this.courseService = courseService;
         this.instructorService = instructorService;
+        this.utilityService = utilityService;
     }
 
     @GetMapping("/all")
@@ -88,16 +86,49 @@ public class ClassSessionController {
     }
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
-    public String editInstructor(@ModelAttribute("classSession") ClassSession classSession, Model model) {
+    public String saveClass(@ModelAttribute("classSession") ClassSession classSession, Model model) {
         classSessionService.addClassSession(classSession);
-        model.addAttribute("classSession", classSession);
-        return "/admin/class-detail";
+        return "redirect:/classSession/all";
+    }
+
+    @RequestMapping("update/{class_id}")
+    public String updateClass(@ModelAttribute("classSession") ClassSession classSession,
+                              @PathVariable(name="class_id") int class_id){
+        classSession.setId(class_id);
+        classSessionService.updateClassSession(classSession);
+        return "redirect:/classSession/view/"+class_id;
     }
 
     @RequestMapping("/delete/{id}")
     public String deleteClass(@PathVariable(name = "id") int id) {
         ClassSession classSession = classSessionService.getClassById(id);
         classSessionService.deleteClass(classSession);
+        return "redirect:/classSession/all";
+    }
+
+    @RequestMapping(value="/saveAuto", method = RequestMethod.POST)
+    public String saveClassAutomatic (@RequestParam("file") MultipartFile file) throws IOException {
+        for (List classInfor:utilityService.readClassFromExcelFile(file.getInputStream()) ){
+            ClassSession classSession = new ClassSession();
+
+            String instructorName = (String) ((Hashtable<?, ?>) classInfor.get(0)).get("instructor");
+            int instructorId = instructorService.searchInstructorIdByName(instructorName);
+            classSession.setInstructorId(new Instructor(instructorId));
+
+            String courseId = (String) ((Hashtable<?, ?>) classInfor.get(1)).get("course");
+            classSession.setCourse(new Course(courseId));
+
+            int groupTheory= ((Hashtable<String, Integer>) classInfor.get(2)).get("groupTheory");
+            classSession.setGroupTheory(groupTheory);
+
+            int semester =   ((Hashtable<String, Integer>) classInfor.get(3)).get("semester");
+            classSession.setSemester(semester);
+
+            String year = (String) ((Hashtable<?, ?>) classInfor.get(4)).get("academicYear");
+            classSession.setAcademicYear(year);
+
+            classSessionService.addClassSession(classSession);
+        }
         return "redirect:/classSession/all";
     }
 

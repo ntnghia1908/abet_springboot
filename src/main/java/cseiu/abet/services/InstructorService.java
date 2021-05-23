@@ -41,4 +41,8 @@ public class InstructorService {
         return instructorRepository.save(instructor);
     }
 
+    public Integer searchInstructorIdByName (String instructor_name){
+        return instructorRepository.searchInstructorIdGivenName(instructor_name);
+    }
+
 }

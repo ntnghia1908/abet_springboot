@@ -171,7 +171,6 @@ public class UtilityService {
 
     }
 
-
     public List<Student> readStudentListFromExcelFile(InputStream inputStream)  {
         List<Student> listStudent = new ArrayList<>();
         try{
@@ -227,4 +226,61 @@ public class UtilityService {
         return listStudent;
 
     }
+
+    public List<List> readClassFromExcelFile (InputStream inputStream){
+        List<List> classLists = new ArrayList<>();
+        try{
+              // FileInputStream inputStream = new FileInputStream(new File(excelFilePath));
+
+            Workbook workbook = new XSSFWorkbook(inputStream);
+            Sheet firstSheet = workbook.getSheetAt(0);
+            Iterator<Row> iterator = firstSheet.iterator();
+            iterator.next(); // skip the first row
+            while (iterator.hasNext()){
+                List<Hashtable> classInfor = new ArrayList<>() ;
+                Row nextRow = iterator.next();
+                Iterator<Cell> cellIterator = nextRow.cellIterator();
+                while (cellIterator.hasNext()){
+                    Cell nextCell = cellIterator.next();
+                    int columnIndex = nextCell.getColumnIndex();
+                    switch(columnIndex){
+                        case 0:
+                            Hashtable<String, String> instructor = new Hashtable<>();
+                            instructor.put("instructor",(String) getCellValue(nextCell));
+                            classInfor.add(instructor);
+                            break;
+                        case 1:
+                            Hashtable<String, String> course = new Hashtable<>();
+                            String courseId = (String) getCellValue(nextCell);
+                            course.put("course", courseId.substring(0, courseId.length()-2));
+                            classInfor.add(course);
+                            break;
+                        case 2:
+                            Hashtable<String, Integer> groupTheory = new Hashtable<>();
+                            groupTheory.put("groupTheory", (int) (double) getCellValue(nextCell));
+                            classInfor.add(groupTheory);
+                            break;
+                        case 3:
+                            Hashtable<String, Integer> semester = new Hashtable<>();
+                            semester.put("semester", (int) (double) getCellValue(nextCell));
+                            classInfor.add(semester);
+                            break;
+                        case 4:
+                            Hashtable<String, String> academic_year = new Hashtable<>();
+                            academic_year.put("academicYear", (String) getCellValue(nextCell));
+                            classInfor.add(academic_year);
+                    }
+                }
+                classLists.add(classInfor);
+            }
+            workbook.close();
+            inputStream.close();
+
+        } catch (Exception e){
+            System.out.println(e);
+        }
+
+        return classLists;
+    }
+
 }

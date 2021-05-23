@@ -7,6 +7,7 @@ import cseiu.abet.services.UtilityService;
 import cseiu.abet.model.Result;
 
 import java.io.IOException;
+import java.util.Hashtable;
 import java.util.List;
 
 @SpringBootApplication
@@ -14,7 +15,13 @@ public class UtilityServiceTest {
     public static void main(String[] args)  {
         ApplicationContext applicationContext = SpringApplication.run(UtilityServiceTest.class, args);
         UtilityService utilityS = applicationContext.getBean(UtilityService.class);
-        String excelFilePath = "/Users/minhthu/Documents/IU/Project/IT079.xlsx";
+        String excelFilePath = "/Users/minhthu/Documents/IU/Project/classList.xlsx";
+
+//        for (List classInfor:utilityS.readClassFromExcelFile(excelFilePath) ){
+//            String courseId = (String) ((Hashtable<?, ?>) classInfor.get(1)).get("course");
+//            System.out.println(courseId);
+//
+//        }
 //        List<Result> studentResult = utilityS.readStudentScoreFromExcelFile(excelFilePath);
 //        for (Result sr: studentResult){
 //            System.out.println(sr.getMidScore());

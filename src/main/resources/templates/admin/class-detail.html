@@ -194,6 +194,10 @@
                                                            class="btn btn-primary btn-sm mb-1">
                                                             <i class="fa fa-eye" aria-hidden="true"></i>
                                                         </a>&nbsp;&nbsp;&nbsp;
+                                                        <a th:href="@{'/result/deleteStudentInClass/' + ${classSession.id} +'/'+ ${result.student.id}}"
+                                                           class="btn btn-danger btn-sm mb-1 btn-delete">
+                                                            <i class="fa fa-trash" aria-hidden="true"></i>
+                                                        </a>&nbsp;&nbsp;&nbsp;
                                                         <!--                                                                    <a th:href="@{'edit/' + ${cl.id}}" class="btn btn-primary btn-sm mb-1">-->
                                                         <!--                                                                        <i class="fa fa-pencil" aria-hidden="true"></i>-->
                                                         <!--                                                                    </a>&nbsp;&nbsp;&nbsp;-->
