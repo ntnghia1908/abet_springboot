@@ -23,15 +23,13 @@ public class Account implements Serializable {
     @Column(name = "user_role")
     private String user_role;
 
-    @OneToOne
-    @MapsId
-    @JoinColumn(name="id")
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "instructor_id", referencedColumnName = "id")
     private Instructor instructor;
-//    @OneToMany(cascade = CascadeType.ALL, mappedBy = "instructorId")
-//    private List<ClassSession> classList;
 
-    public Account(){
+    public Account() {
     }
+
     public Account(Integer id) {
         this.id = id;
     }
