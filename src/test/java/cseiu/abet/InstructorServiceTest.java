@@ -1,6 +1,8 @@
 package cseiu.abet;
 
+import cseiu.abet.model.Account;
 import cseiu.abet.model.Instructor;
+import cseiu.abet.services.AccountService;
 import cseiu.abet.services.InstructorService;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -11,6 +13,16 @@ public class InstructorServiceTest {
     public static void main(String[] args) {
         ApplicationContext applicationContext = SpringApplication.run(InstructorServiceTest.class, args);
         InstructorService instructorSevice = applicationContext.getBean(InstructorService.class);
+        AccountService accountService = applicationContext.getBean(AccountService.class);
+
+        Account account = new Account();
+        account.setId(1);
+        account.setUser_name("nttsang");
+        account.setPassword("nttsang");
+        account.setInstructor(new Instructor(11));
+        account.setUser_role("admin");
+        accountService.addAccount(account);
+
 
 //        // FIND ALL INSTRUCTOR//
 //        for (Instructor instructor: instructorSevice.findAllInstructor()){
