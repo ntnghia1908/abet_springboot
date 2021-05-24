@@ -4,16 +4,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-  <link rel="shortcut icon" type="image/x-icon" href="assets/img/favicon.png">
+  <link rel="shortcut icon" type="image/x-icon" th:href="@{/img/favicon.png}">
   <title>Cseschool - Bootstrap Admin Template</title>
   <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
-  <link rel="stylesheet" type="text/css" href="{{asset('light/assets/css/bootstrap.min.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('light/assets/css/font-awesome.min.css')}}">
-  <link rel="stylesheet" type="text/css" href="{{asset('light/assets/css/style.css')}}">
-  <!--[if lt IE 9]>
-  <script src="assets/js/html5shiv.min.js"></script>
-  <script src="assets/js/respond.min.js"></script>
-  <![endif]-->
+  <link rel="stylesheet" type="text/css" th:href="@{/css/bootstrap.min.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/font-awesome.min.css}">
+  <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}">
+<!--  &lt;!&ndash;[if lt IE 9]>-->
+<!--  <script  th:src="@{js/html5shiv.min.js}"></script>-->
+<!--  <script th:src="@{assets/js/respond.min.js"></script>-->
+<!--  <![endif]&ndash;&gt;-->
 </head>
 
 <body>
@@ -24,23 +24,22 @@
       <div class="account-box">
         <div class="account-wrapper">
           <div class="account-logo">
-            <a href="index.html"><img src="{{asset('light/assets/img/logo.png')}}" alt="SchoolAdmin"></a>
+            <a href="index.html"><img  th:src="@{/img/logo.png}" alt="SchoolAdmin"></a>
           </div>
-          <form action="{{route('post-login')}}" method="post">
-            {{ csrf_field() }}
+          <form method="post" th:action="@{/app/checkLogin}" th:object="${account}">
             <div class="form-group custom-mt-form-group">
-              <input type="text" required name="email"/>
+              <input type="text"  th:field="*{user_name}" required name="User name"/>
               <label class="control-label">Email</label><i class="bar"></i>
             </div>
             <div class="form-group custom-mt-form-group">
-              <input type="password" required name="password" />
+              <input type="password"  th:field="*{password}" required name="password" />
               <label class="control-label">Password</label><i class="bar"></i>
             </div>
-            @if ( Session::has('flag') )
-            <div class="form-group custom-mt-form-group">
-              <span class="text-red">Email or password is incorrect</span>
-            </div>
-            @endif
+<!--            @if ( Session::has('flag') )-->
+<!--            <div class="form-group custom-mt-form-group">-->
+<!--              <span class="text-red">Email or password is incorrect</span>-->
+<!--            </div>-->
+<!--            @endif-->
             <div class="form-group text-center custom-mt-form-group">
               <button class="btn btn-primary btn-block account-btn" type="submit">Login</button>
             </div>
@@ -51,11 +50,11 @@
   </div>
 </div>
 <div class="sidebar-overlay" data-reff=""></div>
-<script type="text/javascript" src="{{asset('light/assets/js/jquery-3.2.1.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('light/assets/js/popper.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('light/assets/js/bootstrap.min.js')}}"></script>
-<script type="text/javascript" src="{{asset('light/assets/js/jquery.slimscroll.js')}}"></script>
-<script type="text/javascript" src="{{asset('light/assets/js/app.js')}}"></script>
+<script type="text/javascript" th:src="@{/js/jquery-3.2.1.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/popper.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/bootstrap.min.js}"></script>
+<script type="text/javascript" th:src="@{/js/jquery.slimscroll.js}"></script>
+<script type="text/javascript" th:src="@{/js/app.js}"></script>
 </body>
 <!-- Mirrored from dreamguys.co.in/preadmin/school/light/login.html by HTTrack Website Copier/3.x [XR&CO'2014], Thu, 19 Sep 2019 14:49:54 GMT -->
 </html>
