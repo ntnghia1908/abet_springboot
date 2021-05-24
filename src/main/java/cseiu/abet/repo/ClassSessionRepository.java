@@ -86,5 +86,12 @@ public interface ClassSessionRepository extends JpaRepository<ClassSession, Stri
     ClassSession findClassById(@Param("class_id") int class_id);
 
 
+    @Query(
+            value ="select * from class_session where course_id not in " +
+                    "(select course_id from result, class_session where " +
+                    "result.student_id = :student_id and result.class_id = class_session.id)",
 
+            nativeQuery = true
+    )
+    List<ClassSession> findCourseStudentNotEnroll(@Param("student_id") String student_id);
 }

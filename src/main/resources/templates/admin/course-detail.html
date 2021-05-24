@@ -7,6 +7,7 @@
     <div class="page-header">
         <div class="row">
             <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+                <h5 class="text-uppercase">Course Information</h5>
             </div>
             <div class="col-lg-5 col-md-12 col-sm-12 col-12">
                 <ul class="list-inline breadcrumb float-right">
@@ -145,7 +146,6 @@
                                                         <table class="table table-striped custom-table" id="datatable">
                                                             <thead>
                                                             <tr>
-                                                                <th style="min-width:50px;">Class ID</th>
                                                                 <th style="min-width:50px;">CourseName</th>
                                                                 <th style="min-width:50px;">Instructor</th>
                                                                 <th style="min-width:50px;">Group</th>
@@ -156,9 +156,8 @@
                                                             </thead>
                                                             <tbody>
                                                             <tr th:each="class : ${classSessionList}">
-                                                                <td th:text="${class.id}"></td>
-                                                                <td th:text="${class.course.name}"></td>
-                                                                <td th:text="${class.instructorId.degree + class.instructorId.name}"></td>
+                                                                <td><a th:href="@{'/classSession/view/'+ ${class.id}}"
+                                                                       th:text="${class.course.name}"> </a></td>                                                                <td th:text="${class.instructorId.degree + class.instructorId.name}"></td>
                                                                 <td th:text="${class.groupTheory}"></td>
                                                                 <td th:text="${class.semester}"></td>
                                                                 <td th:text="${class.academicYear}"></td>

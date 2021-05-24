@@ -40,4 +40,5 @@ public interface StudentRepository extends JpaRepository<Student, String>, JpaSp
             nativeQuery = true
     )
     Student findStudentByID(@Param("id") String id);
+
 }

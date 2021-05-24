@@ -1,14 +1,11 @@
 package cseiu.abet.services;
 import cseiu.abet.model.ClassSession;
-import cseiu.abet.model.Course;
-import cseiu.abet.model.Instructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import cseiu.abet.repo.ClassSessionRepository;
 
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @Transactional
@@ -61,4 +58,7 @@ public class ClassSessionService {
 
     public void deleteClass (ClassSession classSession){ classSessionRepository.delete(classSession);}
 
+    public List<ClassSession> getCourseStudentNotEnroll(String student_id){
+        return classSessionRepository.findCourseStudentNotEnroll(student_id);
+    }
 }

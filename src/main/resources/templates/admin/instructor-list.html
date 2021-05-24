@@ -78,34 +78,5 @@
             </div>
         </div>
     </div>
-<!--    <div id="delete_employee" class="modal" role="dialog">-->
-<!--        <div class="modal-dialog">-->
-<!--            <div class="modal-content modal-md">-->
-<!--                <div class="modal-header">-->
-<!--                    <h4 class="modal-title">Delete instructor</h4>-->
-<!--                </div>-->
-<!--                <form action="{{ route('admin_delete_course') }}" method="post">-->
-<!--                    {{ csrf_field() }}-->
-<!--                    <input type="hidden" id="course_id" name="course_id">-->
-<!--                    <div class="modal-body card-box">-->
-<!--                        <p>Are you sure want to delete this?</p>-->
-<!--                        <div class="m-t-20"><a href="#" class="btn btn-white" data-dismiss="modal">Close</a>-->
-<!--                            <button type="submit" class="btn btn-danger">Delete</button>-->
-<!--                        </div>-->
-<!--                    </div>-->
-<!--                </form>-->
-<!--            </div>-->
-<!--        </div>-->
-<!--    </div>-->
 </div>
-<th:block layout:fragment="more-script">
-    <script th:inline="javascript">
-        $(function () {
-            $('.btn-delete').on('click', function () {
-                console.log($(this).data('id'));
-                $('#course_id').val($(this).data('id'));
-            });
-        })
-    </script>
-</th:block>
 </html>

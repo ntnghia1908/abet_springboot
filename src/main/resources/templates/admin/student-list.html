@@ -63,6 +63,9 @@
                             <td th:text="${student.batch}">Batch</td>
 
                             <td class="text-right">
+                                <a th:href="@{'assignCourse/'+ ${student.id}}" class="btn btn-primary btn-sm mb-1">
+                                    <i class="fa fa-plus-square" aria-hidden="true"></i>
+                                </a>&nbsp;&nbsp;&nbsp;
                                 <a th:href="@{'view/'+ ${student.id}}" class="btn btn-primary btn-sm mb-1">
                                     <i class="fa fa-eye" aria-hidden="true"></i>
                                 </a>&nbsp;&nbsp;&nbsp;
@@ -82,14 +85,4 @@
     </div>
 
 </div>
-<th:block layout:fragment="more-script">
-    <script th:inline="javascript">
-        $(function () {
-            $('.btn-delete').on('click', function () {
-                console.log($(this).data('id'));
-                $('#id').val($(this).data('id'));
-            });
-        })
-    </script>
-</th:block>
 </html>

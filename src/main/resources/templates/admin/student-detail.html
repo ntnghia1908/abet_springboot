@@ -7,10 +7,13 @@
   <div class="page-header">
     <div class="row">
       <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+        <h5 class="text-uppercase">Student Detail</h5>
       </div>
       <div class="col-lg-5 col-md-12 col-sm-12 col-12">
         <ul class="list-inline breadcrumb float-right">
           <li class="list-inline-item"><a href="/student/all">Student list</a></li>
+          <li class="list-inline-item"><a th:href="@{'/student/assignCourse/'+ ${student.id}}">Assign Course</a></li>
+
         </ul>
       </div>
     </div>
@@ -66,7 +69,8 @@
                               </thead>
                               <tbody>
                               <tr th:each="result : ${studentResults}">
-                                  <td th:text="${result.classSession.course.name}"></td>
+                                <td><a th:href="@{'/classSession/view/'+ ${result.classSession.id}}"
+                                   th:text="${result.classSession.course.name}"> </a></td>
                                   <td th:text="${result.classSession.instructorId.name}"></td>
                                   <td th:text="${result.classSession.groupTheory}"></td>
                                   <td th:text="${result.classSession.semester}"></td>

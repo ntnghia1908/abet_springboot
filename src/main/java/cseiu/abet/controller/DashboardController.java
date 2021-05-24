@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @Controller
-@RequestMapping("/admin")
+@RequestMapping("admin")
 public class DashboardController {
     private final StudentService studentService;
     private final ClassSessionService classSessionService;

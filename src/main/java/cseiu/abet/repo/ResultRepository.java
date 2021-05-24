@@ -28,4 +28,5 @@ public interface ResultRepository extends JpaRepository<Result, Integer>, JpaSpe
     )
     Result findResultByStudentAndClass(@Param("student_id") String student_id,
                                              @Param("class_id") int class_id);
+
 }

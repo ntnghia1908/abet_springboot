@@ -1,24 +1,17 @@
 package cseiu.abet.controller;
+import cseiu.abet.model.ClassSession;
 import cseiu.abet.model.Result;
 import cseiu.abet.model.Student;
+import cseiu.abet.services.ClassSessionService;
 import cseiu.abet.services.ResultService;
 import cseiu.abet.services.StudentService;
 import cseiu.abet.services.UtilityService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
-import java.sql.SQLException;
 import java.util.List;
 
 @Controller
@@ -27,14 +20,16 @@ public class StudentController {
     private final StudentService studentService;
     private final ResultService resultService;
     private final UtilityService utilityService;
+    private final ClassSessionService classSessionService;
     private static String UPLOADED_FOLDER = System.getProperty("java.io.tmpdir");
 
 
-    public StudentController(StudentService studentService, ResultService resultService, UtilityService utilityService) {
+    public StudentController(StudentService studentService, ResultService resultService, UtilityService utilityService, ClassSessionService classSessionService) {
 
         this.studentService = studentService;
         this.resultService = resultService;
         this.utilityService = utilityService;
+        this.classSessionService = classSessionService;
     }
 
     @GetMapping("/all")
@@ -95,22 +90,12 @@ public class StudentController {
         return "redirect:/student/view/"+student_id;
     }
 
-//    @GetMapping("/getByMajor/{major}")
-//    public String getStudentByMajor(@PathVariable String major, Model model){
-//        List<Student> studentList = studentService.getStudentByMajor(major);
-//        model.addAttribute("studentListByMajor", studentList);
-//        return "student";
-//    }
-//
-//    @GetMapping("/getByBatch/{batch}")
-//    public ResponseEntity<List<Student>> getStudentByBatch(@PathVariable int batch){
-//        List<Student> studentList = studentService.getStudentByBatch(batch);
-//        return new ResponseEntity<>(studentList,HttpStatus.OK);
-//    }
-//
-//    @GetMapping("/{batch}/{major}")
-//    public ResponseEntity<List<Student>> getStudentByBatchAndMajor(@PathVariable int batch, @PathVariable String major){
-//        List<Student> studentList = studentService.getStudentByBatchAndMajor(batch, major);
-//        return new ResponseEntity<>(studentList,HttpStatus.OK);
-//    }
+    @RequestMapping("/assignCourse/{student_id}")
+    public String showAssignCoursePage(@PathVariable("student_id") String student_id, Model model){
+        Student student = studentService.getStudentByID(student_id);
+        List<ClassSession> classSessionList =  classSessionService.getCourseStudentNotEnroll(student_id);
+        model.addAttribute("student", student);
+        model.addAttribute("classes", classSessionList);
+        return "admin/assign-course";
+    }
 }

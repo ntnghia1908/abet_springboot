@@ -41,6 +41,15 @@ public class ResultController {
         return "redirect:/classSession/view/"+class_id;
     }
 
+    @GetMapping("/assignCourse/{class_id}/{student_id}")
+    public String assignCourseForStudent(@PathVariable("class_id") int class_id,
+                                         @PathVariable("student_id") String student_id){
+        Result result = new Result();
+        result.setResultPK(new ResultPK(student_id,class_id));
+        resultService.addStudentToClass(result);
+        return "redirect:/student/view/"+student_id;
+    }
+
     @RequestMapping(value ="/upload/{class_id}", method = RequestMethod.POST)
     public String saveStudentListForClass(@RequestParam("file") MultipartFile file,
                                           @PathVariable(name="class_id") int class_id) throws IOException {
