@@ -29,7 +29,13 @@ public class AccountService {
     public Account updateAccount(Account account) {
         return accountRepository.save(account);
     }
+
     public void deleteAccount(int accountId){
         accountRepository.deleteById(accountId);
+    }
+
+    public Account checkLogin (String user_name, String password){
+        String encryptedPass = passwordEncoder.encode(password);
+        return accountRepository.checkAccount(user_name, encryptedPass);
     }
 }

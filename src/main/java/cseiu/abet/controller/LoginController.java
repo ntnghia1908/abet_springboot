@@ -2,7 +2,7 @@ package cseiu.abet.controller;
 
 
 import cseiu.abet.model.Account;
-import cseiu.abet.model.Instructor;
+import cseiu.abet.services.AccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,6 +13,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 @Controller
 @RequestMapping("/app")
 public class LoginController {
+    private final AccountService accountService;
+
+    public LoginController(AccountService accountService) {
+        this.accountService = accountService;
+    }
 
     @GetMapping("/login")
     public String showLoginPage(Model model){
@@ -22,9 +27,15 @@ public class LoginController {
 
     }
     @RequestMapping(value ="/checkLogin" , method = RequestMethod.POST)
-    public String checkLogin(@ModelAttribute("account") Account account, Model model){
-        return "greeting.html";
-    }
+    public String checkLogin(@ModelAttribute("account") Account account){
+        Account checkLogin = accountService.checkLogin(account.getUser_name(), account.getPassword());
+        if (checkLogin == null){
+            return "redirect:/app/login";
+        }
+        else{
+            return "redirect:/admin/dashboard";
+        }
+     }
 
 
 
