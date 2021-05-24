@@ -3,9 +3,7 @@ package cseiu.abet.services;
 import cseiu.abet.model.Account;
 import cseiu.abet.repo.AccountRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
-import org.springframework.security.crypto.password.PasswordEncoder;
+
 import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
@@ -15,12 +13,10 @@ import javax.transaction.Transactional;
 public class AccountService {
 
     private final AccountRepository accountRepository;
-    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public AccountService(AccountRepository accountRepository, PasswordEncoder passwordEncoder) {
+    public AccountService(AccountRepository accountRepository) {
         this.accountRepository = accountRepository;
-        this.passwordEncoder = passwordEncoder;
     }
 
 //    @Bean

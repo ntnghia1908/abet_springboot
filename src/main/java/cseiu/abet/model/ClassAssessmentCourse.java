@@ -26,14 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "class_assessment_course")
 @XmlRootElement
-@XmlAccessorType(value = XmlAccessType.FIELD)
-@NamedQueries({
-    @NamedQuery(name = "ClassAssessmentCourse.findAll", query = "SELECT c FROM ClassAssessmentCourse c")
-    , @NamedQuery(name = "ClassAssessmentCourse.findByClassId", query = "SELECT c FROM ClassAssessmentCourse c WHERE c.classAssessmentCoursePK.classId = :classId")
-    , @NamedQuery(name = "ClassAssessmentCourse.findByAssessmentId", query = "SELECT c FROM ClassAssessmentCourse c WHERE c.classAssessmentCoursePK.assessmentId = :assessmentId")
-    , @NamedQuery(name = "ClassAssessmentCourse.findByPercentage", query = "SELECT c FROM ClassAssessmentCourse c WHERE c.percentage = :percentage")
-    , @NamedQuery(name = "ClassAssessmentCourse.findByLoId", query = "SELECT c FROM ClassAssessmentCourse c WHERE c.loId = :loId")
-    , @NamedQuery(name = "ClassAssessmentCourse.findBySloId", query = "SELECT c FROM ClassAssessmentCourse c WHERE c.sloId = :sloId")})
 public class ClassAssessmentCourse implements Serializable {
 
     private static final long serialVersionUID = 1L;

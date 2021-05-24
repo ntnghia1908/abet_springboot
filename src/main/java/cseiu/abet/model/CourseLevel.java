@@ -23,11 +23,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "course_level")
 @XmlRootElement
-@XmlAccessorType(value = XmlAccessType.FIELD)
-@NamedQueries({
-    @NamedQuery(name = "CourseLevel.findAll", query = "SELECT c FROM CourseLevel c")
-    , @NamedQuery(name = "CourseLevel.findById", query = "SELECT c FROM CourseLevel c WHERE c.id = :id")
-    , @NamedQuery(name = "CourseLevel.findByLevel", query = "SELECT c FROM CourseLevel c WHERE c.level = :level")})
 public class CourseLevel implements Serializable {
 
     private static final long serialVersionUID = 1L;

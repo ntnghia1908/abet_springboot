@@ -25,16 +25,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "result")
 @XmlRootElement
-@XmlAccessorType(value = XmlAccessType.FIELD)
-@NamedQueries({
-    @NamedQuery(name = "Result.findAll", query = "SELECT r FROM Result r")
-    , @NamedQuery(name = "Result.findByStudentId", query = "SELECT r FROM Result r WHERE r.resultPK.studentId = :studentId")
-    , @NamedQuery(name = "Result.findByClassId", query = "SELECT r FROM Result r WHERE r.resultPK.classId = :classId")
-    , @NamedQuery(name = "Result.findByMidScore", query = "SELECT r FROM Result r WHERE r.midScore = :midScore")
-    , @NamedQuery(name = "Result.findByFinalScore", query = "SELECT r FROM Result r WHERE r.finalScore = :finalScore")
-    , @NamedQuery(name = "Result.findByInClassScore", query = "SELECT r FROM Result r WHERE r.inClassScore = :inClassScore")
-    , @NamedQuery(name = "Result.findByGpa", query = "SELECT r FROM Result r WHERE r.gpa = :gpa")
-    , @NamedQuery(name = "Result.findByAbetScore", query = "SELECT r FROM Result r WHERE r.abetScore = :abetScore")})
 public class Result implements Serializable {
 
     private static final long serialVersionUID = 1L;

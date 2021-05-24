@@ -26,12 +26,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "assessment_tool")
 @XmlRootElement
-@NamedQueries({
-        @NamedQuery(name = "AssessmentTool.findAll", query = "SELECT a FROM AssessmentTool a")
-        , @NamedQuery(name = "AssessmentTool.findByAssessmentId", query = "SELECT a FROM AssessmentTool a WHERE a.assessmentToolPK.assessmentId = :assessmentId")
-        , @NamedQuery(name = "AssessmentTool.findByCourseId", query = "SELECT a FROM AssessmentTool a WHERE a.assessmentToolPK.courseId = :courseId")
-        , @NamedQuery(name = "AssessmentTool.findByLoutcomeId", query = "SELECT a FROM AssessmentTool a WHERE a.assessmentToolPK.loutcomeId = :loutcomeId")
-        , @NamedQuery(name = "AssessmentTool.findByPercentage", query = "SELECT a FROM AssessmentTool a WHERE a.percentage = :percentage")})
 public class AssessmentTool implements Serializable {
 
     private static final long serialVersionUID = 1L;

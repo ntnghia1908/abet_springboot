@@ -35,12 +35,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "major")
 @XmlRootElement
-@XmlAccessorType(value = XmlAccessType.FIELD)
-@NamedQueries({
-    @NamedQuery(name = "Major.findAll", query = "SELECT m FROM Major m")
-    , @NamedQuery(name = "Major.findById", query = "SELECT m FROM Major m WHERE m.id = :id")
-    , @NamedQuery(name = "Major.findByFullName", query = "SELECT m FROM Major m WHERE m.fullName = :fullName")
-    , @NamedQuery(name = "Major.findByShortName", query = "SELECT m FROM Major m WHERE m.shortName = :shortName")})
 public class Major implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -56,10 +50,8 @@ public class Major implements Serializable {
     @Column(name = "short_name")
     private String shortName;
 
-
     @OneToMany(mappedBy = "major")
     private List<Program> programList;
-
 
     @JoinColumn(name = "discipline_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
@@ -95,7 +87,6 @@ public class Major implements Serializable {
     public void setShortName(String shortName) {
         this.shortName = shortName;
     }
-
 
     public List<Program> getProgramList() {
         return programList;

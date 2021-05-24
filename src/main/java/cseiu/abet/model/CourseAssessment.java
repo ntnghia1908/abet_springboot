@@ -32,12 +32,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "course_assessment")
 @XmlRootElement
-@XmlAccessorType(value = XmlAccessType.FIELD)
-@NamedQueries({
-    @NamedQuery(name = "CourseAssessment.findAll", query = "SELECT c FROM CourseAssessment c")
-    , @NamedQuery(name = "CourseAssessment.findByAssessmentId", query = "SELECT c FROM CourseAssessment c WHERE c.courseAssessmentPK.assessmentId = :assessmentId")
-    , @NamedQuery(name = "CourseAssessment.findByCourseId", query = "SELECT c FROM CourseAssessment c WHERE c.courseAssessmentPK.courseId = :courseId")
-    , @NamedQuery(name = "CourseAssessment.findByPercentage", query = "SELECT c FROM CourseAssessment c WHERE c.percentage = :percentage")})
 public class CourseAssessment implements Serializable {
 
     private static final long serialVersionUID = 1L;

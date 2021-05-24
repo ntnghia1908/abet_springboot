@@ -26,12 +26,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "slo")
 @XmlRootElement
-@XmlAccessorType(value = XmlAccessType.FIELD)
-@NamedQueries({
-    @NamedQuery(name = "Slo.findAll", query = "SELECT s FROM Slo s")
-    , @NamedQuery(name = "Slo.findById", query = "SELECT s FROM Slo s WHERE s.id = :id")
-    , @NamedQuery(name = "Slo.findByDescription", query = "SELECT s FROM Slo s WHERE s.description = :description")
-    , @NamedQuery(name = "Slo.findByCriteria", query = "SELECT s FROM Slo s WHERE s.criteria = :criteria")})
 public class Slo implements Serializable {
 
     private static final long serialVersionUID = 1L;

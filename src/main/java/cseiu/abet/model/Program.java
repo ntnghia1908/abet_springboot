@@ -21,13 +21,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "program")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "Program.findAll", query = "SELECT p FROM Program p")
-    , @NamedQuery(name = "Program.findById", query = "SELECT p FROM Program p WHERE p.id = :id")
-    , @NamedQuery(name = "Program.findByName", query = "SELECT p FROM Program p WHERE p.name = :name")
-    , @NamedQuery(name = "Program.findByDuration", query = "SELECT p FROM Program p WHERE p.duration = :duration")
-    , @NamedQuery(name = "Program.findByVersion", query = "SELECT p FROM Program p WHERE p.version = :version")
-    , @NamedQuery(name = "Program.findByType", query = "SELECT p FROM Program p WHERE p.type = :type")})
 public class Program implements Serializable {
 
     private static final long serialVersionUID = 1L;

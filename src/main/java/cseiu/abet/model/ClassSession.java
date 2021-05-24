@@ -21,13 +21,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "class_session")
 @XmlRootElement
-@NamedQueries({
-        @NamedQuery(name = "Class.findAll", query = "SELECT c FROM ClassSession c")
-        , @NamedQuery(name = "Class.findById", query = "SELECT c FROM ClassSession c WHERE c.id = :id")
-        , @NamedQuery(name = "Class.findByGroup", query = "SELECT c FROM ClassSession c WHERE c.groupTheory = :group")
-        , @NamedQuery(name = "Class.findByGroupLab", query = "SELECT c FROM ClassSession c WHERE c.groupLab = :groupLab")
-        , @NamedQuery(name = "Class.findBySemester", query = "SELECT c FROM ClassSession c WHERE c.semester = :semester")
-        , @NamedQuery(name = "Class.findByAcademicYear", query = "SELECT c FROM ClassSession c WHERE c.academicYear = :academicYear")})
 public class ClassSession implements Serializable {
 
     private static final long serialVersionUID = 1L;

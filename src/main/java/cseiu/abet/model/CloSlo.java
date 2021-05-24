@@ -25,11 +25,6 @@ import javax.xml.bind.annotation.XmlRootElement;
 @Entity
 @Table(name = "clo_slo")
 @XmlRootElement
-@NamedQueries({
-    @NamedQuery(name = "CloSlo.findAll", query = "SELECT c FROM CloSlo c")
-    , @NamedQuery(name = "CloSlo.findBySloId", query = "SELECT c FROM CloSlo c WHERE c.cloSloPK.sloId = :sloId")
-    , @NamedQuery(name = "CloSlo.findByLoId", query = "SELECT c FROM CloSlo c WHERE c.cloSloPK.loId = :loId")
-    , @NamedQuery(name = "CloSlo.findByPercentage", query = "SELECT c FROM CloSlo c WHERE c.percentage = :percentage")})
 public class CloSlo implements Serializable {
 
     private static final long serialVersionUID = 1L;

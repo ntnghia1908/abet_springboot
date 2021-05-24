@@ -22,11 +22,6 @@ import javax.xml.bind.annotation.XmlTransient;
 @Entity
 @Table(name = "assessment")
 @XmlRootElement
-@XmlAccessorType(value = XmlAccessType.FIELD)
-@NamedQueries({
-    @NamedQuery(name = "Assessment.findAll", query = "SELECT a FROM Assessment a")
-    , @NamedQuery(name = "Assessment.findById", query = "SELECT a FROM Assessment a WHERE a.id = :id")
-    , @NamedQuery(name = "Assessment.findByType", query = "SELECT a FROM Assessment a WHERE a.type = :type")})
 public class Assessment implements Serializable {
 
     private static final long serialVersionUID = 1L;
