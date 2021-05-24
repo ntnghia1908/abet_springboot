@@ -49,6 +49,10 @@ public class Instructor implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "instructorId")
     private List<ClassSession> classList;
 
+    @OneToOne(mappedBy = "instructor")
+    @JoinColumn(referencedColumnName = "id")
+    private Account account;
+
     public Instructor() {
     }
 
