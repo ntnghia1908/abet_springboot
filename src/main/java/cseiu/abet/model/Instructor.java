@@ -51,7 +51,6 @@ public class Instructor implements Serializable {
     private List<ClassSession> classList;
 
     @OneToOne(mappedBy = "instructor")
-    @PrimaryKeyJoinColumn
     private Account account;
 
     public Instructor() {
