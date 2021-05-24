@@ -23,7 +23,9 @@ public class Account implements Serializable {
     @Column(name = "user_role")
     private String user_role;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "account")
+    @OneToOne
+    @MapsId
+    @JoinColumn(name="id")
     private Instructor instructor;
 //    @OneToMany(cascade = CascadeType.ALL, mappedBy = "instructorId")
 //    private List<ClassSession> classList;

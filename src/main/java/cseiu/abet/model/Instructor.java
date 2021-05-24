@@ -6,6 +6,7 @@
 package cseiu.abet.model;
 
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import org.springframework.context.annotation.Primary;
 
 import java.io.Serializable;
 import java.util.List;
@@ -50,7 +51,7 @@ public class Instructor implements Serializable {
     private List<ClassSession> classList;
 
     @OneToOne(mappedBy = "instructor")
-    @JoinColumn(referencedColumnName = "id")
+    @PrimaryKeyJoinColumn
     private Account account;
 
     public Instructor() {
