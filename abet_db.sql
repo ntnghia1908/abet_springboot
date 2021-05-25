@@ -18,6 +18,43 @@ USE `abet`;
 /*!40111 SET @OLD_SQL_NOTES = @@SQL_NOTES, SQL_NOTES = 0 */;
 
 --
+-- Table structure for table `account`
+--
+
+DROP TABLE IF EXISTS `account`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `account`
+(
+    `id`            int NOT NULL AUTO_INCREMENT,
+    `password`      varchar(255) DEFAULT NULL,
+    `user_name`     varchar(255) DEFAULT NULL,
+    `user_role`     varchar(255) DEFAULT NULL,
+    `instructor_id` int          DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `FK9nkqtsydmph5nrsd3sn1f4w29` (`instructor_id`),
+    CONSTRAINT `FK9nkqtsydmph5nrsd3sn1f4w29` FOREIGN KEY (`instructor_id`) REFERENCES `instructor` (`id`)
+) ENGINE = InnoDB
+  AUTO_INCREMENT = 5
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `account`
+--
+
+LOCK TABLES `account` WRITE;
+/*!40000 ALTER TABLE `account`
+    DISABLE KEYS */;
+INSERT INTO `account`
+VALUES (1, 'nttsang', 'nttsang', 'admin', 11),
+       (3, '$2a$10$I8swXBokhReGn/jtUmvpOOAipvaaWef8Fv3UmQgtdFXJKkYmWFg4u', 'tttung', 'admin', 10);
+/*!40000 ALTER TABLE `account`
+    ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Table structure for table `assessment`
 --
 
@@ -30,6 +67,7 @@ CREATE TABLE `assessment`
     `type` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 11
   DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -148,7 +186,6 @@ VALUES (1, 'IT013', 98, NULL),
        (2, 'PE014', 74, NULL),
        (2, 'PE014', 75, NULL),
        (2, 'PE014', 76, NULL),
-       (3, 'CH011', 29, NULL),
        (3, 'ISME105', 192, NULL),
        (3, 'ISME105', 193, NULL),
        (3, 'ISME105', 194, NULL),
@@ -251,21 +288,6 @@ VALUES (1, 'IT013', 98, NULL),
        (3, 'IT152', 186, NULL),
        (3, 'MA001', 3, NULL),
        (3, 'MA003', 6, NULL),
-       (4, 'CH011', 13, NULL),
-       (4, 'CH011', 14, NULL),
-       (4, 'CH011', 15, NULL),
-       (4, 'CH011', 16, NULL),
-       (4, 'CH011', 17, NULL),
-       (4, 'CH011', 18, NULL),
-       (4, 'CH011', 19, NULL),
-       (4, 'CH011', 20, NULL),
-       (4, 'CH011', 21, NULL),
-       (4, 'CH011', 22, NULL),
-       (4, 'CH011', 23, NULL),
-       (4, 'CH011', 24, NULL),
-       (4, 'CH011', 25, NULL),
-       (4, 'CH011', 26, NULL),
-       (4, 'CH011', 27, NULL),
        (4, 'EN007', 39, NULL),
        (4, 'EN007', 40, NULL),
        (4, 'EN007', 41, NULL),
@@ -412,12 +434,6 @@ VALUES (1, 'IT013', 98, NULL),
        (4, 'PE008', 71, NULL),
        (4, 'PE014', 72, NULL),
        (4, 'PE014', 73, NULL),
-       (5, 'CH012', 30, NULL),
-       (5, 'CH012', 31, NULL),
-       (5, 'CH012', 32, NULL),
-       (5, 'CH012', 33, NULL),
-       (5, 'CH012', 34, NULL),
-       (5, 'CH012', 35, NULL),
        (5, 'IS021', 198, NULL),
        (5, 'IS021', 199, NULL),
        (5, 'IS021', 200, NULL),
@@ -482,14 +498,6 @@ VALUES (1, 'IT013', 98, NULL),
        (5, 'IT151', 84, NULL),
        (5, 'IT151', 85, NULL),
        (5, 'IT151', 86, NULL),
-       (6, 'CH011', 28, NULL),
-       (6, 'CH011', 29, NULL),
-       (6, 'CH012', 30, NULL),
-       (6, 'CH012', 31, NULL),
-       (6, 'CH012', 32, NULL),
-       (6, 'CH012', 33, NULL),
-       (6, 'CH012', 34, NULL),
-       (6, 'CH012', 35, NULL),
        (6, 'EN007', 40, NULL),
        (6, 'EN007', 41, NULL),
        (6, 'EN008', 37, NULL),
@@ -652,12 +660,6 @@ VALUES (1, 'IT013', 98, NULL),
        (6, 'PE014', 74, NULL),
        (6, 'PE014', 75, NULL),
        (6, 'PE014', 76, NULL),
-       (7, 'CH012', 30, NULL),
-       (7, 'CH012', 31, NULL),
-       (7, 'CH012', 32, NULL),
-       (7, 'CH012', 33, NULL),
-       (7, 'CH012', 34, NULL),
-       (7, 'CH012', 35, NULL),
        (8, 'EN008', 36, NULL),
        (8, 'EN008', 37, NULL),
        (8, 'EN008', 38, NULL),
@@ -863,7 +865,7 @@ CREATE TABLE `class_session`
     CONSTRAINT `FK_class_course` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
     CONSTRAINT `FK_class_instructor` FOREIGN KEY (`instructor_id`) REFERENCES `instructor` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB
-  AUTO_INCREMENT = 12
+  AUTO_INCREMENT = 13
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -886,7 +888,8 @@ VALUES (1, 'IT079', 4, 1, NULL, 2, '2020-2021', NULL),
        (8, 'IT153', 1, 2, NULL, 1, '2020-2021', NULL),
        (9, 'IT079', 11, 1, NULL, 2, '2017-2018', NULL),
        (10, 'IT079', 11, 2, NULL, 2, '2018-2019', NULL),
-       (11, 'IT116', 1, NULL, 1, 3, '2020-2021', 1);
+       (11, 'IT116', 1, NULL, 1, 3, '2020-2021', 1),
+       (12, 'IT116', 1, NULL, 1, 3, '2020-2021', 1);
 /*!40000 ALTER TABLE `class_session`
     ENABLE KEYS */;
 UNLOCK TABLES;
@@ -960,11 +963,7 @@ LOCK TABLES `course` WRITE;
 /*!40000 ALTER TABLE `course`
     DISABLE KEYS */;
 INSERT INTO `course`
-VALUES ('CH011', 1, 'Chemistry for Engineer', 'Hoá học cho kĩ sư', 3, 0,
-        'This one‐semester course is designed for engineering students those who are pursuing a non‐ chemistry engineering degree such as information technology, bio‐technology, civil, biomedical, electronic and telecommunication engineering. The course will introduce the basic principles of chemistry and connect those principles to issues in engineering professions. The related lab‐work is not included in this course.'),
-       ('CH012', 1, 'Chemistry Laboratory', 'Thực hành hoá học', 0, 1,
-        'This course is designed for non-chemistry majors, as it is intended for students pursuing a degree in information technology, electronic and telecommunication. The course introduces the lab-work with emphasis on techniques relevant to engineering in chemistry.'),
-       ('EE050', 1, 'Introduction to Computer for Engineers', 'Giới thiệu máy tính cho kỹ sư', 3, 0,
+VALUES ('EE050', 1, 'Introduction to Computer for Engineers', 'Giới thiệu máy tính cho kỹ sư', 3, 0,
         'This course is an introduction to solving engineering problems through the use of the computer. It introduces general problem-solving techniques including the concepts of step-wise refinement applied to the development of algorithms. This course will cover elementary programming concepts using the MATLAB programming language and apply those concepts towards the solution of engineering problems.'),
        ('EE051', 1, 'Principles of Electrical Engineering I', 'Nguyên lý mạch điện 1', 3, 0,
         'This course covers the following topics: Circuit elements; Independent sources; Dependent sources; Circuit analysis in DC and AC steady state; Operational amplifiers; Power Computations; Two-port circuits; Balanced three-phase circuits. Special seminar(s)'),
@@ -1324,7 +1323,6 @@ VALUES (1, 'IT013', 5),
        (2, 'PH013', 30),
        (2, 'PH014', 30),
        (2, 'PH015', 30),
-       (3, 'CH011', 20),
        (3, 'EE052', 70),
        (3, 'EE063', 15),
        (3, 'EE117', 20),
@@ -1367,7 +1365,6 @@ VALUES (1, 'IT013', 5),
        (3, 'IT152', 20),
        (3, 'MA001', 20),
        (3, 'MA003', 20),
-       (4, 'CH011', 30),
        (4, 'EE051', 30),
        (4, 'EE055', 30),
        (4, 'EE063', 30),
@@ -1444,7 +1441,6 @@ VALUES (1, 'IT013', 5),
        (4, 'PH013', 30),
        (4, 'PH014', 30),
        (4, 'PH015', 30),
-       (5, 'CH012', 50),
        (5, 'EE117', 40),
        (5, 'EE121', 40),
        (5, 'IS021', 10),
@@ -1470,8 +1466,6 @@ VALUES (1, 'IT013', 5),
        (5, 'PE016', 15),
        (5, 'PE017', 15),
        (5, 'PE018', 20),
-       (6, 'CH011', 50),
-       (6, 'CH012', 30),
        (6, 'EE051', 40),
        (6, 'EE052', 30),
        (6, 'EE055', 40),
@@ -1552,7 +1546,6 @@ VALUES (1, 'IT013', 5),
        (6, 'PH013', 40),
        (6, 'PH014', 40),
        (6, 'PH015', 40),
-       (7, 'CH012', 20),
        (7, 'EE117', 10),
        (7, 'EE121', 20),
        (8, 'EN008', 40),
@@ -1600,8 +1593,6 @@ VALUES (1, 'IT013', 5),
        (9, 'PE017', 15),
        (9, 'PE019', 30),
        (9, 'PE020', 30),
-       (10, 'CH011', 20),
-       (10, 'CH012', 70),
        (10, 'EE051', 30),
        (10, 'EE052', 70),
        (10, 'EE055', 30),
@@ -1698,6 +1689,7 @@ CREATE TABLE `course_level`
     `level` varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 3
   DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -1746,48 +1738,7 @@ LOCK TABLES `course_program` WRITE;
 /*!40000 ALTER TABLE `course_program`
     DISABLE KEYS */;
 INSERT INTO `course_program`
-VALUES ('CH011', 1, 'CH011IU', 1),
-       ('CH011', 2, 'CH011IU', 1),
-       ('CH011', 3, 'CH011IU', 1),
-       ('CH011', 4, 'CH011IU', 1),
-       ('CH011', 9, 'CH011IU', 1),
-       ('CH011', 10, 'CH011IU', 1),
-       ('CH011', 11, 'CH011IU', 1),
-       ('CH011', 12, 'CH011IU', 1),
-       ('CH011', 13, 'CH011RG', 1),
-       ('CH011', 14, 'CH011RG', 1),
-       ('CH011', 15, 'CH011SB', 1),
-       ('CH011', 16, 'CH011SB', 1),
-       ('CH011', 19, 'CH011WE', 1),
-       ('CH011', 20, 'CH011WE', 1),
-       ('CH011', 22, 'CH011WE', 1),
-       ('CH011', 31, 'CH011DE', 1),
-       ('CH011', 32, 'CH011DE', 1),
-       ('CH011', 33, 'CH011DE', 1),
-       ('CH011', 34, 'CH011DE', 1),
-       ('CH011', 35, 'CH011DE', 1),
-       ('CH011', 36, 'CH011DE', 1),
-       ('CH012', 1, 'CH012IU', 1),
-       ('CH012', 2, 'CH012IU', 1),
-       ('CH012', 3, 'CH012IU', 1),
-       ('CH012', 4, 'CH012IU', 1),
-       ('CH012', 9, 'CH012IU', 1),
-       ('CH012', 10, 'CH012IU', 1),
-       ('CH012', 11, 'CH012IU', 1),
-       ('CH012', 12, 'CH012IU', 1),
-       ('CH012', 13, 'CH012RG', 1),
-       ('CH012', 14, 'CH012RG', 1),
-       ('CH012', 15, 'CH012SB', 1),
-       ('CH012', 16, 'CH012SB', 1),
-       ('CH012', 19, 'CH012WE', 1),
-       ('CH012', 20, 'CH012WE', 1),
-       ('CH012', 31, 'CH012DE', 1),
-       ('CH012', 32, 'CH012DE', 1),
-       ('CH012', 33, 'CH012DE', 1),
-       ('CH012', 34, 'CH012DE', 1),
-       ('CH012', 35, 'CH012DE', 1),
-       ('CH012', 36, 'CH012DE', 1),
-       ('EE050', 2, 'EE050IU', 2),
+VALUES ('EE050', 2, 'EE050IU', 2),
        ('EE050', 10, 'EE050IU', 2),
        ('EE050', 13, 'EE050RG', 2),
        ('EE050', 14, 'EE050RG', 2),
@@ -2780,6 +2731,7 @@ CREATE TABLE `instructor`
     `email`  varchar(255) DEFAULT NULL,
     PRIMARY KEY (`id`)
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 34
   DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -2800,8 +2752,8 @@ VALUES (1, 'Nguyen Van Sinh', 'Dr.', 'nvsinh@hcmiu.edu.vn'),
        (7, 'Dao Tran Hoang Chau', 'MSc.', 'dthchau@hcmiu.edu.vn'),
        (8, 'Ly Tu Nga', 'Dr.', 'ltnga@hcmiu.edu.vn'),
        (9, 'Vo Thi Luu Phuong', 'Assof.Dr.', 'vtlphuong@hcmiu.edu.vn'),
-       (10, 'Ha Viet Uyen Synh', 'Dr.', 'hvusynh@hcmiu.edu.vn'),
-       (11, 'Nguyen Thi Thanh Sang', 'Dr.', 'nttsang@hcmiu.edu.vn'),
+       (10, NULL, NULL, NULL),
+       (11, NULL, NULL, NULL),
        (12, 'Le Thanh Son', 'MSc.', 'ltson@hcmiu.edu.vn'),
        (13, 'Nguyen Ngoc Hai', 'Dr.', 'nnhai@hcmiu.edu.vn'),
        (14, 'Huynh Kim Lam', 'Dr.', 'hklam@hcmiu.edu.vn'),
@@ -2845,6 +2797,7 @@ CREATE TABLE `learning_outcome`
     KEY `FK_LearningOutcome` (`course_id`),
     CONSTRAINT `FK_LearningOutcome` FOREIGN KEY (`course_id`) REFERENCES `course` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 416
   DEFAULT CHARSET = utf8mb4
   COLLATE = utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -2887,31 +2840,6 @@ VALUES (1, 'MA001',
        (12, 'MA026',
         'Understand of Stochastic processes: Definitions of stochastic processes; Markov chains: Discrete and continuous time and states.  Stationary processes. Poisson. The Brownian motion process.',
         ''),
-       (13, 'CH011', 'Demonstrate basic knowledge of the following:', ''),
-       (14, 'CH011', 'The role of chemistry for engineers', ''),
-       (15, 'CH011', 'Measurements in chemistry', ''),
-       (16, 'CH011', 'Matter and state of matter', ''),
-       (17, 'CH011', 'Structure of atoms, molecules and ions', ''),
-       (18, 'CH011', 'Periodicity', ''),
-       (19, 'CH011', 'Chemical bonds', ''),
-       (20, 'CH011', 'Intermolecular forces, liquid and solid', ''),
-       (21, 'CH011', 'Gases, liquids, solids and their properties', ''),
-       (22, 'CH011', 'Types and rates of chemical reactions', ''),
-       (23, 'CH011', 'Chemical equilibrium', ''),
-       (24, 'CH011', 'Electrolytes, acid‐base, pH, buffer', ''),
-       (25, 'CH011', 'Thermochemistry and thermodynamics', ''),
-       (26, 'CH011', 'Electrochemistry', ''),
-       (27, 'CH011', 'Nuclear chemistry', ''),
-       (28, 'CH011',
-        'Development of their critical thinking and problem-solving skills for applying chemistry in an engineering context',
-        ''),
-       (29, 'CH011', 'Ability to explain many aspects of everyday life using chemistry concepts', ''),
-       (30, 'CH012', 'Be able to demonstrate lab skills and basic knowledge of the following', ''),
-       (31, 'CH012', 'Chemical reactions', ''),
-       (32, 'CH012', 'pH and buffers', ''),
-       (33, 'CH012', 'Oxidation-Reduction titration with KMnO4', ''),
-       (34, 'CH012', 'Chemical equilibrium', ''),
-       (35, 'CH012', 'Factors affecting reaction rates', ''),
        (36, 'EN008', 'Respond to academic lectures with appropriate strategies and confidence;', ''),
        (37, 'EN008', 'Improve their specialized knowledge of academic lectures;', ''),
        (38, 'EN008', 'Communicate effectively with their classmates and professors.', ''),
@@ -3541,7 +3469,8 @@ CREATE TABLE `major`
 --
 
 LOCK TABLES `major` WRITE;
-/*!40000 ALTER TABLE `major` DISABLE KEYS */;
+/*!40000 ALTER TABLE `major`
+    DISABLE KEYS */;
 INSERT INTO `major`
 VALUES (1, 2, 'Network Engineering', 'NE'),
        (2, 2, 'Computer Engineering', 'CE'),
@@ -3550,6 +3479,36 @@ VALUES (1, 2, 'Network Engineering', 'NE'),
        (5, 4, 'Infomation System Management', 'ISM'),
        (6, 4, 'Network Engineering System', 'NES');
 /*!40000 ALTER TABLE `major`
+    ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `persistent_logins`
+--
+
+DROP TABLE IF EXISTS `persistent_logins`;
+/*!40101 SET @saved_cs_client = @@character_set_client */;
+/*!50503 SET character_set_client = utf8mb4 */;
+CREATE TABLE `persistent_logins`
+(
+    `username`  varchar(64) NOT NULL,
+    `series`    varchar(64) NOT NULL,
+    `token`     varchar(64) NOT NULL,
+    `last_used` datetime    NOT NULL,
+    PRIMARY KEY (`series`)
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+  COLLATE = utf8mb4_0900_ai_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `persistent_logins`
+--
+
+LOCK TABLES `persistent_logins` WRITE;
+/*!40000 ALTER TABLE `persistent_logins`
+    DISABLE KEYS */;
+/*!40000 ALTER TABLE `persistent_logins`
     ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -3572,6 +3531,7 @@ CREATE TABLE `program`
     KEY `FK_program_major` (`major_id`),
     CONSTRAINT `FK_program_major` FOREIGN KEY (`major_id`) REFERENCES `major` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE = InnoDB
+  AUTO_INCREMENT = 44
   DEFAULT CHARSET = utf8mb3;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -3787,7 +3747,7 @@ VALUES (1);
 /*!40000 ALTER TABLE `uuid`
     ENABLE KEYS */;
 UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+/*!40103 SET TIME_ZONE = @OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
@@ -3797,4 +3757,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2021-05-21 22:25:16
+-- Dump completed on 2021-05-25 12:46:00

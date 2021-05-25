@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.security.Principal;
 import java.util.Hashtable;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class CourseController {
     }
 
     @GetMapping("/all")
-    public String getAllCourseFromDB(Model model) {
+    public String getAllCourseFromDB(Model model, Principal principal) {
         List<Course> courses = courseService.getAllCourse();
         model.addAttribute("courses", courses);
         return "admin/course-list";
