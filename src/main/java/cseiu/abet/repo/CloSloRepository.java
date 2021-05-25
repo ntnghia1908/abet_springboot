@@ -17,4 +17,10 @@ public interface CloSloRepository extends JpaRepository<CloSlo, Integer>, JpaSpe
     )
     List<CloSlo> selectAbetMapping(@Param("courseId") String courseId);
 
+    @Query(
+            value ="select * from clo_slo where lo_id = :lo_id and slo_id = :slo_id ",
+            nativeQuery = true
+    )
+    CloSlo findAbetMappingForLoAndSlo(@Param("lo_id") int lo_id, @Param("slo_id") int slo_id);
+
 }

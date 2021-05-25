@@ -16,15 +16,15 @@ public class InstructorServiceTest {
         AccountService accountService = applicationContext.getBean(AccountService.class);
 
         Account account = new Account();
-        account.setId(2);
-        account.setUser_name("nttsang");
-        account.setPassword("nttsang");
-        account.setInstructor(new Instructor(10));
+        account.setId(4);
+        account.setUser_name("");
+        account.setPassword("nttsan");
+        account.setInstructor(new Instructor(3));
         account.setUser_role("admin");
         accountService.addAccount(account);
 
-//        account = accountService.checkLogin("nttsang", "nttsang");
-//        System.out.println(account.getId());
+        account = accountService.checkLogin("nttsang", "nttsang");
+        System.out.println(account.getId());
 
 //        // FIND ALL INSTRUCTOR//
 //        for (Instructor instructor: instructorSevice.findAllInstructor()){

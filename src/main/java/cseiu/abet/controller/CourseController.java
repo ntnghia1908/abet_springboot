@@ -1,9 +1,6 @@
 package cseiu.abet.controller;
 
-import cseiu.abet.model.AssessmentTool;
-import cseiu.abet.model.ClassSession;
-import cseiu.abet.model.Course;
-import cseiu.abet.model.CourseAssessment;
+import cseiu.abet.model.*;
 import cseiu.abet.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -24,15 +21,17 @@ public class CourseController {
     private final AssessmentToolService assessmentToolService;
     private final AbetService abetService;
     private final CourseAssessmentService courseAssessmentService;
+    private final LearningOutcomeService learningOutcomeService;
 
     public CourseController(CourseService courseService, ClassSessionService classSessionService,
                             AssessmentToolService assessmentToolService, AbetService abetService,
-                            CourseAssessmentService courseAssessmentService) {
+                            CourseAssessmentService courseAssessmentService, LearningOutcomeService learningOutcomeService) {
         this.courseService = courseService;
         this.classSessionService = classSessionService;
         this.assessmentToolService = assessmentToolService;
         this.abetService = abetService;
         this.courseAssessmentService = courseAssessmentService;
+        this.learningOutcomeService = learningOutcomeService;
     }
 
     @GetMapping("/all")
@@ -46,20 +45,43 @@ public class CourseController {
     @GetMapping("/view/{id}")
     public String getByIdCourse(@PathVariable("id") String id, Model model) {
         Course course = courseService.findCourseById(id);
-
-        List<AssessmentTool> assessmentToolList = assessmentToolService.getAssessmentTootTableByCourse(id);
-        Hashtable<Integer, String> listLearningOutcome = new Hashtable<>();
-        List<CourseAssessment> courseAssessmentList = courseAssessmentService.getCourseAssessmentByCourseWithoutComboAss(id);
-        Hashtable<Integer, Hashtable> newAssessmentTool = new Hashtable<>();
         List<ClassSession> classSessionList = classSessionService.getClassSessionByCourse(id);
-       for (AssessmentTool as: assessmentToolList) {
-            listLearningOutcome.put(as.getLearningOutcome().getId(), as.getLearningOutcome().getDescription());
+
+        List<CourseAssessment> courseAssessmentList = courseAssessmentService.getCourseAssessmentByCourseWithoutComboAss("IT079");
+        List<LearningOutcome> learningOutcomeList = learningOutcomeService.getLOByCourse(id);
+
+        Hashtable<Integer, Hashtable> newAssessmentTool = new Hashtable<>();
+        for (LearningOutcome lo: learningOutcomeList){
+            Hashtable<Integer, Float> item = new Hashtable<>();
+            for (CourseAssessment ca: courseAssessmentList){
+                if (assessmentToolService.getByCourseAssessmentAndLO(id,ca.getCourseAssessmentPK().getAssessmentId(),lo.getId()) !=null){
+                    item.put(ca.getCourseAssessmentPK().getAssessmentId(),assessmentToolService.getByCourseAssessmentAndLO(id, ca.getCourseAssessmentPK().getAssessmentId(), lo.getId()).getPercentage());
+                }else{
+                    item.put(ca.getCourseAssessmentPK().getAssessmentId(),0F);
+                }
+            }
+            newAssessmentTool.put(lo.getId(),item);
         }
+
+        Hashtable<Integer, Hashtable> abetMapping = new Hashtable<>();
+        for (LearningOutcome lo: learningOutcomeList){
+            Hashtable<Integer,Float> item = new Hashtable<>();
+            for (int slo=1;slo<7; slo++){
+                if (abetService.getAbetMappingForCloSlo(lo.getId(),slo)!=null){
+                    item.put(slo, abetService.getAbetMappingForCloSlo(lo.getId(),slo).getPercentage());
+                }else{
+                    item.put(slo,0F);
+                }
+            }
+            abetMapping.put(lo.getId(),item);
+        }
+
         model.addAttribute("course", course);
-        model.addAttribute("assessmentTools", newAssessmentTool);
-        model.addAttribute("loList", listLearningOutcome);
+        model.addAttribute("newAssessmentTool", newAssessmentTool);
+        model.addAttribute("loList", learningOutcomeList);
         model.addAttribute("courseAssessment", courseAssessmentList);
         model.addAttribute("classSessionList", classSessionList);
+        model.addAttribute("abet", abetMapping);
         return "admin/course-detail";
     }
 
