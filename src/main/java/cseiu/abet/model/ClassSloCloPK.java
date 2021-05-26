@@ -13,9 +13,13 @@ public class ClassSloCloPK implements Serializable {
     @Column(name = "slo_id")
     private Integer sloId;
 
-    public ClassSloCloPK(Integer loId, Integer sloId) {
-        this.classId = loId;
+    @Column(name = "clo_id")
+    private Integer clo_id;
+
+    public ClassSloCloPK(Integer clo_id, Integer sloId, Integer classId) {
+        this.classId = classId;
         this.sloId = sloId;
+        this.clo_id = clo_id;
     }
 
     public ClassSloCloPK() {
