@@ -17,8 +17,8 @@ public class InstructorServiceTest {
 
         Account account = new Account();
         account.setId(2);
-        account.setUser_name("nttsang");
-        account.setPassword("nttsang");
+        account.setUser_name("tttung");
+        account.setPassword("ttung");
         account.setInstructor(new Instructor(10));
         account.setUser_role("admin");
         accountService.addAccount(account);

@@ -35,14 +35,6 @@ public class ClassAssessmentCourse implements Serializable {
     @Column(name = "percentage")
     private Integer percentage;
 
-    @Basic(optional = false)
-    @Column(name = "lo_id")
-    private int loId;
-
-    @Basic(optional = false)
-    @Column(name = "slo_id")
-    private int sloId;
-
     @JoinColumn(name = "assessment_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
     private Assessment assessment;
@@ -60,8 +52,6 @@ public class ClassAssessmentCourse implements Serializable {
 
     public ClassAssessmentCourse(ClassAssessmentCoursePK classAssessmentCoursePK, int loId, int sloId) {
         this.classAssessmentCoursePK = classAssessmentCoursePK;
-        this.loId = loId;
-        this.sloId = sloId;
     }
 
     public ClassAssessmentCourse(int classId, int assessmentId) {
@@ -82,22 +72,6 @@ public class ClassAssessmentCourse implements Serializable {
 
     public void setPercentage(Integer percentage) {
         this.percentage = percentage;
-    }
-
-    public int getLoId() {
-        return loId;
-    }
-
-    public void setLoId(int loId) {
-        this.loId = loId;
-    }
-
-    public int getSloId() {
-        return sloId;
-    }
-
-    public void setSloId(int sloId) {
-        this.sloId = sloId;
     }
 
     public Assessment getAssessment() {
