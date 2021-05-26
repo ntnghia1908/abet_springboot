@@ -227,18 +227,25 @@
                                                 <thead>
                                                 <tr>
                                                     <th style="min-width:50px;">Description</th>
-                                                    <!--                                                                <p th:each="ca :${courseAssessment}">-->
-                                                    <!--                                                                <th th:text="${ca.assessment.type} + ':' + ${ca.percentage} +'%' ">-->
+                                                    <p th:each="ca :${courseAssessment}">
+                                                    <th th:text="${ca.assessment.type} + ':' + ${ca.percentage} +'%' ">
                                                     </th>
                                                     </p>
 
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <!--                                                            <tr th:each="lo : ${loList}">-->
-                                                <!--                                                                <td th:text="${lo.getValue()}"></td>-->
-                                                <!--                                                                <th th:each="pe : ${assessmentTools.get(lo.getKey())}"></th>-->
-                                                <!--                                                            </tr>-->
+                                                <tr th:each="lo : ${loList}">
+                                                    <td th:text="${lo.description}"></td>
+                                                    <div th:each="ca :${courseAssessment}">
+                                                        <div th:if="${classAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
+                                                            <td th:text="${classAssessmentTool.get(lo.id).get(ca.assessment.id)}"></td>
+                                                        </div>
+                                                        <div th:unless="${classAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
+                                                            <td></td>
+                                                        </div>
+                                                    </div>
+                                                </tr>
                                                 </tbody>
 
                                             </table>
@@ -260,22 +267,24 @@
                                                 <thead>
                                                 <tr>
                                                     <th style="min-width:50px;">LearningOutcome</th>
-                                                    <th style="min-width:50px;">1</th>
-                                                    <th style="min-width:50px;">2</th>
-                                                    <th style="min-width:50px;">3</th>
-                                                    <th style="min-width:50px;">4</th>
-                                                    <th style="min-width:50px;">5</th>
-                                                    <th style="min-width:50px;">6</th>
+                                                    <div th:each="i : ${#numbers.sequence(1,6)}">
+                                                        <th th:text="${i}"></th>
+                                                    </div>
                                                     </th>
-                                                    </p>
-
                                                 </tr>
                                                 </thead>
                                                 <tbody>
-                                                <!--                                                            <tr th:each="lo : ${loList}">-->
-                                                <!--                                                                <td th:text="${lo.getValue()}"></td>-->
-                                                <!--                                                                <th th:each="pe : ${assessmentTools.get(lo.getKey())}"></th>-->
-                                                <!--                                                            </tr>-->
+                                                <tr th:each="lo : ${loList}">
+                                                    <td th:text="${lo.description}"></td>
+                                                    <div th:each="i : ${#numbers.sequence(1,6)}">
+                                                        <div th:if="${abet.get(lo.id).get(i)} !=0">
+                                                            <td th:text="${abet.get(lo.id).get(i)}"></td>
+                                                        </div>
+                                                        <div th:if="${abet.get(lo.id).get(i)} ==0">
+                                                            <td></td>
+                                                        </div>
+                                                    </div>
+                                                </tr>
                                                 </tbody>
 
                                             </table>

@@ -23,7 +23,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @Table(name = "class_assessment")
 @XmlRootElement
 @XmlAccessorType(value = XmlAccessType.FIELD)
-public class ClassAssessment implements Serializable {
+public class ClassAssessmentTool implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -48,18 +48,26 @@ public class ClassAssessment implements Serializable {
     @ManyToOne(optional = false)
     private LearningOutcome learningOutcomeId;
 
-    public ClassAssessment() {
+    public ClassAssessmentTool() {
     }
 
-    public ClassAssessment(ClassAssessmentPK classAssessmentPK) {
+    public ClassAssessmentPK getClassAssessmentPK() {
+        return classAssessmentPK;
+    }
+
+    public void setClassAssessmentPK(ClassAssessmentPK classAssessmentPK) {
         this.classAssessmentPK = classAssessmentPK;
     }
 
-    public Integer getPrecentage() {
+    public ClassAssessmentTool(ClassAssessmentPK classAssessmentPK) {
+        this.classAssessmentPK = classAssessmentPK;
+    }
+
+    public Integer getPercentage() {
         return precentage;
     }
 
-    public void setPrecentage(Integer precentage) {
+    public void setPercentage(Integer precentage) {
         this.precentage = precentage;
     }
 

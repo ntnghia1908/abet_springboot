@@ -5,16 +5,10 @@
  */
 package cseiu.abet.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import java.io.Serializable;
 import java.util.List;
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlAccessType;
-import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -57,7 +51,7 @@ public class LearningOutcome implements Serializable {
 
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "learningOutcomeId")
-    private List<ClassAssessment> classAssessmentList;
+    private List<ClassAssessmentTool> classAssessmentList;
 
     public LearningOutcome() {
     }
@@ -123,11 +117,11 @@ public class LearningOutcome implements Serializable {
     }
 
 
-    public List<ClassAssessment> getClassAssessmentList() {
+    public List<ClassAssessmentTool> getClassAssessmentList() {
         return classAssessmentList;
     }
 
-    public void setClassAssessmentList(List<ClassAssessment> classAssessmentList) {
+    public void setClassAssessmentList(List<ClassAssessmentTool> classAssessmentList) {
         this.classAssessmentList = classAssessmentList;
     }
 

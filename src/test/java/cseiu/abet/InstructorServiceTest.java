@@ -15,16 +15,6 @@ public class InstructorServiceTest {
         InstructorService instructorSevice = applicationContext.getBean(InstructorService.class);
         AccountService accountService = applicationContext.getBean(AccountService.class);
 
-        Account account = new Account();
-        account.setId(4);
-        account.setUser_name("");
-        account.setPassword("nttsan");
-        account.setInstructor(new Instructor(3));
-        account.setUser_role("admin");
-        accountService.addAccount(account);
-
-        account = accountService.checkLogin("nttsang", "nttsang");
-        System.out.println(account.getId());
 
 //        // FIND ALL INSTRUCTOR//
 //        for (Instructor instructor: instructorSevice.findAllInstructor()){
@@ -35,11 +25,12 @@ public class InstructorServiceTest {
 //        Instructor instructor = instructorSevice.findInstructorById(2);
 //        System.out.println(instructor.getName()+"---"+instructor.getEmail());
 //
-//        //ADD NEW INSTRUCTOR
-//        Instructor new_instructor = new Instructor();
-//        new_instructor.setId(34);
-//        new_instructor.setName("Le Duy Tan");
-//        instructorSevice.addInstructor((new_instructor));
+        //ADD NEW INSTRUCTOR
+        Instructor new_instructor = new Instructor();
+        new_instructor.setId(34);
+        new_instructor.setName("Le Duy Tan");
+        instructorSevice.addInstructor((new_instructor));
+        System.out.println(new_instructor.getId());
 //
 //        //UPDATE INSTRUCTOR//
 //        Instructor update_instructor = instructorSevice.findInstructorById(4);

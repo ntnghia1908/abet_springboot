@@ -1,9 +1,6 @@
 package cseiu.abet.controller;
 
-import cseiu.abet.model.ClassSession;
-import cseiu.abet.model.Course;
-import cseiu.abet.model.Instructor;
-import cseiu.abet.model.Result;
+import cseiu.abet.model.*;
 import cseiu.abet.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -26,14 +23,35 @@ public class ClassSessionController {
     private final CourseService courseService;
     private final InstructorService instructorService;
     private final UtilityService utilityService;
+    private final CourseAssessmentService courseAssessmentService;
+    private final AssessmentToolService assessmentToolService;
+    private final AbetService abetService;
+    private final ClassAssessmentToolService classAssessmentToolService;
+    private final ClassCourseAssessmentService classCourseAssessmentService;
+    private final ClassSloCloService classSloCloService;
+    private final LearningOutcomeService learningOutcomeService;
 
 
-    public ClassSessionController(ClassSessionService classSessionService, ResultService resultService, CourseService courseService, InstructorService instructorService, UtilityService utilityService) {
+    public ClassSessionController(ClassSessionService classSessionService,
+                                  ResultService resultService, CourseService courseService,
+                                  InstructorService instructorService, UtilityService utilityService,
+                                  CourseAssessmentService courseAssessmentService,
+                                  AssessmentToolService assessmentToolService,
+                                  AbetService abetService, ClassAssessmentToolService classAssessmentToolService,
+                                  ClassCourseAssessmentService classCourseAssessmentService,
+                                  ClassSloCloService classSloCloService, LearningOutcomeService learningOutcomeService) {
         this.classSessionService = classSessionService;
         this.resultService = resultService;
         this.courseService = courseService;
         this.instructorService = instructorService;
         this.utilityService = utilityService;
+        this.courseAssessmentService = courseAssessmentService;
+        this.assessmentToolService = assessmentToolService;
+        this.abetService = abetService;
+        this.classAssessmentToolService = classAssessmentToolService;
+        this.classCourseAssessmentService = classCourseAssessmentService;
+        this.classSloCloService = classSloCloService;
+        this.learningOutcomeService = learningOutcomeService;
     }
 
     @GetMapping("/all")
@@ -47,8 +65,41 @@ public class ClassSessionController {
     public String showDetailClassPage(@PathVariable(name = "id") int id, Model model) {
         ClassSession classSession = classSessionService.getClassById(id);
         List<Result> resultList = resultService.getResultByClass(id);
+
+        List<ClassAssessmentCourse> courseAssessmentList =classCourseAssessmentService.getClassAssessmentCourseByClass(id);
+        List<LearningOutcome> learningOutcomeList = learningOutcomeService.getLOByCourse(classSession.getCourse().getId());
+
+        Hashtable<Integer, Hashtable> classAssessmentTool = new Hashtable<>();
+        for (LearningOutcome lo: learningOutcomeList){
+            Hashtable<Integer, Integer> item = new Hashtable<>();
+            for (ClassAssessmentCourse ca: courseAssessmentList){
+                if (classAssessmentToolService.getClassAssessmentToolByAssessmentAndLO(id, ca.getAssessment().getId(),lo.getId()) != null){
+                    item.put(ca.getClassAssessmentCoursePK().getAssessmentId(),classAssessmentToolService.getClassAssessmentToolByAssessmentAndLO(id, ca.getAssessment().getId(),lo.getId()).getPercentage());
+                }else{
+                    item.put(ca.getClassAssessmentCoursePK().getAssessmentId(),0);
+                }
+            }
+            classAssessmentTool.put(lo.getId(),item);
+        }
+
+        Hashtable<Integer, Hashtable> abetMapping = new Hashtable<>();
+        for (LearningOutcome lo: learningOutcomeList){
+            Hashtable<Integer,Integer> item = new Hashtable<>();
+            for (int slo=1;slo<7; slo++){
+                if (classSloCloService.getAbetForSloCloInClass(id, lo.getId(),slo)!=null){
+                    item.put(slo, classSloCloService.getAbetForSloCloInClass(id, lo.getId(),slo).getPercentage());
+                }else{
+                    item.put(slo,0);
+                }
+            }
+            abetMapping.put(lo.getId(),item);
+        }
+        model.addAttribute("abet", abetMapping);
+        model.addAttribute("loList", learningOutcomeList);
+        model.addAttribute("courseAssessment", courseAssessmentList);
         model.addAttribute("classSession", classSession);
         model.addAttribute("resultList", resultList);
+        model.addAttribute("classAssessmentTool", classAssessmentTool);
         return "/admin/class-detail";
     }
 
@@ -88,6 +139,24 @@ public class ClassSessionController {
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveClass(@ModelAttribute("classSession") ClassSession classSession, Model model) {
         classSessionService.addClassSession(classSession);
+
+        // ADD COURSE ASSESSMENT TO NEW CLASS//
+        List<CourseAssessment> courseAssessmentList = courseAssessmentService.getCourseAssessmentByCourseWithoutComboAss(classSession.getCourse().getId());
+        for (CourseAssessment ca: courseAssessmentList){
+            classCourseAssessmentService.addClassAssessmentFromCourse(ca,classSession.getId());
+        }
+        // ADD ASSESSMENT TOOL TO NEW CLASS//
+        List<AssessmentTool> assessmentToolList = assessmentToolService.getAssessmentTootTableByCourse(classSession.getCourse().getId());
+        for (AssessmentTool at: assessmentToolList){
+            classAssessmentToolService.addAssessmentToolToClassBasedOnCourse(at,classSession.getId());
+        }
+
+        //ADD ABET MAPPING//
+        List<CloSlo> abetMapping = abetService.getAbetMappingTable(classSession.getCourse().getId());
+        for (CloSlo cloSlo: abetMapping){
+            classSloCloService.addClassSloCloBasedOnCourse(cloSlo, classSession.getId());
+        }
+
         return "redirect:/classSession/all";
     }
 
