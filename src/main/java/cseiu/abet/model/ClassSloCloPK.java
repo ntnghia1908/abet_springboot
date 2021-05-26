@@ -7,14 +7,14 @@ import java.io.Serializable;
 @Embeddable
 public class ClassSloCloPK implements Serializable {
 
-    @Column(name = "lo_id")
-    private Integer loId;
+    @Column(name = "class_id")
+    private Integer classId;
 
     @Column(name = "slo_id")
     private Integer sloId;
 
     public ClassSloCloPK(Integer loId, Integer sloId) {
-        this.loId = loId;
+        this.classId = loId;
         this.sloId = sloId;
     }
 
@@ -22,11 +22,11 @@ public class ClassSloCloPK implements Serializable {
     }
 
     public Integer getLoId() {
-        return loId;
+        return classId;
     }
 
-    public void setLoId(Integer loId) {
-        this.loId = loId;
+    public void setLoId(Integer classId) {
+        this.classId = classId;
     }
 
     public Integer getSloId() {
@@ -40,7 +40,7 @@ public class ClassSloCloPK implements Serializable {
     @Override
     public String toString() {
         return "ClassSloCloPK{" +
-                "loId=" + loId +
+                "loId=" + classId +
                 ", sloId=" + sloId +
                 '}';
     }

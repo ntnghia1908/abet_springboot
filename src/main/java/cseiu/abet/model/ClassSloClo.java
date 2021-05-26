@@ -12,8 +12,8 @@ public class ClassSloClo implements Serializable {
     @EmbeddedId
     protected ClassSloCloPK classSloCloPK;
 
-    @Column(name = "persentage")
-    private Integer precentage;
+    @Column(name = "percentage")
+    private Integer percentage;
 
     @JoinColumn(name = "slo_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne
@@ -23,12 +23,16 @@ public class ClassSloClo implements Serializable {
     @ManyToOne
     private LearningOutcome learningOutcomeId;
 
+    @JoinColumn(name = "class_id", referencedColumnName = "id", insertable = false, updatable = false)
+    @ManyToOne
+    private ClassSession classSession;
+
     public ClassSloClo() {
     }
 
-    public ClassSloClo(ClassSloCloPK classSloCloPK, Integer precentage, Slo sloId, LearningOutcome learningOutcomeId) {
+    public ClassSloClo(ClassSloCloPK classSloCloPK, Integer percentage, Slo sloId, LearningOutcome learningOutcomeId) {
         this.classSloCloPK = classSloCloPK;
-        this.precentage = precentage;
+        this.percentage = percentage;
         this.sloId = sloId;
         this.learningOutcomeId = learningOutcomeId;
     }
@@ -45,12 +49,12 @@ public class ClassSloClo implements Serializable {
         this.classSloCloPK = classSloCloPK;
     }
 
-    public Integer getPrecentage() {
-        return precentage;
+    public Integer getPercentage() {
+        return percentage;
     }
 
-    public void setPrecentage(Integer precentage) {
-        this.precentage = precentage;
+    public void setPercentage(Integer precentage) {
+        this.percentage = percentage;
     }
 
     public Slo getSloId() {
@@ -67,6 +71,15 @@ public class ClassSloClo implements Serializable {
 
     public void setLearningOutcomeId(LearningOutcome learningOutcomeId) {
         this.learningOutcomeId = learningOutcomeId;
+    }
+
+
+    public ClassSession getClassSession() {
+        return classSession;
+    }
+
+    public void setClassSession(ClassSession classSession) {
+        this.classSession = classSession;
     }
 
     @Override
@@ -86,7 +99,7 @@ public class ClassSloClo implements Serializable {
     public String toString() {
         return "ClassSloClo{" +
                 "classSloCloPK=" + classSloCloPK +
-                ", precentage=" + precentage +
+                ", percentage=" + percentage +
                 ", sloId=" + sloId +
                 ", learningOutcomeId=" + learningOutcomeId +
                 '}';
