@@ -5,20 +5,14 @@
  */
 package cseiu.abet.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinColumns;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  * @author meoco
@@ -70,7 +64,7 @@ public class AssessmentTool implements Serializable {
         this.assessmentToolPK = assessmentToolPK;
     }
 
-    public Float getPercentage() {
+    public float getPercentage() {
         return percentage;
     }
 

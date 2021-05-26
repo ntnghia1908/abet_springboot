@@ -66,6 +66,42 @@
                                         <div class="card">
                                             <!-- Nav tabs -->
                                             <ul class="nav customtab">
+                                                <li class="nav-item"><a href="#" class="nav-link active show">Opened
+                                                    classes</a></li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane active show">
+                                                    <div id="biography" class="biography">
+                                                        <table class="table table-striped custom-table" id="datatable">
+                                                            <thead>
+                                                            <tr>
+                                                                <th style="min-width:50px;">CourseName</th>
+                                                                <th style="min-width:50px;">Instructor</th>
+                                                                <th style="min-width:50px;">Group</th>
+                                                                <th style="min-width:50px;">Semester</th>
+                                                                <th style="min-width:50px;">Year</th>
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="class : ${classSessionList}">
+                                                                <td><a th:href="@{'/classSession/view/'+ ${class.id}}"
+                                                                       th:text="${class.course.name}"> </a></td>
+                                                                <td th:text="${class.instructorId.degree + class.instructorId.name}"></td>
+                                                                <td th:text="${class.groupTheory}"></td>
+                                                                <td th:text="${class.semester}"></td>
+                                                                <td th:text="${class.academicYear}"></td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav customtab">
                                                 <li class="nav-item"><a href="#" class="nav-link active show">Assessment
                                                     Tools</a></li>
                                             </ul>
@@ -86,8 +122,15 @@
                                                             </thead>
                                                             <tbody>
                                                             <tr th:each="lo : ${loList}">
-                                                                <td th:text="${lo.getValue()}"></td>
-                                                                <th th:each="pe : ${assessmentTools.get(lo.getKey())}"></th>
+                                                                <td th:text="${lo.description}"></td>
+                                                                <div th:each="ca :${courseAssessment}">
+                                                                    <div th:if="${newAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
+                                                                        <td th:text="${newAssessmentTool.get(lo.id).get(ca.assessment.id)}"></td>
+                                                                    </div>
+                                                                    <div th:unless="${newAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
+                                                                        <td></td>
+                                                                    </div>
+                                                                </div>
                                                             </tr>
                                                             </tbody>
 
@@ -110,21 +153,23 @@
                                                             <thead>
                                                             <tr>
                                                                 <th style="min-width:50px;">LearningOutcome</th>
-                                                                <th style="min-width:50px;">1</th>
-                                                                <th style="min-width:50px;">2</th>
-                                                                <th style="min-width:50px;">3</th>
-                                                                <th style="min-width:50px;">4</th>
-                                                                <th style="min-width:50px;">5</th>
-                                                                <th style="min-width:50px;">6</th>
+                                                                <div th:each="i : ${#numbers.sequence(1,6)}">
+                                                                    <th th:text="${i}"></th>
+                                                                </div>
                                                                 </th>
-                                                                </p>
-
                                                             </tr>
                                                             </thead>
                                                             <tbody>
                                                             <tr th:each="lo : ${loList}">
-                                                                <td th:text="${lo.getValue()}"></td>
-                                                                <td th:each="pe : ${assessmentTools.get(lo.getKey())}"></td>
+                                                                <td th:text="${lo.description}"></td>
+                                                                <div th:each="i : ${#numbers.sequence(1,6)}">
+                                                                    <div th:if="${abet.get(lo.id).get(i)} !=0">
+                                                                        <td th:text="${abet.get(lo.id).get(i)}"></td>
+                                                                    </div>
+                                                                    <div th:if="${abet.get(lo.id).get(i)} ==0">
+                                                                        <td></td>
+                                                                    </div>
+                                                                </div>
                                                             </tr>
                                                             </tbody>
 
@@ -133,41 +178,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <div class="card">
-                                            <!-- Nav tabs -->
-                                            <ul class="nav customtab">
-                                                <li class="nav-item"><a href="#" class="nav-link active show">Opened
-                                                    classes</a></li>
-                                            </ul>
-                                            <!-- Tab panes -->
-                                            <div class="tab-content">
-                                                <div class="tab-pane active show">
-                                                    <div id="biography" class="biography">
-                                                        <table class="table table-striped custom-table" id="datatable">
-                                                            <thead>
-                                                            <tr>
-                                                                <th style="min-width:50px;">CourseName</th>
-                                                                <th style="min-width:50px;">Instructor</th>
-                                                                <th style="min-width:50px;">Group</th>
-                                                                <th style="min-width:50px;">Semester</th>
-                                                                <th style="min-width:50px;">Year</th>
 
-                                                            </tr>
-                                                            </thead>
-                                                            <tbody>
-                                                            <tr th:each="class : ${classSessionList}">
-                                                                <td><a th:href="@{'/classSession/view/'+ ${class.id}}"
-                                                                       th:text="${class.course.name}"> </a></td>                                                                <td th:text="${class.instructorId.degree + class.instructorId.name}"></td>
-                                                                <td th:text="${class.groupTheory}"></td>
-                                                                <td th:text="${class.semester}"></td>
-                                                                <td th:text="${class.academicYear}"></td>
-                                                            </tr>
-                                                            </tbody>
-                                                        </table>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
                                     </div>
                                 </div>
                             </div>

@@ -23,6 +23,7 @@ public class AbetService {
         return cloSloRepository.selectAbetMapping(courseId);
     }
 
+    public CloSlo getAbetMappingForCloSlo(int clo, int slo){return cloSloRepository.findAbetMappingForLoAndSlo(clo,slo);}
 
 
 }
