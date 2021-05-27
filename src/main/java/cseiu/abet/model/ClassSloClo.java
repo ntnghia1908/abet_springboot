@@ -13,7 +13,7 @@ public class ClassSloClo implements Serializable {
     protected ClassSloCloPK classSloCloPK;
 
     @Column(name = "percentage")
-    private Integer percentage;
+    private Float percentage;
 
     @JoinColumn(name = "slo_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne
@@ -24,13 +24,13 @@ public class ClassSloClo implements Serializable {
     private LearningOutcome learningOutcomeId;
 
     @JoinColumn(name = "class_id", referencedColumnName = "id", insertable = false, updatable = false)
-    @ManyToOne
+    @ManyToOne(optional = false)
     private ClassSession classSession;
 
     public ClassSloClo() {
     }
 
-    public ClassSloClo(ClassSloCloPK classSloCloPK, Integer percentage, Slo sloId, LearningOutcome learningOutcomeId) {
+    public ClassSloClo(ClassSloCloPK classSloCloPK, Float percentage, Slo sloId, LearningOutcome learningOutcomeId) {
         this.classSloCloPK = classSloCloPK;
         this.percentage = percentage;
         this.sloId = sloId;
@@ -49,11 +49,11 @@ public class ClassSloClo implements Serializable {
         this.classSloCloPK = classSloCloPK;
     }
 
-    public Integer getPercentage() {
+    public Float getPercentage() {
         return percentage;
     }
 
-    public void setPercentage(Integer precentage) {
+    public void setPercentage(Float percentage) {
         this.percentage = percentage;
     }
 

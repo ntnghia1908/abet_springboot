@@ -38,7 +38,7 @@ public class ClassAssessmentToolService {
     public ClassAssessmentTool addAssessmentToolToClassBasedOnCourse(AssessmentTool at, int class_id){
         ClassAssessmentTool cat = new ClassAssessmentTool();
         cat.setClassAssessmentPK(new ClassAssessmentPK(class_id,at.getAssessmentToolPK().getAssessmentId(), at.getAssessmentToolPK().getLoutcomeId()));
-        cat.setPercentage((int) at.getPercentage());
+        cat.setPercentage( at.getPercentage());
         return classAssessmentToolRepository.save(cat);
     }
 }

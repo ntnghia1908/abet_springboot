@@ -31,7 +31,7 @@ public class ClassAssessmentTool implements Serializable {
     protected ClassAssessmentPK classAssessmentPK;
 
     @Column(name = "precentage")
-    private Integer precentage;
+    private Float precentage;
 
 
     @JoinColumn(name = "assessment_id", referencedColumnName = "id", insertable = false, updatable = false)
@@ -63,11 +63,11 @@ public class ClassAssessmentTool implements Serializable {
         this.classAssessmentPK = classAssessmentPK;
     }
 
-    public Integer getPercentage() {
+    public Float getPercentage() {
         return precentage;
     }
 
-    public void setPercentage(Integer precentage) {
+    public void setPercentage(Float precentage) {
         this.precentage = precentage;
     }
 

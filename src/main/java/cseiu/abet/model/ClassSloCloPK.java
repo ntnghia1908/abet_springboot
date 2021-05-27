@@ -1,5 +1,6 @@
 package cseiu.abet.model;
 
+import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
 import java.io.Serializable;
@@ -7,6 +8,7 @@ import java.io.Serializable;
 @Embeddable
 public class ClassSloCloPK implements Serializable {
 
+    @Basic(optional = false)
     @Column(name = "class_id")
     private Integer classId;
 
@@ -25,11 +27,11 @@ public class ClassSloCloPK implements Serializable {
     public ClassSloCloPK() {
     }
 
-    public Integer getLoId() {
+    public Integer getClassId() {
         return classId;
     }
 
-    public void setLoId(Integer classId) {
+    public void setClassId(Integer classId) {
         this.classId = classId;
     }
 
@@ -41,11 +43,20 @@ public class ClassSloCloPK implements Serializable {
         this.sloId = sloId;
     }
 
+    public Integer getClo_id() {
+        return clo_id;
+    }
+
+    public void setClo_id(Integer clo_id) {
+        this.clo_id = clo_id;
+    }
+
     @Override
     public String toString() {
         return "ClassSloCloPK{" +
-                "loId=" + classId +
+                "classId=" + classId +
                 ", sloId=" + sloId +
+                ", clo_id=" + clo_id +
                 '}';
     }
 }
