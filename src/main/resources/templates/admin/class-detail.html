@@ -68,11 +68,13 @@
                                         <h4>Upload student in classes</h4>
                                     </div>
                                     <div class="card-body">
-                                        <form th:action="@{'/result/upload/' + ${classSession.id}}" enctype="multipart/form-data" method="post">
+                                        <form th:action="@{'/result/upload/' + ${classSession.id}}"
+                                              enctype="multipart/form-data" method="post">
                                             <input type="file" name="file" required class="form-control2">
                                             <br>
                                             <div class="form-group custom-mt-form-group">
-                                                <button class="btn btn-primary mr-2" type="submit">Import students</button>
+                                                <button class="btn btn-primary mr-2" type="submit">Import students
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -105,11 +107,14 @@
                                         <h4>Upload student results</h4>
                                     </div>
                                     <div class="card-body">
-                                        <form th:action="@{'/result/uploadScore/' + ${classSession.id}}" enctype="multipart/form-data" method="post">
+                                        <form th:action="@{'/result/uploadScore/' + ${classSession.id}}"
+                                              enctype="multipart/form-data" method="post">
                                             <input type="file" name="file" required class="form-control2">
                                             <br>
                                             <div class="form-group custom-mt-form-group">
-                                                <button class="btn btn-primary mr-2" type="submit">Import student results</button>
+                                                <button class="btn btn-primary mr-2" type="submit">Import student
+                                                    results
+                                                </button>
                                             </div>
                                         </form>
                                     </div>
@@ -150,157 +155,157 @@
                             </div>
                         </div>
 
-            <div class="col-lg-9 col-md-12 col-sm-12 col-12">
-                <div class="profile-content">
-                    <div class="row">
-                        <div class="col-lg-12">
-                            <div class="card">
-                                <!-- Nav tabs -->
-                                <ul class="nav customtab">
-                                    <li class="nav-item"><a href="#" class="nav-link active show">Student
-                                        list</a></li>
-                                </ul>
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <div class="tab-pane active show">
-                                        <div id="biography" class="biography">
-                                            <table class="table table-striped custom-table" id="datatable">
-                                                <thead>
-                                                <tr>
-                                                    <th style="min-width:50px;">Student ID</th>
-                                                    <th style="min-width:50px;">Student Name</th>
-                                                    <th style="min-width:50px;">In-class Score</th>
-                                                    <th style="min-width:50px;">Midterm Score</th>
-                                                    <th style="min-width:50px;">Final Score</th>
-                                                    <th style="min-width:50px;">GPA</th>
-                                                    <th style="min-width:50px;">Average ABET achieved (%)
-                                                    </th>
-                                                    <th style="min-width:50px;">Action</th>
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-12">
+                            <div class="profile-content">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <div class="card">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav customtab">
+                                                <li class="nav-item"><a href="#" class="nav-link active show">Student
+                                                    list</a></li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane active show">
+                                                    <div id="biography" class="biography">
+                                                        <table class="table table-striped custom-table" id="datatable">
+                                                            <thead>
+                                                            <tr>
+                                                                <th style="min-width:50px;">Student ID</th>
+                                                                <th style="min-width:50px;">Student Name</th>
+                                                                <th style="min-width:50px;">In-class Score</th>
+                                                                <th style="min-width:50px;">Midterm Score</th>
+                                                                <th style="min-width:50px;">Final Score</th>
+                                                                <th style="min-width:50px;">GPA</th>
+                                                                <th style="min-width:50px;">Average ABET achieved (%)
+                                                                </th>
+                                                                <th style="min-width:50px;">Action</th>
 
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr th:each="result : ${resultList}">
-                                                    <td>
-                                                        <a th:href="@{'/student/view/'+ ${result.student.id}}"
-                                                           th:text="${result.student.id}"> </a></td>
-                                                    <td th:text="${result.student.name}"></td>
-                                                    <td th:text="${result.inClassScore}"></td>
-                                                    <td th:text="${result.midScore}"></td>
-                                                    <td th:text="${result.finalScore}"></td>
-                                                    <td th:text="${result.gpa}"></td>
-                                                    <td th:text="${result.abetScore}"></td>
-                                                    <td class="text-right">
-                                                        <a th:href="@{'/result/detailForStudent/'+ ${classSession.id} +'/'+ ${result.student.id}}"
-                                                           class="btn btn-primary btn-sm mb-1">
-                                                            <i class="fa fa-eye" aria-hidden="true"></i>
-                                                        </a>&nbsp;&nbsp;&nbsp;
-                                                        <a th:href="@{'/result/deleteStudentInClass/' + ${classSession.id} +'/'+ ${result.student.id}}"
-                                                           class="btn btn-danger btn-sm mb-1 btn-delete">
-                                                            <i class="fa fa-trash" aria-hidden="true"></i>
-                                                        </a>&nbsp;&nbsp;&nbsp;
-                                                        <!--                                                                    <a th:href="@{'edit/' + ${cl.id}}" class="btn btn-primary btn-sm mb-1">-->
-                                                        <!--                                                                        <i class="fa fa-pencil" aria-hidden="true"></i>-->
-                                                        <!--                                                                    </a>&nbsp;&nbsp;&nbsp;-->
-                                                        <!--                                                                    <a th:href="@{'delete/' + ${cl.id}}" class="btn btn-danger btn-sm mb-1 btn-delete">-->
-                                                        <!--                                                                        <i class="fa fa-trash" aria-hidden="true"></i>-->
-                                                        <!--                                                                    </a>-->
-                                                    </td>
-                                                </tr>
-                                                </tbody>
-                                            </table>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="result : ${resultList}">
+                                                                <td>
+                                                                    <a th:href="@{'/student/view/'+ ${result.student.id}}"
+                                                                       th:text="${result.student.id}"> </a></td>
+                                                                <td th:text="${result.student.name}"></td>
+                                                                <td th:text="${result.inClassScore}"></td>
+                                                                <td th:text="${result.midScore}"></td>
+                                                                <td th:text="${result.finalScore}"></td>
+                                                                <td th:text="${result.gpa}"></td>
+                                                                <td th:text="${result.abetScore}"></td>
+                                                                <td class="text-right">
+                                                                    <a th:href="@{'/result/detailForStudent/'+ ${classSession.id} +'/'+ ${result.student.id}}"
+                                                                       class="btn btn-primary btn-sm mb-1">
+                                                                        <i class="fa fa-eye" aria-hidden="true"></i>
+                                                                    </a>&nbsp;&nbsp;&nbsp;
+                                                                    <a th:href="@{'/result/deleteStudentInClass/' + ${classSession.id} +'/'+ ${result.student.id}}"
+                                                                       class="btn btn-danger btn-sm mb-1 btn-delete">
+                                                                        <i class="fa fa-trash" aria-hidden="true"></i>
+                                                                    </a>&nbsp;&nbsp;&nbsp;
+                                                                </td>
+                                                            </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
+                                        <div class="card">
+                                            <h4>FOR COURSE ASSESSMENT</h4>
+                                            <h5 lass="nav-item"><a th:href="${'/assessment/edit/'} + ${classSession.id}"
+                                                                   class="nav-link active show">Edit Course Assessment</a></h5>
+                                        </div>
+                                        <div class="card">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav customtab">
+                                                <li class="nav-item"><a href="#" class="nav-link active show">Assessment
+                                                    Tools</a></li>
+                                            </ul>
+
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane active show">
+                                                    <div id="biography" class="biography">
+                                                        <table class="table table-striped custom-table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th style="min-width:50px;">Description</th>
+                                                                <p th:each="ca :${courseAssessment}">
+                                                                <th th:text="${ca.assessment.type} + ':' + ${ca.percentage} +'%' ">
+                                                                </th>
+                                                                </p>
+
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="lo : ${loList}">
+                                                                <td th:text="${lo.description}"></td>
+                                                                <div th:each="ca :${courseAssessment}">
+                                                                    <div th:if="${classAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
+                                                                        <td th:text="${classAssessmentTool.get(lo.id).get(ca.assessment.id)}"></td>
+                                                                    </div>
+                                                                    <div th:unless="${classAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
+                                                                        <td></td>
+                                                                    </div>
+                                                                </div>
+                                                            </tr>
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav customtab">
+                                                <li class="nav-item"><a href="#" class="nav-link active show">ABET
+                                                    mapping table</a></li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane active show">
+                                                    <div id="biography" class="biography">
+                                                        <table class="table table-striped custom-table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th style="min-width:50px;">LearningOutcome</th>
+                                                                <div th:each="i : ${#numbers.sequence(1,6)}">
+                                                                    <th th:text="${i}"></th>
+                                                                </div>
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="lo : ${loList}">
+                                                                <td th:text="${lo.description}"></td>
+                                                                <div th:each="i : ${#numbers.sequence(1,6)}">
+                                                                    <div th:if="${abet.get(lo.id).get(i)} !=0">
+                                                                        <td th:text="${abet.get(lo.id).get(i)}"></td>
+                                                                    </div>
+                                                                    <div th:if="${abet.get(lo.id).get(i)} ==0">
+                                                                        <td></td>
+                                                                    </div>
+                                                                </div>
+                                                            </tr>
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
-                            <div class="card">
-                                <!-- Nav tabs -->
-                                <ul class="nav customtab">
-                                    <li class="nav-item"><a href="#" class="nav-link active show">Assessment
-                                        Tools</a></li>
-                                </ul>
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <div class="tab-pane active show">
-                                        <div id="biography" class="biography">
-                                            <table class="table table-striped custom-table">
-                                                <thead>
-                                                <tr>
-                                                    <th style="min-width:50px;">Description</th>
-                                                    <p th:each="ca :${courseAssessment}">
-                                                    <th th:text="${ca.assessment.type} + ':' + ${ca.percentage} +'%' ">
-                                                    </th>
-                                                    </p>
-
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr th:each="lo : ${loList}">
-                                                    <td th:text="${lo.description}"></td>
-                                                    <div th:each="ca :${courseAssessment}">
-                                                        <div th:if="${classAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
-                                                            <td th:text="${classAssessmentTool.get(lo.id).get(ca.assessment.id)}"></td>
-                                                        </div>
-                                                        <div th:unless="${classAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
-                                                            <td></td>
-                                                        </div>
-                                                    </div>
-                                                </tr>
-                                                </tbody>
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div class="card">
-                                <!-- Nav tabs -->
-                                <ul class="nav customtab">
-                                    <li class="nav-item"><a href="#" class="nav-link active show">ABET
-                                        mapping table</a></li>
-                                </ul>
-                                <!-- Tab panes -->
-                                <div class="tab-content">
-                                    <div class="tab-pane active show">
-                                        <div id="biography" class="biography">
-                                            <table class="table table-striped custom-table">
-                                                <thead>
-                                                <tr>
-                                                    <th style="min-width:50px;">LearningOutcome</th>
-                                                    <div th:each="i : ${#numbers.sequence(1,6)}">
-                                                        <th th:text="${i}"></th>
-                                                    </div>
-                                                    </th>
-                                                </tr>
-                                                </thead>
-                                                <tbody>
-                                                <tr th:each="lo : ${loList}">
-                                                    <td th:text="${lo.description}"></td>
-                                                    <div th:each="i : ${#numbers.sequence(1,6)}">
-                                                        <div th:if="${abet.get(lo.id).get(i)} !=0">
-                                                            <td th:text="${abet.get(lo.id).get(i)}"></td>
-                                                        </div>
-                                                        <div th:if="${abet.get(lo.id).get(i)} ==0">
-                                                            <td></td>
-                                                        </div>
-                                                    </div>
-                                                </tr>
-                                                </tbody>
-
-                                            </table>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-
                         </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
-</div>
-</div>
 </div>
 </html>

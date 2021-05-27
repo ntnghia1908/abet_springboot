@@ -1,8 +1,5 @@
 package cseiu.abet.services;
-import cseiu.abet.model.Result;
-import cseiu.abet.model.AssessmentTool;
-import cseiu.abet.model.CourseAssessment;
-import cseiu.abet.model.CloSlo;
+import cseiu.abet.model.*;
 import org.springframework.stereotype.Service;
 
 import javax.persistence.criteria.CriteriaBuilder;
@@ -16,13 +13,10 @@ import cseiu.abet.services.CourseAssessmentService;
 public class GradingService {
 
     // CALCULATE THE GPA OF LIST OF STUDENTS//
-    public Result calculateGPA (Result student,  List<CourseAssessment> courseAssessmentList) {
+    public Result calculateGPA (Result student,  List<ClassAssessmentCourse> courseAssessmentList) {
         int assignment_weight =0, midterm_weight=0, final_weight=0;
-        for(CourseAssessment ca: courseAssessmentList){
-            switch (ca.getCourseAssessmentPK().getAssessmentId()){
-                case 10:
-                    assignment_weight = ca.getPercentage();
-                    break;
+        for(ClassAssessmentCourse ca: courseAssessmentList){
+            switch (ca.getClassAssessmentCoursePK().getAssessmentId()){
                 case 4:
                     midterm_weight = ca.getPercentage();
                     break;
@@ -31,7 +25,7 @@ public class GradingService {
                     break;
             }
         }
-
+        assignment_weight = 100-midterm_weight-final_weight;
         float gpa = (float) ((assignment_weight * student.getInClassScore()
                                             + midterm_weight *student.getMidScore()
                                             + final_weight * student.getFinalScore()) * 0.01);
@@ -44,16 +38,16 @@ public class GradingService {
     // CACLUATE THE ABET SCORE OF STUDENT//
         //1. Calculate the Course Learning Outcome Score of each student
             //1.1. Convert the assessment tools table into 3 types of assessment
-    public static Hashtable<Integer,Float> calculatePercentageOfEachAssignmentType(List<CourseAssessment> courseAssessmentList){
+    public static Hashtable<Integer,Float> calculatePercentageOfEachAssignmentType(List<ClassAssessmentCourse> courseAssessmentList){
         Hashtable<Integer,Float> convert_ass = new Hashtable<>();
         int assignment_weight =0;
-        for (CourseAssessment ca: courseAssessmentList) {
-            if (ca.getCourseAssessmentPK().getAssessmentId()==10) {
+        for (ClassAssessmentCourse ca: courseAssessmentList) {
+            if (ca.getClassAssessmentCoursePK().getAssessmentId()==10) {
                 assignment_weight = ca.getPercentage();
             }
         }
-        for (CourseAssessment ca: courseAssessmentList) {
-            switch (ca.getCourseAssessmentPK().getAssessmentId()) {
+        for (ClassAssessmentCourse ca: courseAssessmentList) {
+            switch (ca.getClassAssessmentCoursePK().getAssessmentId()) {
                 case 4:
                     break;
                 case 6:
@@ -61,7 +55,7 @@ public class GradingService {
                 case 10:
                     break;
                 default:
-                    convert_ass.put(ca.getCourseAssessmentPK().getAssessmentId(),(float)ca.getPercentage()/assignment_weight);
+                    convert_ass.put(ca.getClassAssessmentCoursePK().getAssessmentId(),(float)ca.getPercentage()/assignment_weight);
                     break;
             }
         }
@@ -69,23 +63,23 @@ public class GradingService {
     }
 
     public static Hashtable <Integer, Hashtable> convertAssessmentToolTable
-            (List<AssessmentTool> assessmentToolList,List<CourseAssessment> courseAssessmentList){
+            (List<ClassAssessmentTool> assessmentToolList,List<ClassAssessmentCourse> courseAssessmentList){
         Hashtable<Integer, Float> new_ass_weights = calculatePercentageOfEachAssignmentType( courseAssessmentList);
         Hashtable<Integer, Hashtable> convert_assignment_at = new Hashtable<>();
-        for (AssessmentTool cat: assessmentToolList) {
+        for (ClassAssessmentTool cat: assessmentToolList) {
             float new_weight = 0;
             Hashtable <Integer,Float> item = new Hashtable<>();
-            for (AssessmentTool at: assessmentToolList) {
-                if (cat.getLearningOutcome().getId()==at.getLearningOutcome().getId()) {
-                    if (at.getAssessment().getId()!=4 && at.getAssessment().getId()!=6) {
-                        new_weight+= new_ass_weights.get(at.getAssessment().getId()) * at.getPercentage();
+            for (ClassAssessmentTool at: assessmentToolList) {
+                if (cat.getClassAssessmentPK().getLoutcomeId()==at.getClassAssessmentPK().getLoutcomeId()) {
+                    if (at.getClassAssessmentPK().getAssessmentId()!=4 && at.getClassAssessmentPK().getAssessmentId()!=6) {
+                        new_weight+= new_ass_weights.get(at.getClassAssessmentPK().getAssessmentId()) * at.getPercentage();
                     }else {
-                        item.put(at.getAssessment().getId(),at.getPercentage());
+                        item.put(at.getClassAssessmentPK().getAssessmentId(),(float)at.getPercentage());
                     }
                 }
             }
             item.put(10,new_weight);
-            convert_assignment_at.put(cat.getLearningOutcome().getId(),item);
+            convert_assignment_at.put(cat.getClassAssessmentPK().getLoutcomeId(),item);
         }
         return convert_assignment_at;
     }
@@ -100,7 +94,7 @@ public class GradingService {
     }
 
     public  Hashtable <Integer, Float> calculateLearningOutcomeScore
-            (List<AssessmentTool> assessment_tools,List<CourseAssessment> course_assessment, Result studentResult){
+            (List<ClassAssessmentTool> assessment_tools,List<ClassAssessmentCourse> course_assessment, Result studentResult){
         Hashtable <Integer, Float> list_LO_scores = new Hashtable<>();
         Hashtable<Integer, Hashtable> convert_assignment_at =  convertAssessmentToolTable(assessment_tools,course_assessment);
         Set<Integer> list_loId = convert_assignment_at.keySet();
@@ -123,27 +117,27 @@ public class GradingService {
 
         //2. Calculate the ABET score of Student
             //2.1. Convert ABET mapping table into Hashtable
-    public  Hashtable <Integer, Hashtable> transferAndConvertAbetMapping (List<CloSlo> abetMapping){
+    public  Hashtable <Integer, Hashtable> transferAndConvertAbetMapping (List<ClassSloClo> abetMapping){
         Hashtable<Integer, Float> sumPercentageOfEachCriteria = new Hashtable<>();
         Hashtable<Integer,Hashtable> abetMappingAfterConvert = new Hashtable<>();
 
-        for (CloSlo cloSlo: abetMapping){
+        for (ClassSloClo cloSlo: abetMapping){
             float total_weight =0;
-            for (CloSlo item:abetMapping){
-                if (cloSlo.getCloSloPK().getSloId() == item.getCloSloPK().getSloId()){
+            for (ClassSloClo item:abetMapping){
+                if (cloSlo.getClassSloCloPK().getSloId() == item.getClassSloCloPK().getSloId()){
                     total_weight+= item.getPercentage();
                 }
             }
-            sumPercentageOfEachCriteria.put(cloSlo.getCloSloPK().getSloId(), total_weight);
+            sumPercentageOfEachCriteria.put(cloSlo.getClassSloCloPK().getSloId(), total_weight);
         }
-        for (CloSlo cloSlo: abetMapping){
+        for (ClassSloClo cloSlo: abetMapping){
             Hashtable<Integer,Float> newAbetMapping = new Hashtable<>();
-            for (CloSlo item: abetMapping){
-                if (item.getCloSloPK().getSloId() == cloSlo.getCloSloPK().getSloId()){
-                    newAbetMapping.put(item.getLearningOutcome().getId(), (float) item.getPercentage()/sumPercentageOfEachCriteria.get(cloSlo.getCloSloPK().getSloId()));
+            for (ClassSloClo item: abetMapping){
+                if (item.getClassSloCloPK().getSloId() == cloSlo.getClassSloCloPK().getSloId()){
+                    newAbetMapping.put(item.getClassSloCloPK().getLoId(), (float) item.getPercentage()/sumPercentageOfEachCriteria.get(cloSlo.getClassSloCloPK().getSloId()));
                 }
             }
-            abetMappingAfterConvert.put(cloSlo.getCloSloPK().getSloId(),newAbetMapping);
+            abetMappingAfterConvert.put(cloSlo.getClassSloCloPK().getSloId(),newAbetMapping);
         }
         return abetMappingAfterConvert;
     }
@@ -178,8 +172,8 @@ public class GradingService {
     }
 
     public Result calculateAbetScoreOfStudent
-            (List<AssessmentTool> assessmentToolList, List<CourseAssessment> courseAssessmentList,
-             List<CloSlo> cloSlo, Result student) {
+            (List<ClassAssessmentTool> assessmentToolList, List<ClassAssessmentCourse> courseAssessmentList,
+             List<ClassSloClo> cloSlo, Result student) {
         Hashtable<Integer,Float> learningOutcomeScore = calculateLearningOutcomeScore(assessmentToolList,courseAssessmentList,student);
         Hashtable<Integer,Hashtable> newAbetMapping = transferAndConvertAbetMapping(cloSlo);
 

@@ -15,9 +15,6 @@ import java.util.List;
 @Controller
 @RequestMapping("/classSession")
 public class ClassSessionController {
-    public final String templateDir = "classSession/";
-    public final String defaultUrl = "classSession/index";
-
     private final ClassSessionService classSessionService;
     private final ResultService resultService;
     private final CourseService courseService;
@@ -66,7 +63,7 @@ public class ClassSessionController {
         ClassSession classSession = classSessionService.getClassById(id);
         List<Result> resultList = resultService.getResultByClass(id);
 
-        List<ClassAssessmentCourse> courseAssessmentList =classCourseAssessmentService.getClassAssessmentCourseByClass(id);
+        List<ClassAssessmentCourse> courseAssessmentList =classCourseAssessmentService.getClassAssessmentCourseByClassWithoutCombo(id);
         List<LearningOutcome> learningOutcomeList = learningOutcomeService.getLOByCourse(classSession.getCourse().getId());
 
         Hashtable<Integer, Hashtable> classAssessmentTool = new Hashtable<>();
@@ -141,7 +138,7 @@ public class ClassSessionController {
         classSessionService.addClassSession(classSession);
 
         // ADD COURSE ASSESSMENT TO NEW CLASS//
-        List<CourseAssessment> courseAssessmentList = courseAssessmentService.getCourseAssessmentByCourseWithoutComboAss(classSession.getCourse().getId());
+        List<CourseAssessment> courseAssessmentList = courseAssessmentService.getCourseAssessmentByCourseId(classSession.getCourse().getId());
         for (CourseAssessment ca: courseAssessmentList){
             classCourseAssessmentService.addClassAssessmentFromCourse(ca,classSession.getId());
         }

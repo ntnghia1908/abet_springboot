@@ -23,6 +23,9 @@ public class ClassCourseAssessmentService {
     public List<ClassAssessmentCourse> getClassAssessmentCourseByClass(int class_id){
         return classAssessmentCourseRepository.findClassAssessmentCourseByClass(class_id);
     }
+    public List<ClassAssessmentCourse> getClassAssessmentCourseByClassWithoutCombo(int class_id){
+        return classAssessmentCourseRepository.findCourseAssessmentByCourseWithoutComboAss(class_id);
+    }
 
     public ClassAssessmentCourse addClassAssessmentCourse(ClassAssessmentCourse classAssessmentCourse){
         return classAssessmentCourseRepository.save(classAssessmentCourse);
@@ -37,6 +40,10 @@ public class ClassCourseAssessmentService {
         classAssessmentCourse.setClassAssessmentCoursePK(new ClassAssessmentCoursePK(class_id, ca.getCourseAssessmentPK().getAssessmentId()));
         classAssessmentCourse.setPercentage(ca.getPercentage());
         return classAssessmentCourseRepository.save(classAssessmentCourse);
+    }
+
+    public List<ClassAssessmentCourse> getCourseAssessmentByClass(int class_id){
+        return classAssessmentCourseRepository.findClassAssessmentCourseByClass(class_id);
     }
 
 }

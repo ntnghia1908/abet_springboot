@@ -18,7 +18,15 @@ public class GradingServiceTest {
         AssessmentToolService assessmentToolService = applicationContext.getBean(AssessmentToolService.class);
         AbetService  abetService = applicationContext.getBean(AbetService.class);
         ResultService resultService =applicationContext.getBean(ResultService.class);
+        ClassCourseAssessmentService classAssessmentCourseService = applicationContext.getBean(ClassCourseAssessmentService.class);
 
+//        List<ClassAssessmentCourse> classAssessmentCourses = classAssessmentCourseService.getClassAssessmentCourseByClass(16);
+//        List<Result> resultList = resultService.getResultByClass(16);
+//        for (Result result: resultList){
+//          //  result.setResultPK(new ResultPK(result.getStudent().getId(),class_id));
+//            System.out.println(gradingService.calculateGPA(result,classAssessmentCourses).getGpa());
+//            resultService.addStudentToClass(result);
+//        }
 
        // String excelFilePath = "F:/Documents/SCSE/TA/C Programming/testData.xlsx";
 //        String excelFilePath = "/Users/minhthu/Documents/IU/Project/IT079.xlsx";
