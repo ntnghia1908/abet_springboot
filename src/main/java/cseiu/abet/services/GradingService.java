@@ -74,7 +74,7 @@ public class GradingService {
                     if (at.getClassAssessmentPK().getAssessmentId()!=4 && at.getClassAssessmentPK().getAssessmentId()!=6) {
                         new_weight+= new_ass_weights.get(at.getClassAssessmentPK().getAssessmentId()) * at.getPercentage();
                     }else {
-                        item.put(at.getClassAssessmentPK().getAssessmentId(),(float)at.getPercentage());
+                        item.put(at.getClassAssessmentPK().getAssessmentId(),at.getPercentage());
                     }
                 }
             }
@@ -134,7 +134,7 @@ public class GradingService {
             Hashtable<Integer,Float> newAbetMapping = new Hashtable<>();
             for (ClassSloClo item: abetMapping){
                 if (item.getClassSloCloPK().getSloId() == cloSlo.getClassSloCloPK().getSloId()){
-                    newAbetMapping.put(item.getClassSloCloPK().getLoId(), (float) item.getPercentage()/sumPercentageOfEachCriteria.get(cloSlo.getClassSloCloPK().getSloId()));
+                    newAbetMapping.put(item.getClassSloCloPK().getClo_id(), (float) item.getPercentage()/sumPercentageOfEachCriteria.get(cloSlo.getClassSloCloPK().getSloId()));
                 }
             }
             abetMappingAfterConvert.put(cloSlo.getClassSloCloPK().getSloId(),newAbetMapping);

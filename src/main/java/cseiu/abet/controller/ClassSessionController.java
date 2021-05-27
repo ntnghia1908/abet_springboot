@@ -68,12 +68,12 @@ public class ClassSessionController {
 
         Hashtable<Integer, Hashtable> classAssessmentTool = new Hashtable<>();
         for (LearningOutcome lo: learningOutcomeList){
-            Hashtable<Integer, Integer> item = new Hashtable<>();
+            Hashtable<Integer, Float> item = new Hashtable<>();
             for (ClassAssessmentCourse ca: courseAssessmentList){
                 if (classAssessmentToolService.getClassAssessmentToolByAssessmentAndLO(id, ca.getAssessment().getId(),lo.getId()) != null){
                     item.put(ca.getClassAssessmentCoursePK().getAssessmentId(),classAssessmentToolService.getClassAssessmentToolByAssessmentAndLO(id, ca.getAssessment().getId(),lo.getId()).getPercentage());
                 }else{
-                    item.put(ca.getClassAssessmentCoursePK().getAssessmentId(),0);
+                    item.put(ca.getClassAssessmentCoursePK().getAssessmentId(),0F);
                 }
             }
             classAssessmentTool.put(lo.getId(),item);
@@ -81,12 +81,12 @@ public class ClassSessionController {
 
         Hashtable<Integer, Hashtable> abetMapping = new Hashtable<>();
         for (LearningOutcome lo: learningOutcomeList){
-            Hashtable<Integer,Integer> item = new Hashtable<>();
+            Hashtable<Integer,Float> item = new Hashtable<>();
             for (int slo=1;slo<7; slo++){
                 if (classSloCloService.getAbetForSloCloInClass(id, lo.getId(),slo)!=null){
                     item.put(slo, classSloCloService.getAbetForSloCloInClass(id, lo.getId(),slo).getPercentage());
                 }else{
-                    item.put(slo,0);
+                    item.put(slo,0F);
                 }
             }
             abetMapping.put(lo.getId(),item);

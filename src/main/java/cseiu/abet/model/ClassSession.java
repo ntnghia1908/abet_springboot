@@ -48,6 +48,13 @@ public class ClassSession implements Serializable {
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "classSession")
     private List<ClassAssessmentCourse> classAssessmentCourseList;
 
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "class1")
+    private List<ClassAssessmentTool> classAssessmentTools;
+
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "classSession")
+    private List<ClassSloClo> classSloClos;
+
     @JoinColumn(name = "course_id", referencedColumnName = "id")
     @ManyToOne(optional = false)
     private Course course;
@@ -112,13 +119,13 @@ public class ClassSession implements Serializable {
         this.resultList = resultList;
     }
 
-//    public ClassAssessment getClassAssessment() {
-//        return classAssessment;
-//    }
-//
-//    public void setClassAssessment(ClassAssessment classAssessment) {
-//        this.classAssessment = classAssessment;
-//    }
+    public List<ClassSloClo> getClassSloClos() {
+        return classSloClos;
+    }
+
+    public void setClassSloClos(List<ClassSloClo> classSloClos) {
+        this.classSloClos = classSloClos;
+    }
 
 
     public List<ClassAssessmentCourse> getClassAssessmentCourseList() {
@@ -129,6 +136,13 @@ public class ClassSession implements Serializable {
         this.classAssessmentCourseList = classAssessmentCourseList;
     }
 
+    public List<ClassAssessmentTool> getClassAssessmentTools() {
+        return classAssessmentTools;
+    }
+
+    public void setClassAssessmentTools(List<ClassAssessmentTool> classAssessmentTools) {
+        this.classAssessmentTools = classAssessmentTools;
+    }
     public Course getCourse() {
         return course;
     }

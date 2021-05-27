@@ -34,7 +34,7 @@ public class ClassSloCloService {
     public ClassSloClo addClassSloCloBasedOnCourse (CloSlo cloSlo, int class_id){
         ClassSloClo item = new ClassSloClo();
         item.setClassSloCloPK(new ClassSloCloPK(cloSlo.getCloSloPK().getLoId(), cloSlo.getCloSloPK().getSloId(), class_id));
-        item.setPercentage((int)(double) cloSlo.getPercentage());
+        item.setPercentage(cloSlo.getPercentage());
         return classCloSloRepository.save(item);
     }
 }
