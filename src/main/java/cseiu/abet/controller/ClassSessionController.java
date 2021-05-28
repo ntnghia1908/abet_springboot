@@ -135,25 +135,26 @@ public class ClassSessionController {
 
     @RequestMapping(value = "/save", method = RequestMethod.POST)
     public String saveClass(@ModelAttribute("classSession") ClassSession classSession, Model model) {
-        classSessionService.addClassSession(classSession);
+        if (classSessionService.getClassSessionWithFullInfor(classSession) == null){
+            classSessionService.addClassSession(classSession);
 
-        // ADD COURSE ASSESSMENT TO NEW CLASS//
-        List<CourseAssessment> courseAssessmentList = courseAssessmentService.getCourseAssessmentByCourseId(classSession.getCourse().getId());
-        for (CourseAssessment ca: courseAssessmentList){
-            classCourseAssessmentService.addClassAssessmentFromCourse(ca,classSession.getId());
-        }
-        // ADD ASSESSMENT TOOL TO NEW CLASS//
-        List<AssessmentTool> assessmentToolList = assessmentToolService.getAssessmentTootTableByCourse(classSession.getCourse().getId());
-        for (AssessmentTool at: assessmentToolList){
-            classAssessmentToolService.addAssessmentToolToClassBasedOnCourse(at,classSession.getId());
-        }
+            // ADD COURSE ASSESSMENT TO NEW CLASS//
+            List<CourseAssessment> courseAssessmentList = courseAssessmentService.getCourseAssessmentByCourseId(classSession.getCourse().getId());
+            for (CourseAssessment ca: courseAssessmentList){
+                classCourseAssessmentService.addClassAssessmentFromCourse(ca,classSession.getId());
+            }
+            // ADD ASSESSMENT TOOL TO NEW CLASS//
+            List<AssessmentTool> assessmentToolList = assessmentToolService.getAssessmentTootTableByCourse(classSession.getCourse().getId());
+            for (AssessmentTool at: assessmentToolList){
+                classAssessmentToolService.addAssessmentToolToClassBasedOnCourse(at,classSession.getId());
+            }
 
-        //ADD ABET MAPPING//
-        List<CloSlo> abetMapping = abetService.getAbetMappingTable(classSession.getCourse().getId());
-        for (CloSlo cloSlo: abetMapping){
-            classSloCloService.addClassSloCloBasedOnCourse(cloSlo, classSession.getId());
+            //ADD ABET MAPPING//
+            List<CloSlo> abetMapping = abetService.getAbetMappingTable(classSession.getCourse().getId());
+            for (CloSlo cloSlo: abetMapping){
+                classSloCloService.addClassSloCloBasedOnCourse(cloSlo, classSession.getId());
+            }
         }
-
         return "redirect:/classSession/all";
     }
 
@@ -176,24 +177,48 @@ public class ClassSessionController {
     public String saveClassAutomatic (@RequestParam("file") MultipartFile file) throws IOException {
         for (List classInfor:utilityService.readClassFromExcelFile(file.getInputStream()) ){
             ClassSession classSession = new ClassSession();
+            try{
+                String instructorName = (String) ((Hashtable<?, ?>) classInfor.get(0)).get("instructor");
+                int instructorId = instructorService.searchInstructorIdByName(instructorName);
+                classSession.setInstructorId(new Instructor(instructorId));
 
-            String instructorName = (String) ((Hashtable<?, ?>) classInfor.get(0)).get("instructor");
-            int instructorId = instructorService.searchInstructorIdByName(instructorName);
-            classSession.setInstructorId(new Instructor(instructorId));
+                String courseId = (String) ((Hashtable<?, ?>) classInfor.get(1)).get("course");
+                classSession.setCourse(new Course(courseId));
 
-            String courseId = (String) ((Hashtable<?, ?>) classInfor.get(1)).get("course");
-            classSession.setCourse(new Course(courseId));
+                int groupTheory= ((Hashtable<String, Integer>) classInfor.get(2)).get("groupTheory");
+                classSession.setGroupTheory(groupTheory);
 
-            int groupTheory= ((Hashtable<String, Integer>) classInfor.get(2)).get("groupTheory");
-            classSession.setGroupTheory(groupTheory);
+                int semester =   ((Hashtable<String, Integer>) classInfor.get(3)).get("semester");
+                classSession.setSemester(semester);
 
-            int semester =   ((Hashtable<String, Integer>) classInfor.get(3)).get("semester");
-            classSession.setSemester(semester);
+                String year = (String) ((Hashtable<?, ?>) classInfor.get(4)).get("academicYear");
+                classSession.setAcademicYear(year);
 
-            String year = (String) ((Hashtable<?, ?>) classInfor.get(4)).get("academicYear");
-            classSession.setAcademicYear(year);
+                if (classSessionService.getClassSessionWithFullInfor(classSession) == null){
+                    classSessionService.addClassSession(classSession);
 
-            classSessionService.addClassSession(classSession);
+                    // ADD COURSE ASSESSMENT TO NEW CLASS//
+                    List<CourseAssessment> courseAssessmentList = courseAssessmentService.getCourseAssessmentByCourseId(classSession.getCourse().getId());
+                    for (CourseAssessment ca: courseAssessmentList){
+                        classCourseAssessmentService.addClassAssessmentFromCourse(ca,classSession.getId());
+                    }
+                    // ADD ASSESSMENT TOOL TO NEW CLASS//
+                    List<AssessmentTool> assessmentToolList = assessmentToolService.getAssessmentTootTableByCourse(classSession.getCourse().getId());
+                    for (AssessmentTool at: assessmentToolList){
+                        classAssessmentToolService.addAssessmentToolToClassBasedOnCourse(at,classSession.getId());
+                    }
+
+                    //ADD ABET MAPPING//
+                    List<CloSlo> abetMapping = abetService.getAbetMappingTable(classSession.getCourse().getId());
+                    for (CloSlo cloSlo: abetMapping){
+                        classSloCloService.addClassSloCloBasedOnCourse(cloSlo, classSession.getId());
+                    }
+                }
+
+            } catch (Exception e){
+                System.out.println(e);
+            }
+
         }
         return "redirect:/classSession/all";
     }

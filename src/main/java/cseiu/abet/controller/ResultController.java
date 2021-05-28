@@ -1,9 +1,6 @@
 package cseiu.abet.controller;
 import cseiu.abet.model.*;
-import cseiu.abet.services.ClassCourseAssessmentService;
-import cseiu.abet.services.GradingService;
-import cseiu.abet.services.ResultService;
-import cseiu.abet.services.UtilityService;
+import cseiu.abet.services.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -19,13 +16,17 @@ public class ResultController {
     private final UtilityService utilityService;
     private final ClassCourseAssessmentService classAssessmentCourseService;
     private final GradingService gradingService;
+    private final ClassAssessmentToolService classAssessmentToolService;
+    private final ClassSloCloService classSloCloService;
 
     public ResultController(ResultService resultService, UtilityService utilityService,
-                            ClassCourseAssessmentService classAssessmentCourseService, GradingService gradingService) {
+                            ClassCourseAssessmentService classAssessmentCourseService, GradingService gradingService, ClassAssessmentToolService classAssessmentToolService, ClassSloCloService classSloCloService) {
         this.resultService = resultService;
         this.utilityService = utilityService;
         this.classAssessmentCourseService = classAssessmentCourseService;
         this.gradingService = gradingService;
+        this.classAssessmentToolService = classAssessmentToolService;
+        this.classSloCloService = classSloCloService;
     }
 
     @GetMapping("/detailForStudent/{class_id}/{student_id}")
@@ -57,10 +58,15 @@ public class ResultController {
     public String saveStudentListForClass(@RequestParam("file") MultipartFile file,
                                           @PathVariable(name="class_id") int class_id) throws IOException {
         List<Result> resultList = utilityService.readStudentScoreFromExcelFile(file.getInputStream());
-        for (Result result: resultList){
-            result.setResultPK(new ResultPK(result.getStudent().getId(),class_id));
-            resultService.addStudentToClass(result);
+        try{
+            for (Result result: resultList){
+                result.setResultPK(new ResultPK(result.getStudent().getId(),class_id));
+                resultService.addStudentToClass(result);
+            }
+        } catch(Exception e){
+            System.out.println(e);
         }
+
 
         return "redirect:/classSession/view/"+class_id;
     }
@@ -69,11 +75,18 @@ public class ResultController {
     public String saveStudentScoreForClass(@RequestParam("file") MultipartFile file,
                                           @PathVariable(name="class_id") int class_id) throws IOException {
         List<Result> resultList = utilityService.readStudentScoreFromExcelFile(file.getInputStream());
-        List<ClassAssessmentCourse> classAssessmentCourses = classAssessmentCourseService.getClassAssessmentCourseByClass(class_id);
-
-        for (Result result: resultList){
-            result.setResultPK(new ResultPK(result.getStudent().getId(),class_id));
-            resultService.addStudentToClass(gradingService.calculateGPA(result,classAssessmentCourses));
+        try{
+            List<ClassAssessmentCourse> classAssessmentCourses = classAssessmentCourseService.getClassAssessmentCourseByClass(class_id);
+            List<ClassAssessmentTool> classAssessmentTools = classAssessmentToolService.getAssessmentToolForClass(class_id);
+            List<ClassSloClo> classSloClos = classSloCloService.getAbetMappingForClass(class_id);
+            for (Result result: resultList){
+                result.setResultPK(new ResultPK(result.getStudent().getId(),class_id));
+                gradingService.calculateGPA(result, classAssessmentCourses);
+                gradingService.calculateAbetScoreOfStudent(classAssessmentTools,classAssessmentCourses,classSloClos,result);
+                resultService.addStudentToClass(result);
+        }
+        } catch(Exception e){
+            System.out.println(e);
         }
         return "redirect:/classSession/view/"+class_id;
     }

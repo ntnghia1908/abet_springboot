@@ -252,7 +252,11 @@ public class UtilityService {
                         case 1:
                             Hashtable<String, String> course = new Hashtable<>();
                             String courseId = (String) getCellValue(nextCell);
-                            course.put("course", courseId.substring(0, courseId.length()-2));
+                            if (courseId.substring(courseId.length()-2).equalsIgnoreCase("IU")){
+                                course.put("course", courseId.substring(0, courseId.length()-2));
+                            }else{
+                                course.put("course", courseId);
+                            }
                             classInfor.add(course);
                             break;
                         case 2:

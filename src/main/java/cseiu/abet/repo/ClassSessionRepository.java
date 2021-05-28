@@ -29,35 +29,14 @@ public interface ClassSessionRepository extends JpaRepository<ClassSession, Stri
             value = "SELECT  * FROM class_session cs " +
                     "WHERE cs.instructor_id= :instructorId " +
                     "AND  cs.semester = :semester " +
-                    "AND  cs.academic_year = :year",
+                    "AND  cs.academic_year = :year and cs.course_id = :course_id and cs.group_theory = :group_theory",
             nativeQuery = true
     )
-    List<ClassSession> findClassSession(@Param("instructorId") int instructorId,
-                                        @Param("semester") int semester,
-                                        @Param("year") String year);
-
-    @Query(
-            value ="SELECT * from class_session cs" +
-                    " where cs.semester = :semester and cs.academic_year = :year",
-            nativeQuery = true
-    )
-    List<ClassSession> findClassSessionBySemesterAndYear(@Param("semester") int semester,
-                                                         @Param("year") String year);
-
-    @Query(
-            value ="select * from class_session cs " +
-                    "where cs.instructor_id = :instructor_id and cs.academic_year = :year",
-            nativeQuery = true
-    )
-    List<ClassSession> findClassSessionsByInstructorAndAcademicYear(@Param("instructor_id") int instructor_id,
-                                                                    @Param("year") String year);
-
-    @Query(
-            value ="select * from class_session cs where cs.course_id = :course_id and cs.academic_year = :year",
-            nativeQuery = true
-    )
-    List<ClassSession> findClassSessionsByCourseIdAndAcademicYear(@Param("course_id") String course_id,
-                                                                  @Param("year") String year);
+    ClassSession findClassSessionByAllInfor(@Param("instructorId") int instructorId,
+                                            @Param("semester") int semester,
+                                            @Param("year") String year,
+                                            @Param("course_id") String course_id,
+                                            @Param("group_theory") int group_theory);
 
     @Query(
             value ="select * from class_session cs where cs.course_id= :course_id",
@@ -65,19 +44,7 @@ public interface ClassSessionRepository extends JpaRepository<ClassSession, Stri
     )
     List<ClassSession> findClassSessionsByCourse(@Param("course_id") String course_id);
 
-    @Query(
-            value ="select * from class_session cs where cs.course_id = :course_id and cs.semester = :semester " +
-                    "and cs.academic_year = :year",
-            nativeQuery = true
-    )
-    List<ClassSession> findClassSessionsByCourseSemAndYear(@Param("course_id") String course_id,
-                                                           @Param("semester") int semester,
-                                                           @Param("year") String year);
-    @Query(
-            value ="select distinct r.academic_year from class_session r",
-            nativeQuery = true
-    )
-    List<String> findAllAcademicYear();
+
 
     @Query(
             value ="select * from class_session where class_session.id = :class_id",

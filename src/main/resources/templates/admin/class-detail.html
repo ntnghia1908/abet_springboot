@@ -213,15 +213,44 @@
                                             </div>
                                         </div>
                                         <div class="card">
-                                            <h4>FOR COURSE ASSESSMENT</h4>
-                                            <h5 lass="nav-item"><a th:href="${'/assessment/edit/'} + ${classSession.id}"
-                                                                   class="nav-link active show">Edit Course Assessment</a></h5>
+                                            <!-- Nav tabs -->
+                                            <ul class="nav customtab">
+                                                <li class="nav-item"><a href="#" class="nav-link active show">COURSE ASSESSMENT</a></li>
+                                                <li lass="nav-item"><a th:href="${'/assessment/editCourseAssessment/'} + ${classSession.id}"
+                                                                       class="nav-link active show">Edit Course Assessment</a></li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane active show">
+                                                    <div id="biography" class="biography">
+                                                        <table class="table table-striped custom-table">
+                                                            <thead>
+                                                            <tr>
+                                                                <th style="min-width:50px;">Assessment Type</th>
+                                                                <th style="min-width:50px;">Percentage</th>
+                                                                </th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                            <tr th:each="assessment : ${courseAssessment}">
+                                                                <td th:text="${assessment.assessment.type}"></td>
+                                                                <td th:text="${assessment.percentage}"></td>
+
+                                                            </tr>
+                                                            </tbody>
+
+                                                        </table>
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                         <div class="card">
                                             <!-- Nav tabs -->
                                             <ul class="nav customtab">
                                                 <li class="nav-item"><a href="#" class="nav-link active show">Assessment
                                                     Tools</a></li>
+                                                <li lass="nav-item"><a th:href="${'/assessment/editAssessmentTool/'} + ${classSession.id}"
+                                                                       class="nav-link active show">Edit Assessment Tool</a></li>
                                             </ul>
 
                                             <!-- Tab panes -->
@@ -263,6 +292,8 @@
                                             <ul class="nav customtab">
                                                 <li class="nav-item"><a href="#" class="nav-link active show">ABET
                                                     mapping table</a></li>
+                                                <li lass="nav-item"><a th:href="${'/assessment/editAbetMapping/'} + ${classSession.id}"
+                                                                       class="nav-link active show">Edit Abet Mapping</a></li>
                                             </ul>
                                             <!-- Tab panes -->
                                             <div class="tab-content">

@@ -77,9 +77,14 @@ public class StudentController {
     @RequestMapping(value ="/saveAuto", method = RequestMethod.POST)
     public String saveStudentAutomatic(@RequestParam("file") MultipartFile file) throws IOException {
         List<Student> studentList = utilityService.readStudentListFromExcelFile(file.getInputStream());
-        for (Student student: studentList) {
-            studentService.addStudent(student);
+        try{
+            for (Student student: studentList) {
+                studentService.addStudent(student);
+            }
+        } catch(Exception e){
+            System.out.println(e);
         }
+
             return "redirect:/student/all";
     }
 

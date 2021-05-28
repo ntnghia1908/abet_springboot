@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="~{admin/layout/frame.html}">
+
+<div class="content container-fluid" layout:fragment="main">
+    <div class="page-header">
+        <div class="row">
+            <div class="col-lg-7 col-md-12 col-sm-12 col-12">
+                <h5 class="text-uppercase">Edit Class Assessment</h5>
+            </div>
+            <div class="col-lg-5 col-md-12 col-sm-12 col-12">
+                <ul class="list-inline breadcrumb float-right">
+                    <li class="list-inline-item"><a href="/classSession/all">Class list</a></li>
+
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="content-page">
+        <div class="row">
+            <div class="col-lg-12 col-md-12 col-sm-12 col-12">
+                <div class="aboutprofile-sidebar">
+                    <div class="row">
+                        <div class="col-lg-3 col-md-12 col-sm-12 col-12">
+                            <div class="aboutme-profile mt-4">
+                                <div class="card">
+                                    <div class="page-title">
+                                        <h4>Class General Information</h4>
+                                    </div>
+                                    <div class="card-body">
+                                        <ul class="list-group list-group-flush">
+                                            <li class="list-group-item"><b>Course Title</b>
+                                                <a
+                                                <a href="#" class="float-right"
+                                                   th:text="${classSession.course.name}"></a>
+                                            </li>
+                                            <li class="list-group-item"><b>Course Level</b>
+                                                <a href="#" class="float-right"
+                                                   th:text="${classSession.course.courseLevel.level}"></a>
+                                            </li>
+                                            <li class="list-group-item"><b> Credit</b>
+                                                <a href="#" class="float-right"
+                                                   th:text="${classSession.course.creditTheory} +'(theory) + '+ ${classSession.course.creditLab} + '(lab)'"> </a>
+                                            </li>
+                                            <li class="list-group-item"><b>Instructor </b>
+                                                <a th:href="@{'/instructor/view/'+ ${classSession.instructorId.id}}"
+                                                   class="float-right"
+                                                   th:text="${classSession.instructorId.name}"> </a>
+                                            </li>
+                                            <li class="list-group-item"><b>Group</b>
+                                                <a href="#" class="float-right"
+                                                   th:text="${classSession.groupTheory}"></a>
+                                            </li>
+                                            <li class="list-group-item"><b>Semester - Academic Year</b>
+                                                <a href="#" class="float-right"
+                                                   th:text="${classSession.semester} +'-'+ ${classSession.academicYear}"></a>
+                                            </li>
+
+                                        </ul>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-9 col-md-12 col-sm-12 col-12">
+                            <div class="profile-content">
+                                <div class="row">
+                                    <div class="col-lg-12">
+
+                                        <div class="card">
+                                            <!-- Nav tabs -->
+                                            <ul class="nav customtab">
+                                                <li class="nav-item"><a href="#" class="nav-link active show">ABET
+                                                    mapping table</a></li>
+                                                <li class="alert alert-primary" role="alert" th:if="${message}" th:text="${message}"></li>
+                                            </ul>
+                                            <!-- Tab panes -->
+                                            <div class="tab-content">
+                                                <div class="tab-pane active show">
+                                                    <div id="biography" class="biography">
+                                                        <form th:action="@{'/assessment/updateAbetMapping/' + ${classSession.id}}" method="post" ,
+                                                              th:object="${form}">
+                                                            <table class="table table-striped custom-table">
+                                                                <thead>
+                                                                <tr>
+                                                                    <th style="min-width:50px;">LearningOutcome</th>
+                                                                    <th style="min-width:50px;">Abet Criteria</th>
+                                                                    <th>Percentage</th>
+                                                                </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                <tr th:each="item, stat :${form.classSloClos}">
+                                                                    <td><input type=hidden
+                                                                               th:field="*{classSloClos[__${stat.index}__].learningOutcomeId.id}"
+                                                                               th:value="${item.classSloCloPK.clo_id}"
+                                                                               th:utext="${item.learningOutcomeId.description}"/>
+                                                                    </td>
+                                                                    <td><input type=hidden
+                                                                               th:field="*{classSloClos[__${stat.index}__].sloId.id}"
+                                                                               th:value="${item.classSloCloPK.sloId}"
+                                                                               th:utext="${item.sloId.criteria}"/></td>
+                                                                    <td><input type="number"
+                                                                               th:field="*{classSloClos[__${stat.index}__].percentage}"
+                                                                               min="1" max="100"
+                                                                               th:value="${item.percentage}"/>
+                                                                    </td>
+                                                                </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <div class="form-group custom-mt-form-group">
+                                                                <button class="btn btn-primary mr-2" type="submit">Update
+                                                                </button>
+                                                            </div>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</html>
