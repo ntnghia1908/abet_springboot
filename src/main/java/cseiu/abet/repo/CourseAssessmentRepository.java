@@ -27,4 +27,19 @@ public interface CourseAssessmentRepository extends JpaRepository<CourseAssessme
             nativeQuery = true
     )
     List<CourseAssessment> findCourseAssessmentByCourseWithoutComboAss(@Param("courseId") String courseId);
+
+    @Query(
+        value = "select lo.description, group_concat(a.type,':', atl.percentage) as assessment\n" +
+                "from learning_outcome lo, course_assessment ca, assessment_tool atl, assessment a\n" +
+                "where lo.course_id = ca.course_id\n" +
+                "and atl.assessment_id = ca.assessment_id\n" +
+                "and atl.course_id = ca.course_id\n" +
+                "and atl.loutcome_id = lo.id\n" +
+                "and a.id = atl.assessment_id\n" +
+                "and lo.course_id = :courseId\n" +
+                "and ca.assessment_id != 10\n" +
+                "group by lo.id\n",
+        nativeQuery = true
+    )
+    List<Object> assessmentToolByCourse(@Param("courseId") String courseId);
 }

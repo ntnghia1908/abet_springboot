@@ -108,32 +108,30 @@
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane active show">
-                                                    <div id="biography" class="biography">
+                                                    <div id="assessment-tool" class="biography">
                                                         <table class="table table-striped custom-table" id="datatable">
                                                             <thead>
                                                             <tr>
                                                                 <th style="min-width:50px;">Description</th>
-                                                                <p th:each="ca :${courseAssessment}">
-                                                                <th th:text="${ca.assessment.type} + ':' + ${ca.percentage} +'%' ">
-                                                                </th>
-                                                                </p>
-
+                                                                <th:block th:each="ca :${courseAssessment}">
+                                                                <th th:text="${ca.assessment.type} + ':' + ${ca.percentage} +'%' "></th>
+                                                                </th:block>
                                                             </tr>
                                                             </thead>
                                                             <tbody>
-                                                            <tr th:each="lo : ${loList}">
+                                                            <tr th:each="lo : ${loList}" th:id="${lo.id}">
                                                                 <td th:text="${lo.description}"></td>
-                                                                <div th:each="ca :${courseAssessment}">
-                                                                    <div th:if="${newAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
-                                                                        <td th:text="${newAssessmentTool.get(lo.id).get(ca.assessment.id)}"></td>
-                                                                    </div>
-                                                                    <div th:unless="${newAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
-                                                                        <td></td>
-                                                                    </div>
-                                                                </div>
+                                                                <th:block th:each="ca :${courseAssessment}">
+                                                                    <th:block th:if="${newAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
+                                                                        <td th:id="${ca.assessment.id}" th:text="${newAssessmentTool.get(lo.id).get(ca.assessment.id)}"></td>
+                                                                    </th:block>
+                                                                    <th:block th:unless="${newAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
+                                                                        <td>0.0</td>
+                                                                    </th:block>
+
+                                                                </th:block>
                                                             </tr>
                                                             </tbody>
-
                                                         </table>
                                                     </div>
                                                 </div>
@@ -167,7 +165,7 @@
                                                                         <td th:text="${abet.get(lo.id).get(i)}"></td>
                                                                     </div>
                                                                     <div th:if="${abet.get(lo.id).get(i)} ==0">
-                                                                        <td></td>
+                                                                        <td>0.0</td>
                                                                     </div>
                                                                 </div>
                                                             </tr>
@@ -178,7 +176,6 @@
                                                 </div>
                                             </div>
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
@@ -188,5 +185,9 @@
             </div>
         </div>
     </div>
+<script th:inline="javascript">
+    var test = [[${jsonTest}]]
+    console.log(test)
+</script>
 </div>
 </html>

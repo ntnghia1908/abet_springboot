@@ -222,7 +222,7 @@
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane active show">
-                                                    <div id="biography" class="biography">
+                                                    <div id="assessment-table" class="biography">
                                                         <table class="table table-striped custom-table">
                                                             <thead>
                                                             <tr>
@@ -235,7 +235,6 @@
                                                             <tr th:each="assessment : ${courseAssessment}">
                                                                 <td th:text="${assessment.assessment.type}"></td>
                                                                 <td th:text="${assessment.percentage}"></td>
-
                                                             </tr>
                                                             </tbody>
 
@@ -256,24 +255,23 @@
                                             <!-- Tab panes -->
                                             <div class="tab-content">
                                                 <div class="tab-pane active show">
-                                                    <div id="biography" class="biography">
+                                                    <div id="assessment-tool" class="biography">
                                                         <table class="table table-striped custom-table">
                                                             <thead>
                                                             <tr>
                                                                 <th style="min-width:50px;">Description</th>
-                                                                <p th:each="ca :${courseAssessment}">
-                                                                <th th:text="${ca.assessment.type} + ':' + ${ca.percentage} +'%' ">
-                                                                </th>
-                                                                </p>
-
+                                                                <th:block th:each="ca :${courseAssessment}">
+                                                                    <th th:text="${ca.assessment.type} + ':' + ${ca.percentage} +'%' "></th>
+                                                                </th:block>
                                                             </tr>
                                                             </thead>
+
                                                             <tbody>
-                                                            <tr th:each="lo : ${loList}">
+                                                            <tr th:each="lo : ${loList}" th:id="${lo.id}">
                                                                 <td th:text="${lo.description}"></td>
                                                                 <div th:each="ca :${courseAssessment}">
                                                                     <div th:if="${classAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
-                                                                        <td th:text="${classAssessmentTool.get(lo.id).get(ca.assessment.id)}"></td>
+                                                                        <td th:id="${ca.assessment.id}" th:text="${classAssessmentTool.get(lo.id).get(ca.assessment.id)}"></td>
                                                                     </div>
                                                                     <div th:unless="${classAssessmentTool.get(lo.id).get(ca.assessment.id)}!=0">
                                                                         <td></td>

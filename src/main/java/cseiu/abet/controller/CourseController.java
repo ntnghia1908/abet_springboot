@@ -1,5 +1,8 @@
 package cseiu.abet.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gson.Gson;
 import cseiu.abet.model.*;
 import cseiu.abet.services.*;
 import org.springframework.stereotype.Controller;
@@ -43,7 +46,7 @@ public class CourseController {
 
     @Transactional
     @GetMapping("/view/{id}")
-    public String getByIdCourse(@PathVariable("id") String id, Model model) {
+    public String getByIdCourse(@PathVariable("id") String id, Model model) throws JsonProcessingException {
         Course course = courseService.findCourseById(id);
         List<ClassSession> classSessionList = classSessionService.getClassSessionByCourse(id);
 

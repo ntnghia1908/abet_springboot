@@ -20,7 +20,9 @@ public class ResultController {
     private final ClassSloCloService classSloCloService;
 
     public ResultController(ResultService resultService, UtilityService utilityService,
-                            ClassCourseAssessmentService classAssessmentCourseService, GradingService gradingService, ClassAssessmentToolService classAssessmentToolService, ClassSloCloService classSloCloService) {
+                            ClassCourseAssessmentService classAssessmentCourseService, GradingService gradingService,
+                            ClassAssessmentToolService classAssessmentToolService, ClassSloCloService classSloCloService)
+    {
         this.resultService = resultService;
         this.utilityService = utilityService;
         this.classAssessmentCourseService = classAssessmentCourseService;
@@ -90,8 +92,4 @@ public class ResultController {
         }
         return "redirect:/classSession/view/"+class_id;
     }
-
-
-
-
 }

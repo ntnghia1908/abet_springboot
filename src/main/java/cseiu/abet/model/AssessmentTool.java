@@ -5,13 +5,10 @@
  */
 package cseiu.abet.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.io.Serializable;
-import javax.persistence.Column;
-import javax.persistence.EmbeddedId;
-import javax.persistence.Entity;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToOne;
-import javax.persistence.Table;
+import javax.persistence.*;
 import javax.xml.bind.annotation.XmlRootElement;
 
 /**
@@ -33,16 +30,19 @@ public class AssessmentTool implements Serializable {
 
     @JoinColumn(name = "assessment_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Assessment assessment;
 
 
     @JoinColumn(name = "course_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
+    @JsonIgnore
     private Course course;
 
 
     @JoinColumn(name = "loutcome_id", referencedColumnName = "id", insertable = false, updatable = false)
     @ManyToOne(optional = false)
+    @JsonIgnore
     private LearningOutcome learningOutcome;
 
     public AssessmentTool() {

@@ -45,5 +45,8 @@ public class CourseAssessmentService {
         courseAssessmentRepository.delete(ca);
     }
 
+    public List<Object> getCourseAssessmentTool(String courseId) {
+        return courseAssessmentRepository.assessmentToolByCourse(courseId);
+    }
 
 }
